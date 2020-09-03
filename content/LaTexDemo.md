@@ -7,7 +7,7 @@ Authors: David Coldeira
 Summary: LaTex for scientific writings
 
 
-LaTex, the [document preparation system for high-quality typesetting](https://www.latex-project.org/about/) has been used for scientific writings as a standard for both, scientist writing papers and the publishers.
+LaTex, the [document preparation system for high-quality typesetting](https://www.latex-project.org/about/) has been used for scientific writings as an standard for both, scientific writing papers and publishers.
 
 Writing/coding in LaTex is very simple, it uses plain text and 'markup' tagging conventions which allows you to define the structure of the paper like so:
 
@@ -17,9 +17,9 @@ Writing/coding in LaTex is very simple, it uses plain text and 'markup' tagging 
   Hello World!
 \end{document}
 ```
-This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.  
+This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.
 
-A basic paper template will look something like this:
+A very basic paper template will look something like this:
 
 ```LaTex
 \documentclass{article}
@@ -39,7 +39,7 @@ A basic paper template will look something like this:
 \end{document}
 ```
 
-Writing mathematical equations are very intuitive and straight forward:
+Writing mathematical equations is very intuitive and straight forward:
 
 ```LaTex
 \[E=mc^2\]
@@ -50,7 +50,7 @@ Will render:
 
 There are plenty of [tutorials](https://www.latex-tutorial.com/tutorials/) and ['howtos'](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) and [more](https://www.latex-project.org/get/) out there that will be redundant to just do another one here... 
 
-However, it is important to mention that the LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is [here](https://latex-project.org/lppl.txt). There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.
+LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is [here](https://latex-project.org/lppl.txt). There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.
 
 ## LaTex in R
 

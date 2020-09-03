@@ -4,7 +4,6 @@
         <meta charset="utf-8" />
         <title>LaTex for Scientific Writings</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
-        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="dcoldeira's Lab Atom Feed" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,18 +31,18 @@
 <footer class="post-info">
         <span>Fri 21 August 2020</span>
 <span>| tags: <a href="/tag/scientific-writings.html">scientific writings</a><a href="/tag/physics.html">physics</a><a href="/tag/maths.html">maths</a></span>
-</footer><!-- /.post-info -->      <p>LaTex, the <a href="https://www.latex-project.org/about/">document preparation system for high-quality typesetting</a> has been used for scientific writings as a standard for both, scientist writing papers and the publishers.</p>
+</footer><!-- /.post-info -->      <p>LaTex, the <a href="https://www.latex-project.org/about/">document preparation system for high-quality typesetting</a> has been used for scientific writings as an standard for both, scientific writing papers and publishers.</p>
 <p>Writing/coding in LaTex is very simple, it uses plain text and 'markup' tagging conventions which allows you to define the structure of the paper like so:</p>
-<div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
 <span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
   Hello World!
 <span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
-</pre></div>
+</code></pre></div>
 
 
-<p>This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.  </p>
-<p>A basic paper template will look something like this:</p>
-<div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
+<p>This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.</p>
+<p>A very basic paper template will look something like this:</p>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
 
 <span class="k">\title</span><span class="nb">{</span>My Paper<span class="nb">}</span>
 <span class="k">\date</span><span class="nb">{</span>2020-07-01<span class="nb">}</span>
@@ -58,29 +57,29 @@
   My lovely paper contain goes in here...
 
 <span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
-</pre></div>
+</code></pre></div>
 
 
-<p>Writing mathematical equations are very intuitive and straight forward:</p>
-<div class="highlight"><pre><span></span><span class="sb">\[</span><span class="nb">E</span><span class="o">=</span><span class="nb">mc^</span><span class="m">2</span><span class="s">\]</span>
-</pre></div>
+<p>Writing mathematical equations is very intuitive and straight forward:</p>
+<div class="highlight"><pre><span></span><code><span class="sb">\[</span><span class="nb">E</span><span class="o">=</span><span class="nb">mc^</span><span class="m">2</span><span class="s">\]</span>
+</code></pre></div>
 
 
 <p>Will render:</p>
 <p><img src="https://latex.codecogs.com/svg.latex?\Large&space;\\E=mc^2\\"/></p>
 <p>There are plenty of <a href="https://www.latex-tutorial.com/tutorials/">tutorials</a> and <a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes">'howtos'</a> and <a href="https://www.latex-project.org/get/">more</a> out there that will be redundant to just do another one here... </p>
-<p>However, it is important to mention that the LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is <a href="https://latex-project.org/lppl.txt">here</a>. There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.</p>
+<p>LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is <a href="https://latex-project.org/lppl.txt">here</a>. There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.</p>
 <h2>LaTex in R</h2>
 <p>If you are writing a paper that needs to show a section of R code then:</p>
-<div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>lstlisting<span class="nb">}</span>[language=R]
+<div class="highlight"><pre><span></span><code><span class="k">\begin</span><span class="nb">{</span>lstlisting<span class="nb">}</span>[language=R]
 R code goes here...
 <span class="k">\end</span><span class="nb">{</span>lstlisting<span class="nb">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2>LaTex in Python:</h2>
 <p>In Python, the 'subprocess' module allows you to spawn new processes, you can then run a script to quickly write a file and output a LaTex document in a .PDF form: </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span><span class="o">,</span> <span class="nn">os</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span><span class="o">,</span> <span class="nn">os</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;a-tex-file.tex&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
     <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">documentclass</span><span class="si">{article}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -93,7 +92,7 @@ R code goes here...
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exit-code not 0, check result!&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;start a-tex-file.pdf&quot;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>more <a href="https://pypi.org/project/latex/">here..</a></p>
@@ -107,7 +106,6 @@ R code goes here...
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="https://twitter.com/dcoldeira">Twitter</a></li>
                         </ul>
