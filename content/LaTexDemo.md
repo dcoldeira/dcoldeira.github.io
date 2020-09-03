@@ -52,6 +52,8 @@ There are plenty of [tutorials](https://www.latex-tutorial.com/tutorials/) and [
 
 LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is [here](https://latex-project.org/lppl.txt). There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.
 
+</br>
+
 ## LaTex in R
 
 If you are writing a paper that needs to show a section of R code then:
@@ -61,10 +63,11 @@ If you are writing a paper that needs to show a section of R code then:
 R code goes here...
 \end{lstlisting}
 ```
+</br>
 
 ## LaTex in Python:
 
-In Python, the 'subprocess' module allows you to spawn new processes, you can then run a script to quickly write a file and output a LaTex document in a .PDF form: 
+In Python, the 'subprocess' module allows you to spawn new processes, you can then run an script to quickly write a file that outputs a LaTex document in a .PDF form: 
 
 ```Py
 import subprocess, os
@@ -81,8 +84,8 @@ print("Exit-code not 0, check result!")
 else:
 os.system("start a-tex-file.pdf")
 ```
-more [here..](https://pypi.org/project/latex/)
+More [here..](https://pypi.org/project/latex/)
 
-There are few libraries in Python like [reportlab](https://pypi.org/project/reportlab/) toolkit, an Open Source that will generate a PDFs and/or graphics out from LaTex. There is also [PyLaTeX](https://jeltef.github.io/PyLaTeX/current/) another common library for this propose. 
+There are few libraries in Python like [reportlab](https://pypi.org/project/reportlab/) toolkit, an Open Source library that will generate a PDFs out from LaTex code. There is also [PyLaTeX](https://jeltef.github.io/PyLaTeX/current/) another common library for this propose. 
 
 **In Conclusion -**  LaTex is a very powerful, simple and customizable tool (particularly true for Python) for writing scientific papers with a huge community and support and libraries out there. 
