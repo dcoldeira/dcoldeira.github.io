@@ -1534,6 +1534,7 @@ h6:hover .anchor-link {
 &lt;p&gt;&lt;img src="https://latex.codecogs.com/svg.latex?\Large&amp;space;\\E=mc^2\\"/&gt;&lt;/p&gt;
 &lt;p&gt;There are plenty of &lt;a href="https://www.latex-tutorial.com/tutorials/"&gt;tutorials&lt;/a&gt; and &lt;a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"&gt;'howtos'&lt;/a&gt; and &lt;a href="https://www.latex-project.org/get/"&gt;more&lt;/a&gt; out there that will be redundant to just do another one here... &lt;/p&gt;
 &lt;p&gt;LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is &lt;a href="https://latex-project.org/lppl.txt"&gt;here&lt;/a&gt;. There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;LaTex in R&lt;/h2&gt;
 &lt;p&gt;If you are writing a paper that needs to show a section of R code then:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;[language=R]
@@ -1542,8 +1543,9 @@ R code goes here...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;h2&gt;LaTex in Python:&lt;/h2&gt;
-&lt;p&gt;In Python, the 'subprocess' module allows you to spawn new processes, you can then run a script to quickly write a file and output a LaTex document in a .PDF form: &lt;/p&gt;
+&lt;p&gt;In Python, the 'subprocess' module allows you to spawn new processes, you can then run an script to quickly write a file that outputs a LaTex document in a .PDF form: &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
 
 &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a-tex-file.tex&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;w&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -1560,6 +1562,6 @@ R code goes here...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;more &lt;a href="https://pypi.org/project/latex/"&gt;here..&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;There are few libraries in Python like &lt;a href="https://pypi.org/project/reportlab/"&gt;reportlab&lt;/a&gt; toolkit, an Open Source that will generate a PDFs and/or graphics out from LaTex. There is also &lt;a href="https://jeltef.github.io/PyLaTeX/current/"&gt;PyLaTeX&lt;/a&gt; another common library for this propose. &lt;/p&gt;
+&lt;p&gt;More &lt;a href="https://pypi.org/project/latex/"&gt;here..&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are few libraries in Python like &lt;a href="https://pypi.org/project/reportlab/"&gt;reportlab&lt;/a&gt; toolkit, an Open Source library that will generate a PDFs out from LaTex code. There is also &lt;a href="https://jeltef.github.io/PyLaTeX/current/"&gt;PyLaTeX&lt;/a&gt; another common library for this propose. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;In Conclusion -&lt;/strong&gt;  LaTex is a very powerful, simple and customizable tool (particularly true for Python) for writing scientific papers with a huge community and support and libraries out there. &lt;/p&gt;</content><category term="A Scientific Programming approach..."></category><category term="scientific writings"></category><category term="physics"></category><category term="maths"></category></entry></feed>
