@@ -1496,18 +1496,18 @@ h6:hover .anchor-link {
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</content><category term="A Scientific Programming approach..."></category><category term="scientific writings"></category><category term="physics"></category><category term="maths"></category></entry><entry><title>LaTex for Scientific Writings</title><link href="/best-tool.html" rel="alternate"></link><published>2020-08-21T12:00:00+02:00</published><updated>2020-08-21T12:00:00+02:00</updated><author><name>David Coldeira</name></author><id>tag:None,2020-08-21:/best-tool.html</id><summary type="html">&lt;p&gt;LaTex for scientific writings&lt;/p&gt;</summary><content type="html">&lt;p&gt;LaTex, the &lt;a href="https://www.latex-project.org/about/"&gt;document preparation system for high-quality typesetting&lt;/a&gt; has been used for scientific writings as a standard for both, scientist writing papers and the publishers.&lt;/p&gt;
+</content><category term="A Scientific Programming approach..."></category><category term="scientific writings"></category><category term="physics"></category><category term="maths"></category></entry><entry><title>LaTex for Scientific Writings</title><link href="/best-tool.html" rel="alternate"></link><published>2020-08-21T12:00:00+02:00</published><updated>2020-08-21T12:00:00+02:00</updated><author><name>David Coldeira</name></author><id>tag:None,2020-08-21:/best-tool.html</id><summary type="html">&lt;p&gt;LaTex for scientific writings&lt;/p&gt;</summary><content type="html">&lt;p&gt;LaTex, the &lt;a href="https://www.latex-project.org/about/"&gt;document preparation system for high-quality typesetting&lt;/a&gt; has been used for scientific writings as an standard for both, scientific writing papers and publishers.&lt;/p&gt;
 &lt;p&gt;Writing/coding in LaTex is very simple, it uses plain text and 'markup' tagging conventions which allows you to define the structure of the paper like so:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
 &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
   Hello World!
 &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.  &lt;/p&gt;
-&lt;p&gt;A basic paper template will look something like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;p&gt;This is then transferred to MikTeX or TeX Live (TeX typesetting systems) to produce an output file like .PDf or .DVI.&lt;/p&gt;
+&lt;p&gt;A very basic paper template will look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
 
 &lt;span class="k"&gt;\title&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;My Paper&lt;span class="nb"&gt;}&lt;/span&gt;
 &lt;span class="k"&gt;\date&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;2020-07-01&lt;span class="nb"&gt;}&lt;/span&gt;
@@ -1522,29 +1522,29 @@ h6:hover .anchor-link {
   My lovely paper contain goes in here...
 
 &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Writing mathematical equations are very intuitive and straight forward:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sb"&gt;\[&lt;/span&gt;&lt;span class="nb"&gt;E&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;mc^&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="s"&gt;\]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Writing mathematical equations is very intuitive and straight forward:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="sb"&gt;\[&lt;/span&gt;&lt;span class="nb"&gt;E&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;mc^&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="s"&gt;\]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Will render:&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://latex.codecogs.com/svg.latex?\Large&amp;space;\\E=mc^2\\"/&gt;&lt;/p&gt;
 &lt;p&gt;There are plenty of &lt;a href="https://www.latex-tutorial.com/tutorials/"&gt;tutorials&lt;/a&gt; and &lt;a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"&gt;'howtos'&lt;/a&gt; and &lt;a href="https://www.latex-project.org/get/"&gt;more&lt;/a&gt; out there that will be redundant to just do another one here... &lt;/p&gt;
-&lt;p&gt;However, it is important to mention that the LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is &lt;a href="https://latex-project.org/lppl.txt"&gt;here&lt;/a&gt;. There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.&lt;/p&gt;
+&lt;p&gt;LaTeX project has a free public software license. The most recent version of the LPPL is version 1.3c. The latest version, in plain text is &lt;a href="https://latex-project.org/lppl.txt"&gt;here&lt;/a&gt;. There is also a LaTeX version of the license, which authors of LPPL software are encouraged to include in their manuals.&lt;/p&gt;
 &lt;h2&gt;LaTex in R&lt;/h2&gt;
 &lt;p&gt;If you are writing a paper that needs to show a section of R code then:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;[language=R]
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;[language=R]
 R code goes here...
 &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;LaTex in Python:&lt;/h2&gt;
 &lt;p&gt;In Python, the 'subprocess' module allows you to spawn new processes, you can then run a script to quickly write a file and output a LaTex document in a .PDF form: &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
 
 &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a-tex-file.tex&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;w&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\\&lt;/span&gt;&lt;span class="s2"&gt;documentclass&lt;/span&gt;&lt;span class="si"&gt;{article}&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1557,7 +1557,7 @@ R code goes here...
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Exit-code not 0, check result!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;start a-tex-file.pdf&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;more &lt;a href="https://pypi.org/project/latex/"&gt;here..&lt;/a&gt;&lt;/p&gt;
