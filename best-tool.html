@@ -1,38 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>LaTex for Scientific Writings</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    LaTex for Scientific Writings
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+            <link rel="stylesheet" href="/theme/css/normalize.css">
+        <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/theme/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/theme/css/main.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
         <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="dcoldeira's Lab Atom Feed" />
-
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-</head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">dcoldeira's Lab</a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/a-scientific-programming-approach.html">A Scientific Programming approach...</a></li>
-                    <li><a href="/category/nauticapp.html">NauticApp</a></li>
-                </ul>
-                </nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/best-tool.html" rel="bookmark"
-           title="Permalink to LaTex for Scientific Writings">LaTex for Scientific Writings</a></h1>
-    </header>
+        <div id="wrapper">
+<header id="sidebar" class="side-shadow">
+    <script defer src="https://friconix.com/cdn/friconix.js"> </script> 
+    <hgroup id="site-header">
+        <a id="site-title" href=""><h1> <i class="fi-xnsuxl-code-solid"></i> dcoldeira's Lab</h1></a>
+        <p id="site-desc"></p>
+    </hgroup>
+    <nav>
+        <ul id="nav-links">
+        </ul>
+    </nav>
+<footer id="site-info">
+    <p>
+        Scientific Programming - David Coldeira
+    </p>
+    <p>
+         Proudly powered by <a href="https://www.python.org/" target="python">Python</a> 
+    </p>
+</footer></header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <span>Fri 21 August 2020</span>
-<span>| tags: <a href="/tag/scientific-writings.html">scientific writings</a><a href="/tag/physics.html">physics</a><a href="/tag/maths.html">maths</a></span>
-</footer><!-- /.post-info -->      <p>LaTex, the <a href="https://www.latex-project.org/about/">document preparation system for high-quality typesetting</a> has been used for scientific writings as an standard for both, scientific writing papers and publishers.</p>
+
+    <div id="post-container">
+        <ol id="post-list">
+            <li>
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time class="post-time" datetime="2020-08-21T12:00:00+02:00" pubdate>
+                            Fri 21 August 2020
+                        </time>
+                        <a href="/best-tool.html" rel="bookmark"><h1>LaTex for Scientific Writings</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <p>LaTex, the <a href="https://www.latex-project.org/about/">document preparation system for high-quality typesetting</a> has been used for scientific writings as an standard for both, scientific writing papers and publishers.</p>
 <p>Writing/coding in LaTex is very simple, it uses plain text and 'markup' tagging conventions which allows you to define the structure of the paper like so:</p>
 <div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
 <span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
@@ -101,24 +128,19 @@ R code goes here...
 <p>More <a href="https://pypi.org/project/latex/">here..</a></p>
 <p>There are few libraries in Python like <a href="https://pypi.org/project/reportlab/">reportlab</a> toolkit, an Open Source library that will generate a PDFs out from LaTex code. There is also <a href="https://jeltef.github.io/PyLaTeX/current/">PyLaTeX</a> another common library for this propose. </p>
 <p><strong>In Conclusion -</strong>  LaTex is a very powerful, simple and customizable tool (particularly true for Python) for writing scientific papers with a huge community and support and libraries out there. </p>
-    </div><!-- /.entry-content -->
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/a-scientific-programming-approach.html">A Scientific Programming approach...</a></p>
+                        <p>Tags: <a href="/tag/scientific-writings.html">scientific writings</a>, <a href="/tag/physics.html">physics</a>, <a href="/tag/maths.html">maths</a>, </p>
+                    </aside>
+                    <hr/>
+                </article>
+            </li>
+        </ol>
+    </div>
+        </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="https://twitter.com/dcoldeira">Twitter</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
-        </footer><!-- /#contentinfo -->
-
-</body>
+        <script src="/theme/js/main.js"></script>
+    </body>
 </html>
