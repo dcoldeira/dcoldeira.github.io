@@ -7,7 +7,7 @@ SITEURL = ''
 
 PATH = 'content'
 
-THEME='themes/pelican-cait'
+THEME='themes/due'
 
 TIMEZONE = 'Europe/Madrid'
 
