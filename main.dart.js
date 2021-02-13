@@ -30720,7 +30720,7 @@ F.pw.prototype={
 aN:function(){return new F.CT(C.m)}}
 F.CT.prototype={
 M:function(a,b){var s=null,r=L.mD(this.a.c,s),q=t.fQ
-return new M.qp(new E.nP(r,new P.a3(1/0,56),s),T.Hr(T.a0E(H.b([L.mD("Developing Mobile Applications",A.mM(s,s,s,s,s,s,s,s,s,s,s,30,s,C.ce,s,s,!0,s,s,s,s,s,s)),L.mD("",s),L.mD("",s),L.mD("Kotling and Flutter approach...",s)],q),C.lV),s,s),M.HR(s,T.a0E(H.b([L.mD("Power by Flutter - @dcoldeira ",A.mM(s,s,C.wK,s,s,s,s,s,s,s,s,15,s,C.ce,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s,s,40,s,s,s),s)}}
+return new M.qp(new E.nP(r,new P.a3(1/0,56),s),T.Hr(T.a0E(H.b([L.mD("Developing Mobile Applications",A.mM(s,s,s,s,s,s,s,s,s,s,s,30,s,C.ce,s,s,!0,s,s,s,s,s,s)),L.mD("",s),L.mD("",s),L.mD("Kotlin and Flutter practitioner.",s)],q),C.lV),s,s),M.HR(s,T.a0E(H.b([L.mD("Power by Flutter - @dcoldeira ",A.mM(s,s,C.wK,s,s,s,s,s,s,s,s,15,s,C.ce,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s,s,40,s,s,s),s)}}
 X.cP.prototype={
 i:function(a){return this.b}}
 X.c6.prototype={
