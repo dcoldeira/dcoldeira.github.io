@@ -30720,7 +30720,7 @@ F.pw.prototype={
 aN:function(){return new F.CT(C.m)}}
 F.CT.prototype={
 M:function(a,b){var s=null,r=L.mE(this.a.c,s),q=t.fQ
-return new M.qp(new E.nP(r,new P.a3(1/0,56),s),T.Hr(T.a0E(H.b([L.mE("Developing Apps",A.kj(s,s,s,s,s,s,s,s,s,s,s,55,s,C.bD,s,s,!0,s,s,s,s,s,s)),L.mE("",s),L.mE("",s),L.mE("Flutter practitioner...",A.kj(s,s,s,s,s,s,s,s,s,s,s,20,s,C.bD,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s),M.HR(s,T.a0E(H.b([L.mE("Power by Flutter - @dcoldeira ",A.kj(s,s,C.wU,s,s,s,s,s,s,s,s,15,s,C.bD,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s,s,40,s,s,s),s)}}
+return new M.qp(new E.nP(r,new P.a3(1/0,56),s),T.Hr(T.a0E(H.b([L.mE("Developing Apps",A.kj(s,s,s,s,s,s,s,s,s,s,s,55,s,C.bD,s,s,!0,s,s,s,s,s,s)),L.mE("",s),L.mE("",s),L.mE("Flutter practitioner...",A.kj(s,s,s,s,s,s,s,s,s,s,s,20,s,C.bD,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s),M.HR(s,T.a0E(H.b([L.mE("Powered by Flutter - @dcoldeira ",A.kj(s,s,C.wU,s,s,s,s,s,s,s,s,15,s,C.bD,s,s,!0,s,s,s,s,s,s))],q),C.lV),s,s,s,40,s,s,s),s)}}
 X.cP.prototype={
 i:function(a){return this.b}}
 X.c6.prototype={
