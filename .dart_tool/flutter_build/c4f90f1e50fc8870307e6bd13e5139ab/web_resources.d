@@ -1,0 +1,1 @@
+ build/web/index.html build/web/manifest.json:  /home/dcoldeira/DailyStuff/dcoldeira/web/index.html /home/dcoldeira/DailyStuff/dcoldeira/web/manifest.json
