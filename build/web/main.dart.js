@@ -33205,7 +33205,7 @@ S.D4.prototype={
 M(a,b){var s=null,r=t.w,q=b.O(r).f
 q=M.dr(s,T.cO(s,b.O(r).f.a.b/4,b.O(r).f.a.a),s,s,s,s,s,q.a.a)
 r=A.bk(s,s,C.b6,s,s,s,s,s,s,s,s,5*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s)
-return E.a4g(T.LY(H.a([q,M.dr(s,T.cO(T.LA(T.i1(s,s,C.ab,!0,s,Q.bv(H.a([Q.bv(s,A.bk(s,s,C.q,s,s,s,s,s,s,s,s,40*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"Dapps Buildout"),Q.bv(s,A.bk(s,s,C.b5,s,s,s,s,s,s,s,s,16*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"\n\nB u i l d i n g   W e b  3 . 0"),Q.bv(s,A.bk(s,s,C.CO,s,s,s,s,s,s,s,s,60*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"\n\n ")],t.sU),r,"\n"),C.aq,s,s,1,C.Z),s,s),s,s),s,s,s,s,s,s)],t.p),C.b7,C.bW,C.cG))}}
+return E.a4g(T.LY(H.a([q,M.dr(s,T.cO(T.LA(T.i1(s,s,C.ab,!0,s,Q.bv(H.a([Q.bv(s,A.bk(s,s,C.q,s,s,s,s,s,s,s,s,40*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"D a p p s   B u i l d o u t"),Q.bv(s,A.bk(s,s,C.b5,s,s,s,s,s,s,s,s,16*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"\n\n. . . a n d    D i g i t a l    A r t"),Q.bv(s,A.bk(s,s,C.CO,s,s,s,s,s,s,s,s,60*F.bP(b),s,s,s,s,!0,s,s,s,s,s,s,s,s),"\n\n ")],t.sU),r,"\n"),C.aq,s,s,1,C.Z),s,s),s,s),s,s,s,s,s,s)],t.p),C.b7,C.bW,C.cG))}}
 E.D5.prototype={
 M(a,b){var s,r,q,p,o,n=null,m="\n\n ",l=t.w,k=b.O(l).f,j=A.bk(n,n,C.q,n,n,n,n,n,n,n,n,35*F.bP(b),n,n,n,n,!0,n,n,n,n,n,n,n,n),i=t.sU
 k=M.dr(n,T.cO(T.i1(n,n,C.ab,!0,n,Q.bv(H.a([Q.bv(n,A.bk(n,n,C.q,n,n,n,n,n,n,n,n,35*F.bP(b),n,n,n,n,!0,n,n,n,n,n,n,n,n)," Mobile Sailing Instrument "),Q.bv(n,A.bk(n,n,C.q,n,n,n,n,n,n,n,n,35*F.bP(b),n,n,n,n,!0,n,n,n,n,n,n,n,n),"In The Palm Of Your Hands."),Q.bv(n,A.bk(n,n,C.q,n,n,n,n,n,n,n,n,20*F.bP(b),n,n,n,n,!0,n,n,n,n,n,n,n,n),m)],i),j,"\n\n All-In-One"),C.aq,n,n,1,C.Z),n,20),n,n,n,n,n,k.a.a/2)
@@ -33237,12 +33237,12 @@ F.rh.prototype={
 aR(){return new F.vj(H.a([new S.D4(null),new E.D5(null),new Y.D6(null)],t.p),C.n)}}
 F.vj.prototype={
 Zj(a){this.aJ(new F.ZW(this,a))},
-M(a,b){var s,r,q,p=null,o=A.bk(p,p,C.CQ,p,p,p,p,p,p,p,p,25,p,C.bp,p,p,!0,p,p,p,p,p,p,p,p)
-o=T.cO(T.i1(p,p,C.ab,!0,p,Q.bv(H.a([Q.bv(p,A.bk(p,p,p,p,p,p,p,p,p,p,p,12,p,p,p,p,!0,p,p,p,p,p,p,p,p),"  D a r t / F u t t e r     P r o g r a m m e r")],t.sU),o,"dcoldeira "),C.a4,p,p,1,C.Z),35,p)
+M(a,b){var s,r,q,p=null,o=A.bk(p,p,C.CQ,p,p,p,p,p,p,p,p,20,p,C.bp,p,p,!0,p,p,p,p,p,p,p,p)
+o=T.cO(T.i1(p,p,C.ab,!0,p,Q.bv(H.a([Q.bv(p,A.bk(p,p,p,p,p,p,p,p,p,p,p,10,p,p,p,p,!0,p,p,p,p,p,p,p,p),"   D a r t / F u t t e r     P r o g r a m m e r")],t.sU),o,"dcoldeira "),C.a4,p,p,1,C.Z),35,p)
 s=this.d
 r=this.e[s]
 q=H.a([F.a2O(L.a3w(C.z_),"Home",""),F.a2O(U.Pf("lib/assets/icon.png",p),"NauticApp",""),F.a2O(L.a3w(C.z1),"dcoldeira","")],t.wr)
-return new M.tc(new E.pp(o,C.q,new E.Hk(50,p,1/0,50),50,p),r,T.cO(new L.px(q,this.gZi(),s,C.xv,new P.K(4282600016),p),75,p),p)}}
+return new M.tc(new E.pp(o,C.q,new E.Hk(60,p,1/0,60),60,p),r,T.cO(new L.px(q,this.gZi(),s,C.xv,new P.K(4282600016),p),85,p),p)}}
 F.ZW.prototype={
 $0(){this.a.d=this.b},
 $S:0}
