@@ -5,36 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f61723-f1e1-4e19-9a45-0b23b689b45f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/dis.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/favicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/google-play-badge.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/na_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/assets/screen.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AssetManifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/FontManifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/NOTICES" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/MaterialIcons-Regular.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/dis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/google-play-badge.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/na_.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lib/assets/screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_service_worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_service_worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.dart.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.dart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/TabHomeWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/TabHomeWidget.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/dcoldeira/.android/avd/Pixel_4_API_29.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -81,6 +60,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

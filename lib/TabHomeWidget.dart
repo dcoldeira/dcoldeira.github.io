@@ -31,14 +31,14 @@ class TabHomeWidget extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                        'Dapps Buildout',
+                        'D a p p s   B u i l d o u t',
                         style: TextStyle(
                             fontSize: 40 * MediaQuery.textScaleFactorOf(context),
                             color: Colors.black54),
                       ),
                       TextSpan(
                         text:
-                            '\n\nB u i l d i n g   W e b  3 . 0',
+                            '\n\n. . . a n d    D i g i t a l    A r t',
                         style: TextStyle(
                             fontSize: 16 * MediaQuery.textScaleFactorOf(context),
                             color: Colors.black38),
