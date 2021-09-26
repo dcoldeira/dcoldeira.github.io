@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dcoldeira.io.dcoldeira">
+    package="io.dcoldeira.dcoldeira">
    <application
         android:label="dcoldeira"
         android:icon="@mipmap/ic_launcher">
