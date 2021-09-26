@@ -55,25 +55,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   text: 'dcoldeira ',
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: '  D a r t / F u t t e r     P r o g r a m m e r',
-                      style: TextStyle(fontSize: 12),
+                      text: '   D a r t / F u t t e r     P r o g r a m m e r',
+                      style: TextStyle(fontSize: 10),
                     ),
                   ]
               ),
             ),
             height: 35,
           ),
-          toolbarHeight: 50,
+          toolbarHeight: 60,
         ),
         body: _children[_currentIndex],
 
         bottomNavigationBar: SizedBox(
-            height: 75,
+            height: 85,
           child: BottomNavigationBar(
               onTap: onTabTapped,
               currentIndex: _currentIndex,
