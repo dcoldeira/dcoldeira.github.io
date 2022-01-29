@@ -56867,7 +56867,7 @@ return A.bH(s,new A.oa(A.aa0(b.L(t.w).f.a.a*0.8,b),q,r,s),s,s,s,s,s,s,s)}}
 A.a5n.prototype={
 $2(a,b){var s=null,r=t.E,q=A.lG(A.b([A.bH(s,A.a8s(B.u,A.a8h(B.xY),A.asN()),s,s,s,s,s,new A.aO(0,1,0,1),s),A.fU(s,s,40),A.bH(s,A.a8s(B.u,A.a8h(B.xW),A.asM()),s,s,s,s,s,new A.aO(0,1,0,1),s),A.fU(s,s,40),A.bH(s,A.a8s(B.u,A.a8h(B.xX),A.asL()),s,s,s,s,s,new A.aO(0,1,0,1),s)],r),B.dx,B.ac),p=A.fU(s,20,s),o=t.w,n=a.L(o).f.a.a<800?B.aW:B.aA
 o=a.L(o).f.a.a<800?B.dx:B.fa
-return A.P0(A.b([q,p,A.amP(A.b([new A.e3(new A.aO(0,0,0,8),A.hQ("@dcoldeira - David Coldeira",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),A.lG(A.b([A.it(s,A.iF(A.hQ("Privacy Policy",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.aM,s,s,s),B.U,!1,s,s,s,s,s,s,s,s,s,s,new A.a5l(),s,s,s,s,s),A.bH(s,A.hQ("|",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),s,s,s,s,s,new A.aO(8,0,8,0),s),A.it(s,A.iF(A.hQ("No Terms & Conditions",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.aM,s,s,s),B.U,!1,s,s,s,s,s,s,s,s,s,s,new A.a5m(),s,s,s,s,s)],r),B.dx,B.ac)],r),B.en,n,s,o,B.ac,s,s,B.dU)],r),B.c0,B.ba,B.ac)},
+return A.P0(A.b([q,p,A.amP(A.b([new A.e3(new A.aO(0,0,0,8),A.hQ("@dcoldeira - David Coldeira",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),A.lG(A.b([A.it(s,A.iF(A.hQ("",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.aM,s,s,s),B.U,!1,s,s,s,s,s,s,s,s,s,s,new A.a5l(),s,s,s,s,s),A.bH(s,A.hQ("Made with Dart",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),s,s,s,s,s,new A.aO(8,0,8,0),s),A.it(s,A.iF(A.hQ("",A.eb(s,s,B.cV,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.aM,s,s,s),B.U,!1,s,s,s,s,s,s,s,s,s,s,new A.a5m(),s,s,s,s,s)],r),B.dx,B.ac)],r),B.en,n,s,o,B.ac,s,s,B.dU)],r),B.c0,B.ba,B.ac)},
 $S:362}
 A.a5l.prototype={
 $0(){},
@@ -61946,7 +61946,7 @@ q($,"ax2","aiw",()=>new A.NY(A.aN(A.P("fA*"))))
 q($,"awX","aiv",()=>new A.NC())
 r($,"aux","aaG",()=>A.an1(null,t.Np))
 r($,"awZ","N4",()=>{var p,o,n,m=null,l=J.a8w(5,A.P("zc"))
-for(p=t.E,o=0;o<5;++o){n=A.bH(m,A.P0(A.b([A.hQ("@dcoldeira",A.a8q(B.cU,18,B.am,m),m,m),A.fU(m,18,m),A.hQ("C++ Trainee experimenting with Dart/Flutter...",A.a8q(B.u,40,B.b4,1.3),m,m),A.fU(m,10,m),A.hQ("Creator of NauticApp - Have few more experiences in mobile development - Love Python too!",A.a8q(B.u,15,B.b4,1.3),m,m),A.fU(m,25,m)],p),B.c0,B.dx,B.mR),m,m,m,m,m,m,m)
+for(p=t.E,o=0;o<5;++o){n=A.bH(m,A.P0(A.b([A.hQ("@dcoldeira",A.a8q(B.cU,18,B.am,m),m,m),A.fU(m,18,m),A.hQ("C++ Trainee experimenting with Dart/Flutter...",A.a8q(B.u,40,B.b4,1.3),m,m),A.fU(m,10,m),A.hQ("Creator of NauticApp - Have few more experiences in mobile development - Love Python too!",A.a8q(B.u,15,B.b4,1.3),m,m),A.fU(m,10,m)],p),B.c0,B.dx,B.mR),m,m,m,m,m,m,m)
 l[o]=new A.zc(n,A.bH(m,new A.rL(A.aor(m,m,new A.qo("assets/dartDev.png",m,m)),m),m,m,m,m,m,m,m))}return l})
 r($,"ax1","a7j",()=>A.b([A.acO(!1,new A.a6F(),"HOME"),A.acO(!0,A.asW(),"On Google Play")],A.P("p<nj>")))
 s($,"avl","aaJ",()=>new A.w())
