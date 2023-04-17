@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-17T18:29:54+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C++ Circuits</title><subtitle>C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one&apos;s skills and knowledge to potential employers in the field.</subtitle><author><name>David Coldeira</name></author><entry><title type="html">Weather Station with ESP32 WROOM 32D and BMP180 Sensor</title><link href="http://localhost:4000/projects/ESP32-Temperature-Sensor/" rel="alternate" type="text/html" title="Weather Station with ESP32 WROOM 32D and BMP180 Sensor" /><published>2023-04-16T00:00:00+01:00</published><updated>2023-04-16T00:00:00+01:00</updated><id>http://localhost:4000/projects/ESP32-Temperature-Sensor</id><content type="html" xml:base="http://localhost:4000/projects/ESP32-Temperature-Sensor/"><![CDATA[<p>In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.</p>
+
+<p>The ESP32 board measures temperature and pressure, and the data is displayed on a web-based dashboard that can be accessed remotely from any device with internet access. This project can be used to monitor weather conditions in a specific location and can be expanded to include other sensors like humidity or wind speed in the future.</p>
+
+<p>While this project is not intended to be a tutorial, we have documented our process and provided the  complete <a href="https://github.com/dcoldeira/ESP32-IoT-Weather-Station">project repository</a>, including source code and documentation, on GitHub. This project can serve as an excellent addition to our portfolio, showcasing our skills in programming and hardware design.</p>
+
+<p>Furthermore, this project can be expanded in many ways as we shall see in outcoming posts, such as adding more sensors to measure other weather parameters like humidity and wind speed, or modifying it to send alerts or notifications based on specific conditions. This versatility makes it an excellent platform for further experimentation and exploration.</p>
+
+<p>Overall, this weather station project demonstrates our ability to design and implement complex systems that integrate hardware and software components to achieve a specific goal. We hope that it can serve as an example of our capabilities to potential employers and inspire future projects that leverage the power of IoT technologies.</p>
+
+<h2 id="materials">Materials</h2>
+
+<p>To complete this project, we will need the following materials:</p>
+
+<ul>
+  <li>ESP32-WROOM-D32 board</li>
+  <li>BMP180 sensor</li>
+  <li>Jumper wires</li>
+  <li>Breadboard</li>
+</ul>
+
+<p align="center">
+  <img src="/assets/images/post2/1.jpg/" width="250" height="250" />
+</p>
+
+<h2 id="setup">Setup</h2>
+
+<ol>
+  <li>Connect the GND pin on the BMP180 sensor to the GND pin on the ESP32 board.</li>
+  <li>Connect the VCC pin on the BMP180 sensor to the 3.3V pin on the ESP32 board.</li>
+  <li>Connect the SDA pin on the BMP180 sensor to the SDA pin on the ESP32 board (GPIO 21).</li>
+  <li>Connect the SCL pin on the BMP180 sensor to the SCL pin on the ESP32 board (GPIO 22).</li>
+  <li>Connect the Wi-Fi module to the ESP32 board by following the manufacturer’s instructions.</li>
+</ol>
+
+<p align="center">
+  <img src="/assets/images/post2/2.jpg/" width="250" height="250" />
+</p>
+
+<h2 id="programming">Programming</h2>
+
+<p>We will be using VS code with the PlatformIO IDE extension which I have already installed.</p>
+
+<ol>
+  <li>Create a new project in VS Code by selecting “PlatformIO Home” from the sidebar, clicking “New Project,” and selecting the ESP32 board as the target platform.</li>
+  <li>To include the Adafruit_BMP085_Library and the HTTPClient libraries in our project, we need to open the platformio.ini file located in the root directory of the project. Then, we should add the following lines under the [env:esp32] section:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   lib_deps =
+     Adafruit BMP085 Library
+     HTTPClient
+</code></pre></div></div>
+
+<p>We then open the src/main.cpp file and replace the existing code with the following code:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;Wire.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_Sensor.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_BMP085.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WiFi.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WebServer.h&gt;</span><span class="cp">
+#define BMP085_ADDRESS 0x76
+#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WiFiClientSecure.h&gt;</span><span class="cp">
+</span>
+<span class="c1">// Replace with your network credentials</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"XXX"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"xxx"</span><span class="p">;</span>
+
+<span class="c1">// Create an instance of the BMP180 sensor</span>
+<span class="n">Adafruit_BMP085</span> <span class="n">bmp</span><span class="p">;</span>
+
+<span class="c1">// Create an instance of the WebServer</span>
+<span class="n">WebServer</span> <span class="nf">server</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+<span class="c1">// Function prototype for handleRoot()</span>
+<span class="kt">void</span> <span class="nf">handleRoot</span><span class="p">();</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Start the serial communication</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+  <span class="c1">// Connect to Wi-Fi network</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Connecting to WiFi..."</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Print the IP address of the board</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"IP address: "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span>
+
+  <span class="c1">// Initialize the BMP180 sensor</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bmp</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">BMP085_ADDRESS</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Could not find a valid BMP085 sensor, check wiring!"</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Serve the web page</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">on</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">handleRoot</span><span class="p">);</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Handle web requests</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">handleClient</span><span class="p">();</span>
+
+  <span class="c1">// Read the temperature and pressure from the BMP180 sensor</span>
+  <span class="kt">float</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">bmp</span><span class="p">.</span><span class="n">readTemperature</span><span class="p">();</span>
+  <span class="kt">float</span> <span class="n">pressure</span> <span class="o">=</span> <span class="n">bmp</span><span class="p">.</span><span class="n">readPressure</span><span class="p">()</span> <span class="o">/</span> <span class="mf">100.0</span><span class="n">F</span><span class="p">;</span>
+
+  <span class="c1">// Print the readings to the serial monitor</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Temperature = "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" °C"</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Pressure = "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">pressure</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" hPa"</span><span class="p">);</span>
+
+  <span class="c1">// Wait for a second before taking the next reading</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">handleRoot</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Build the HTML page</span>
+  <span class="n">String</span> <span class="n">html</span> <span class="o">=</span> <span class="s">"&lt;html&gt;&lt;body&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;h1 style='text-align:center;'&gt;Weather Station with an ESP32 WROOM 32D and a BMP180 Sensor&lt;/h1&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;div style='display:flex; justify-content:center;'&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;div style='margin:20px; text-align:center;'&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;h2&gt;Temperature&lt;/h2&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;p style='font-size:48px;'&gt;"</span> <span class="o">+</span> <span class="n">String</span><span class="p">(</span><span class="n">bmp</span><span class="p">.</span><span class="n">readTemperature</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">" &amp;deg;C&lt;/p&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;/div&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;div style='margin:20px; text-align:center;'&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;h2&gt;Pressure&lt;/h2&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;p style='font-size:48px;'&gt;"</span> <span class="o">+</span> <span class="n">String</span><span class="p">(</span><span class="n">bmp</span><span class="p">.</span><span class="n">readPressure</span><span class="p">()</span> <span class="o">/</span> <span class="mf">100.0</span><span class="n">F</span><span class="p">)</span> <span class="o">+</span> <span class="s">" hPa&lt;/p&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;/div&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;/div&gt;"</span><span class="p">;</span>
+  <span class="n">html</span> <span class="o">+=</span> <span class="s">"&lt;/body&gt;&lt;/html&gt;"</span><span class="p">;</span>
+
+  <span class="c1">// Send the HTML page to the client</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">"text/html"</span><span class="p">,</span> <span class="n">html</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This is a program serves a web page with the temperature and pressure readings from the sensor.</p>
+
+<p>The program starts by including the necessary libraries for the BMP180 sensor, the WiFi module, and the web server. It also defines the BMP180 sensor address and the WiFi network credentials.</p>
+
+<p>Then, it creates an instance of the BMP180 sensor and the web server. It also defines the function prototype for handleRoot(), which will handle the web page request.</p>
+
+<p>In the setup() function, the program initializes the serial communication, connects to the WiFi network, and prints the IP address of the board. It also initializes the BMP180 sensor and checks if it is working properly. Finally, it sets up the web server to serve the root path (“/”) with the handleRoot() function and starts it.</p>
+
+<p>In the loop() function, the program handles incoming web requests and reads the temperature and pressure from the BMP180 sensor. It then prints these readings to the serial monitor and waits for a second before taking the next reading.</p>
+
+<p>The handleRoot() function builds an HTML page with the temperature and pressure readings displayed in a centered, nicely formatted layout. It then sends this page to the client when the root path is requested.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We have successfully built a weather station using an ESP32 WROOM 32D board and a BMP180 sensor. The project involved setting up the hardware, programming the board to read temperature and pressure data from the sensor, and displaying the data on a web-based dashboard. This project serves as a great introduction to IoT and can be expanded to include other sensors to monitor additional weather conditions. By using the code and instructions provided in this project, you can create your own weather station that can be accessed remotely from any device with internet access.</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.]]></summary></entry><entry><title type="html">IoT Smart Light using an ESP32 and Flutter</title><link href="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/" rel="alternate" type="text/html" title="IoT Smart Light using an ESP32 and Flutter" /><published>2023-03-03T00:00:00+00:00</published><updated>2023-03-03T00:00:00+00:00</updated><id>http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter</id><content type="html" xml:base="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/"><![CDATA[<h1 id="dart-and-flutter-for-embedded-systems">Dart and Flutter for Embedded Systems</h1>
+
+<p>Dart is a modern, object-oriented programming language created by Google. It’s fast, efficient, and easy to learn. Flutter, on the other hand, is a UI toolkit built on top of Dart that allows you to create beautiful, native applications for mobile, web, and desktop.</p>
+
+<p>One of the key benefits of using Dart and Flutter in embedded systems is the ability to create rich, interactive user interfaces that can be easily updated and customized. This is particularly useful in IoT devices, where user interaction is often limited but still important. By using Flutter, you can create sleek and responsive interfaces that provide real-time feedback and enhance the user experience.</p>
+
+<p>Another benefit is the fact that Dart and Flutter are open source, which means that there are many libraries and resources available for developers to use. This can significantly reduce development time and effort, as well as allow for greater collaboration and knowledge-sharing within the developer community.</p>
+
+<h1 id="using-the-esp32-with-dart-and-flutter">Using the ESP32 with Dart and Flutter</h1>
+
+<p>The ESP32 is a powerful chip that includes built-in Wi-Fi and Bluetooth capabilities. It’s often used in IoT devices, wearables, and robotics, among other applications. By combining the ESP32 with Dart and Flutter, developers can create powerful and flexible embedded systems with rich user interfaces.</p>
+
+<p>One library that can be used for communicating with BLE devices like the ESP32 is flutter_blue_plus. This package provides a simple and intuitive API for scanning for nearby devices, connecting to them, and sending and receiving data.</p>
+
+<p>In this project, we will be utilizing the flutter_blue_plus library to communicate with an ESP32 WROOM 32D board over Bluetooth. We will also be using an LED and a photoresistor to control the brightness of the light. The WROOM-32D is a commonly used variant of the ESP32 module, which includes an onboard antenna, 4MB flash memory, and 520KB SRAM. It also supports Wi-Fi and Bluetooth connectivity, making it an excellent choice for IoT applications.</p>
+
+<p>To program and debug the WROOM-32D board, we will be using Visual Studio Code and the PlatformIO plugin. This IDE supports a wide range of ESP32 boards, including the WROOM-32D, making it easy to get started with our project. If you run into any issues during the setup or programming process, don’t hesitate to ask for further assistance.</p>
+
+<h1 id="materials">Materials</h1>
+
+<ul>
+  <li>ESP32 WROOM D32 development board</li>
+  <li>LED (5mm)</li>
+  <li>Photoresistor</li>
+  <li>Resistors (220Ω and 10kΩ)</li>
+  <li>Breadboard</li>
+  <li>Jumper wires</li>
+  <li>Smartphone with Bluetooth connectivity</li>
+  <li>VS Code</li>
+</ul>
+
+<h1 id="setup">Setup</h1>
+
+<ol>
+  <li>Connect the anode (+) of the LED to the GPIO pin 13 on the ESP32 board and the cathode (-) to a 220Ω resistor.</li>
+</ol>
+
+<p>The anode of the LED is connected to the GPIO pin 13 on the ESP32 board, which will allow us to control the LED using software. The cathode of the LED is connected to a 220Ω resistor, which is used to limit the amount of current that flows through the LED and prevent it from burning out.</p>
+
+<ol>
+  <li>Connect the other end of the 220Ω resistor to ground.</li>
+</ol>
+
+<p>The other end of the 220Ω resistor is connected to ground, which provides a path for the current to flow through the LED when it is turned on.</p>
+
+<ol>
+  <li>Connect one end of the photoresistor to the 3.3V pin on the board.</li>
+</ol>
+
+<p>The photoresistor is a type of resistor that changes its resistance based on the amount of light that falls on it. One end of the photoresistor is connected to the 3.3V pin on the board, which will provide a reference voltage for measuring the resistance of the photoresistor.</p>
+
+<ol>
+  <li>Connect the other end of the photoresistor to a 10kΩ resistor.</li>
+</ol>
+
+<p>The other end of the photoresistor is connected to a 10kΩ resistor, which is used to form a voltage divider with the photoresistor. The voltage at the junction between the photoresistor and the 10kΩ resistor will vary based on the resistance of the photoresistor, which in turn depends on the amount of light falling on it.</p>
+
+<ol>
+  <li>Connect the other end of the 10kΩ resistor to the GPIO pin 12 on the board.</li>
+</ol>
+
+<p>The other end of the 10kΩ resistor is connected to GPIO pin 12 on the board, which will be used to measure the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
+
+<ol>
+  <li>Connect the ground pin on the board to the other end of the 10kΩ resistor.</li>
+</ol>
+
+<p>Finally, the ground pin on the board is connected to the other end of the 10kΩ resistor, which provides a reference for measuring the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                      +3.3V
+                                         |
+                                         |
+                                         \
+                                         / R1 220Ω
+                                         \
+                                         |
+                                         |
+ESP32 GPIO12 ---------------------------|
+                                         |
+                                         |
+                                         \
+                                         / LED
+                                         \
+                                         |
+                                         |
+ESP32 GPIO34 ---------------------------|
+                                         |
+                                         |
+                                         \
+                                         / R2 10K
+                                         \
+                                         |
+                                         |
+ESP32 ADC1 (GPIO32) --------------------|
+                                         |
+                                         |
+                                         \
+                                         / Photoresistor
+                                         \
+                                         |
+                                         |
+GND -------------------------------------+
+
+</code></pre></div></div>
+
+<h1 id="programming">Programming</h1>
+
+<p>This is the C++ code that we have to upload into the board:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;BLEDevice.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;BLEServer.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;BLEUtils.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;BLE2902.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Arduino.h&gt;</span><span class="cp">
+</span>
+<span class="c1">// LED pin</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+
+<span class="c1">// Photoresistor pin</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">PHOTO_PIN</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+
+<span class="c1">// Bluetooth Service and Characteristics UUID</span>
+<span class="cp">#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define CHAR_UUID           "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+</span>
+<span class="n">BLECharacteristic</span> <span class="o">*</span><span class="n">pCharacteristic</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">brightness</span> <span class="o">=</span>  <span class="mi">128</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">PHOTO_PIN</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+  
+  <span class="c1">// Create a BLE server</span>
+  <span class="n">BLEDevice</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="s">"SmartLight"</span><span class="p">);</span>
+  <span class="n">BLEServer</span> <span class="o">*</span><span class="n">pServer</span> <span class="o">=</span> <span class="n">BLEDevice</span><span class="o">::</span><span class="n">createServer</span><span class="p">();</span>
+
+  <span class="c1">// Create a BLE service</span>
+  <span class="n">BLEService</span> <span class="o">*</span><span class="n">pService</span> <span class="o">=</span> <span class="n">pServer</span><span class="o">-&gt;</span><span class="n">createService</span><span class="p">(</span><span class="n">SERVICE_UUID</span><span class="p">);</span>
+
+  <span class="c1">// Create a BLE characteristic</span>
+  <span class="n">pCharacteristic</span> <span class="o">=</span> <span class="n">pService</span><span class="o">-&gt;</span><span class="n">createCharacteristic</span><span class="p">(</span>
+                      <span class="n">CHAR_UUID</span><span class="p">,</span>
+                      <span class="n">BLECharacteristic</span><span class="o">::</span><span class="n">PROPERTY_READ</span> <span class="o">|</span> <span class="n">BLECharacteristic</span><span class="o">::</span><span class="n">PROPERTY_WRITE</span>
+                    <span class="p">);</span>
+
+  <span class="c1">// Create a descriptor</span>
+  <span class="n">pCharacteristic</span><span class="o">-&gt;</span><span class="n">addDescriptor</span><span class="p">(</span><span class="k">new</span> <span class="n">BLE2902</span><span class="p">());</span>
+
+  <span class="c1">// Start the service</span>
+  <span class="n">pService</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
+
+  <span class="c1">// Advertising the service</span>
+  <span class="n">BLEAdvertising</span> <span class="o">*</span><span class="n">pAdvertising</span> <span class="o">=</span> <span class="n">pServer</span><span class="o">-&gt;</span><span class="n">getAdvertising</span><span class="p">();</span>
+  <span class="n">pAdvertising</span><span class="o">-&gt;</span><span class="n">addServiceUUID</span><span class="p">(</span><span class="n">SERVICE_UUID</span><span class="p">);</span>
+  <span class="n">pAdvertising</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Read the value of the photoresistor</span>
+  <span class="kt">int</span> <span class="n">sensorValue</span> <span class="o">=</span> <span class="n">analogRead</span><span class="p">(</span><span class="n">PHOTO_PIN</span><span class="p">);</span>
+  <span class="n">brightness</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">sensorValue</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4095</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+
+  <span class="c1">// Update the LED brightness</span>
+  <span class="n">analogWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">brightness</span><span class="p">);</span>
+
+  <span class="n">delay</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p>First on this code, we have imported some libraries, including the BLEDevice, BLEServer, and BLEUtils libraries.
+The LED_PIN and PHOTO_PIN constants are defined, which represent the pins where the LED and photoresistor are connected, respectively.</p>
+
+<p>The UUIDs for the Bluetooth service and characteristic are defined using the #define preprocessor directive.
+A BLECharacteristic pointer named pCharacteristic is declared.</p>
+
+<p>The setup function is defined, which initializes the microcontroller, sets the LED_PIN and PHOTO_PIN pins as output and input, respectively, and creates a BLE server, service, and characteristic. The characteristic is set to have both read and write properties, and a BLE2902 descriptor is added to it. Finally, the service is started and advertised.</p>
+
+<p>The loop function is defined, which reads the value of the photoresistor using the analogRead function, maps the sensorValue from 0-4095 to 0-255, which is the range of brightness for the LED, and updates the LED brightness using the analogWrite function. The function then waits for 50 milliseconds before repeating.</p>
+
+<h1 id="mobile-application">Mobile Application</h1>
+
+<p>In this section we explain how to build an example Flutter app that controls the IoT Smart Light. In this example we are using the flutter_blue_plus library to communicate with the ESP32 over Bluetooth and control the LED brightness using the photoresistor:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter/material.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:flutter_blue_plus/flutter_blue_plus.dart'</span><span class="o">;</span>
+
+	<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">runApp</span><span class="p">(</span><span class="n">MyApp</span><span class="p">());</span>
+
+	<span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+	  <span class="nd">@override</span>
+	  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
+	      <span class="nl">title:</span> <span class="s">'IoT Smart Light'</span><span class="p">,</span>
+	      <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="p">(</span>
+		<span class="nl">primarySwatch:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">blue</span><span class="p">,</span>
+	      <span class="p">),</span>
+	      <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="p">(</span><span class="nl">title:</span> <span class="s">'IoT Smart Light'</span><span class="p">),</span>
+	    <span class="p">);</span>
+	  <span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="kd">class</span> <span class="nc">MyHomePage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+	  <span class="n">MyHomePage</span><span class="p">({</span><span class="n">Key</span><span class="o">?</span> <span class="n">key</span><span class="p">,</span> <span class="kd">required</span> <span class="k">this</span><span class="o">.</span><span class="na">title</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+	  <span class="kd">final</span> <span class="kt">String</span> <span class="n">title</span><span class="p">;</span>
+
+	  <span class="nd">@override</span>
+	  <span class="n">_MyHomePageState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_MyHomePageState</span><span class="p">();</span>
+	<span class="p">}</span>
+
+	<span class="kd">class</span> <span class="nc">_MyHomePageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="p">&lt;</span><span class="n">MyHomePage</span><span class="p">&gt;</span> <span class="p">{</span>
+	  <span class="n">BluetoothDevice</span><span class="o">?</span> <span class="n">_device</span><span class="p">;</span>
+	  <span class="n">BluetoothCharacteristic</span><span class="o">?</span> <span class="n">_characteristic</span><span class="p">;</span>
+	  <span class="kt">bool</span> <span class="n">_isConnected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	  <span class="kt">bool</span> <span class="n">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	  <span class="kt">int</span> <span class="n">_brightness</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+	  <span class="kt">void</span> <span class="n">_connectToDevice</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+	    <span class="c1">// Scan for nearby devices</span>
+	    <span class="kd">final</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">await</span> <span class="n">FlutterBlue</span><span class="o">.</span><span class="na">instance</span><span class="o">.</span><span class="na">scan</span><span class="p">(</span><span class="nl">timeout:</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="mi">5</span><span class="p">));</span>
+
+	    <span class="c1">// Find the device with the name "ESP32"</span>
+	    <span class="kd">final</span> <span class="n">esp32Device</span> <span class="o">=</span> <span class="n">devices</span><span class="o">.</span><span class="na">firstWhere</span><span class="p">(</span>
+		<span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">device</span><span class="o">.</span><span class="na">name</span> <span class="o">==</span> <span class="s">"ESP32"</span><span class="p">,</span>
+		<span class="nl">orElse:</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="k">throw</span> <span class="n">Exception</span><span class="p">(</span><span class="s">"Could not find device"</span><span class="p">));</span>
+
+	    <span class="c1">// Connect to the device</span>
+	    <span class="k">await</span> <span class="n">esp32Device</span><span class="o">.</span><span class="na">connect</span><span class="p">();</span>
+
+	    <span class="c1">// Discover services and characteristics</span>
+	    <span class="kd">final</span> <span class="n">services</span> <span class="o">=</span> <span class="k">await</span> <span class="n">esp32Device</span><span class="o">.</span><span class="na">discoverServices</span><span class="p">();</span>
+	    <span class="kd">final</span> <span class="n">characteristic</span> <span class="o">=</span> <span class="n">services</span>
+		<span class="o">.</span><span class="na">expand</span><span class="p">((</span><span class="n">service</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">service</span><span class="o">.</span><span class="na">characteristics</span><span class="p">)</span>
+		<span class="o">.</span><span class="na">firstWhere</span><span class="p">((</span><span class="n">c</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">c</span><span class="o">.</span><span class="na">uuid</span><span class="o">.</span><span class="na">toString</span><span class="p">()</span> <span class="o">==</span> <span class="s">"0000ffe1-0000-1000-8000-00805f9b34fb"</span><span class="p">);</span>
+
+	    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+	      <span class="n">_device</span> <span class="o">=</span> <span class="n">esp32Device</span><span class="p">;</span>
+	      <span class="n">_characteristic</span> <span class="o">=</span> <span class="n">characteristic</span><span class="p">;</span>
+	      <span class="n">_isConnected</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	    <span class="p">});</span>
+	  <span class="p">}</span>
+
+	  <span class="kt">void</span> <span class="n">_disconnectFromDevice</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="n">_device</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="k">await</span> <span class="n">_device</span><span class="o">!.</span><span class="na">disconnect</span><span class="p">();</span>
+	    <span class="p">}</span>
+	    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+	      <span class="n">_device</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+	      <span class="n">_characteristic</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+	      <span class="n">_isConnected</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	      <span class="n">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	      <span class="n">_brightness</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	    <span class="p">});</span>
+	  <span class="p">}</span>
+
+	  <span class="kt">void</span> <span class="n">_toggleLight</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="n">_isConnected</span> <span class="o">&amp;&amp;</span> <span class="n">_characteristic</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="kd">final</span> <span class="n">newValue</span> <span class="o">=</span> <span class="n">_isOn</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+	      <span class="k">await</span> <span class="n">_characteristic</span><span class="o">!.</span><span class="na">write</span><span class="p">([</span><span class="n">newValue</span><span class="p">]);</span>
+	      <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+		<span class="n">_isOn</span> <span class="o">=</span> <span class="o">!</span><span class="n">_isOn</span><span class="p">;</span>
+	      <span class="p">});</span>
+	    <span class="p">}</span>
+	  <span class="p">}</span>
+
+	  <span class="kt">void</span> <span class="n">_updateBrightness</span><span class="p">(</span><span class="kt">int</span> <span class="n">newValue</span><span class="p">)</span> <span class="kd">async</span> <span class="p">{</span>
+	    <span class="k">if</span> <span class="p">(</span><span class="n">_isConnected</span> <span class="o">&amp;&amp;</span> <span class="n">_characteristic</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+	      <span class="k">await</span> <span class="n">_characteristic</span><span class="o">!.</span><span class="na">write</span><span class="p">([</span><span class="n">newValue</span><span class="p">]);</span>
+	      <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+		<span class="n">_brightness</span> <span class="o">=</span> <span class="n">newValue</span><span class="p">;</span>
+	      <span class="p">});</span>
+	    <span class="p">}</span>
+	  <span class="p">}</span>
+
+	  <span class="nd">@override</span>
+	  <span class="kt">void</span> <span class="n">dispose</span><span class="p">()</span> <span class="p">{</span>
+	    <span class="n">_disconnectFromDevice</span><span class="p">();</span>
+	    <span class="k">super</span><span class="o">.</span><span class="na">dispose</span><span class="p">();</span>
+	  <span class="p">}</span>
+
+      <span class="nd">@override</span>
+      <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
+          <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+      <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="na">title</span><span class="p">),</span>
+          <span class="p">),</span>
+          <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+      <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+        <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="o">.</span><span class="na">center</span><span class="p">,</span>
+        <span class="nl">children:</span> <span class="p">&lt;</span><span class="n">Widget</span><span class="p">&gt;[</span>
+          <span class="n">Text</span><span class="p">(</span>
+            <span class="s">'Light is </span><span class="si">${_isOn ? 'on' : 'off'}</span><span class="s">'</span><span class="p">,</span>
+            <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span><span class="nl">fontSize:</span> <span class="mi">20</span><span class="p">),</span>
+          <span class="p">),</span>
+          <span class="n">SizedBox</span><span class="p">(</span><span class="nl">height:</span> <span class="mi">20</span><span class="p">),</span>
+          <span class="n">ElevatedButton</span><span class="p">(</span>
+            <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="n">_isConnected</span> <span class="o">?</span> <span class="s">'Disconnect'</span> <span class="o">:</span> <span class="s">'Connect'</span><span class="p">),</span>
+            <span class="nl">onPressed:</span> <span class="n">_isConnected</span> <span class="o">?</span> <span class="n">_disconnectFromDevice</span> <span class="o">:</span> <span class="n">_connectToDevice</span><span class="p">,</span>
+          <span class="p">),</span>
+          <span class="n">SizedBox</span><span class="p">(</span><span class="nl">height:</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">Row</span><span class="p">(</span>
+      <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="o">.</span><span class="na">spaceEvenly</span><span class="p">,</span>
+      <span class="nl">children:</span> <span class="p">[</span>
+        <span class="n">ElevatedButton</span><span class="p">(</span>
+          <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="n">sendOnMessageToBluetooth</span><span class="p">();</span>
+          <span class="p">},</span>
+          <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'ON'</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">ElevatedButton</span><span class="p">(</span>
+          <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="n">sendOffMessageToBluetooth</span><span class="p">();</span>
+          <span class="p">},</span>
+          <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'OFF'</span><span class="p">),</span>
+        <span class="p">),</span>
+  <span class="p">],</span>
+<span class="p">),</span>
+<span class="n">SizedBox</span><span class="p">(</span><span class="nl">height:</span> <span class="mi">20</span><span class="p">),</span>
+<span class="n">Row</span><span class="p">(</span>
+  <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="o">.</span><span class="na">spaceEvenly</span><span class="p">,</span>
+  <span class="nl">children:</span> <span class="p">[</span>
+    <span class="n">ElevatedButton</span><span class="p">(</span>
+      <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="n">_updateBrightness</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'25%'</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">ElevatedButton</span><span class="p">(</span>
+      <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="n">_updateBrightness</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'50%'</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">ElevatedButton</span><span class="p">(</span>
+      <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="n">_updateBrightness</span><span class="p">(</span><span class="mi">75</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'75%'</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">ElevatedButton</span><span class="p">(</span>
+      <span class="nl">onPressed:</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="n">_updateBrightness</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'100%'</span><span class="p">),</span>
+    <span class="p">),</span>
+  <span class="p">],</span>
+ <span class="p">),</span>
+     <span class="p">],</span>
+   <span class="p">),</span>
+  <span class="p">),</span>
+ <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">sendOnMessageToBluetooth</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">_isConnected</span> <span class="o">&amp;&amp;</span> <span class="n">_characteristic</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">await</span> <span class="n">_characteristic</span><span class="o">!.</span><span class="na">write</span><span class="p">([</span><span class="mi">1</span><span class="p">]);</span>
+<span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+<span class="n">_isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">sendOffMessageToBluetooth</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">_isConnected</span> <span class="o">&amp;&amp;</span> <span class="n">_characteristic</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">await</span> <span class="n">_characteristic</span><span class="o">!.</span><span class="na">write</span><span class="p">([</span><span class="mi">0</span><span class="p">]);</span>
+<span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+<span class="n">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="p">}</span>
+<span class="p">}</span>
+  <span class="p">}</span>
+
+</code></pre></div></div>
+<p>The MyHomePage widget is a stateful widget that defines the UI of the home screen. It has a <code class="language-plaintext highlighter-rouge">BluetoothDevice</code> variable <code class="language-plaintext highlighter-rouge">_device</code>, a <code class="language-plaintext highlighter-rouge">BluetoothCharacteristic</code> variable <code class="language-plaintext highlighter-rouge">_characteristic</code>, a boolean variable <code class="language-plaintext highlighter-rouge">_isConnected</code> to keep track of the connection status, a boolean variable <code class="language-plaintext highlighter-rouge">_isOn</code> to keep track of the light’s on/off status, and an integer variable <code class="language-plaintext highlighter-rouge">_brightness</code> to keep track of the light’s brightness level.</p>
+
+<p>There are several functions defined within the <code class="language-plaintext highlighter-rouge">_MyHomePageState</code> class, including <code class="language-plaintext highlighter-rouge">_connectToDevice()</code>, <code class="language-plaintext highlighter-rouge">_disconnectFromDevice()</code>, <code class="language-plaintext highlighter-rouge">_toggleLight()</code>, and <code class="language-plaintext highlighter-rouge">_updateBrightness()</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">_connectToDevice()</code> function scans for nearby Bluetooth devices and connects to the ESP32 device that has the name “ESP32”. It then discovers the services and characteristics of the device and sets the <code class="language-plaintext highlighter-rouge">_device</code>, <code class="language-plaintext highlighter-rouge">_characteristic</code>, and <code class="language-plaintext highlighter-rouge">_isConnected</code> variables accordingly.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">_disconnectFromDevice()</code> function disconnects from the connected device and resets the <code class="language-plaintext highlighter-rouge">_device</code>, <code class="language-plaintext highlighter-rouge">_characteristic</code>, <code class="language-plaintext highlighter-rouge">_isConnected</code>, <code class="language-plaintext highlighter-rouge">_isOn</code>, and <code class="language-plaintext highlighter-rouge">_brightness</code> variables.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">_toggleLight()</code> function writes a new value to the <code class="language-plaintext highlighter-rouge">_characteristic</code> to turn the light on or off, depending on its current state. It then updates the <code class="language-plaintext highlighter-rouge">_isOn</code> variable accordingly.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">_updateBrightness()</code> function writes a new value to the <code class="language-plaintext highlighter-rouge">_characteristic</code> to update the light’s brightness level. It then updates the <code class="language-plaintext highlighter-rouge">_brightness</code> variable accordingly.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">build()</code> method defines the layout of the home screen using a <code class="language-plaintext highlighter-rouge">Scaffold</code> widget, an <code class="language-plaintext highlighter-rouge">AppBar</code> widget, and a <code class="language-plaintext highlighter-rouge">Column</code> widget. The UI consists of a text widget that displays the current state of the light, two <code class="language-plaintext highlighter-rouge">ElevatedButton</code> widgets that allow the user to connect or disconnect from the device, and four <code class="language-plaintext highlighter-rouge">ElevatedButton</code> widgets that allow the user to turn the light on or off and adjust its brightness level.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">sendOnMessageToBluetooth()</code> and <code class="language-plaintext highlighter-rouge">sendOffMessageToBluetooth()</code> functions are used to send messages to the connected device to turn the light on or off, respectively. They are called when the user taps the corresponding <code class="language-plaintext highlighter-rouge">ElevatedButton</code> widgets on the UI.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>In this project, we have demonstrated how to use Dart and Flutter with an ESP32 board to create an IoT smart light. We have shown how Dart and Flutter can be used to build an intuitive mobile app that communicates with the ESP32 board over Bluetooth and controls the brightness of an LED using a photoresistor.</p>
+
+<p>By using Dart and Flutter, we were able to create a modern and responsive user interface that allows for real-time feedback and customization. We also utilized the built-in Wi-Fi and Bluetooth capabilities of the ESP32 board to create a flexible and powerful embedded system.</p>
+
+<p>Overall, this project highlights the potential of combining modern programming languages and frameworks with embedded systems to create innovative IoT solutions. With the increasing demand for smart devices and connected systems, this project provides a useful example of how developers can leverage their skills to create exciting and impactful projects in the IoT space.</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="embedded systems" /><category term="Dart" /><category term="mobile app" /><category term="Flutter" /><category term="ESP32" /><summary type="html"><![CDATA[Dart and Flutter for Embedded Systems]]></summary></entry><entry><title type="html">ESP32 LED Control</title><link href="http://localhost:4000/embedded/ESP32-LED-Control/" rel="alternate" type="text/html" title="ESP32 LED Control" /><published>2023-02-10T00:00:00+00:00</published><updated>2023-02-10T00:00:00+00:00</updated><id>http://localhost:4000/embedded/ESP32-LED-Control</id><content type="html" xml:base="http://localhost:4000/embedded/ESP32-LED-Control/"><![CDATA[<p>This project shows some of the features of the powerful ESP32 microcontroller. Starting with a simple LED circuit, we demonstrate how to control it using code and how to toggle it on and off with a push button. We then use pulse-width modulation (PWM) to control the LED’s brightness and create various lighting effects.</p>
+
+<p>Next, we explore the ESP32’s Wi-Fi capabilities and create a web interface that allows us to control the LED remotely. Finally, we take our project to the next level by creating a Flutter app that communicates with the ESP32 via Wi-Fi and enables us to control the LED from our mobile device.</p>
+
+<h1 id="11-materials">1.1 Materials</h1>
+
+<p>To complete this project, I used the following materials:</p>
+
+<ul>
+  <li>An ESP32 development board</li>
+  <li>A breadboard</li>
+  <li>A 5mm LED (any color)</li>
+  <li>A 220-ohm resistor</li>
+  <li>Jumper wires</li>
+</ul>
+
+<p align="center">
+  <img src="/assets/images/post1/1.jpg/" width="250" height="250" />
+</p>
+
+<h1 id="12-circuit-diagram">1.2 Circuit Diagram</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     +------------------+
+                     |                  |
+                     |    ESP32 Board   |
+                     |                  |
+                     +------------------+
+                              |
+                              |
+                              |
+                              |                             
+                     +------------------+
+                     |                  |
+                     |        LED       |
+                     |                  |
+                     +------------------+
+                              |
+                              |
+                             ---
+                              |
+                             GND
+</code></pre></div></div>
+<p>Everything was connected as per the diagram above, pin 2 was used on the ESP32 board.</p>
+
+<p align="center">
+  <img src="/assets/images/post1/2.jpg/" width="250" height="250" />
+</p>
+
+<h1 id="13-arduino-ide">1.3 Arduino IDE</h1>
+
+<p>To use the ESP32 with Arduino IDE, the ESP32 board support package is needed. Here are the steps I followed:</p>
+
+<ol>
+  <li>Opened the Arduino IDE.</li>
+  <li>Clicked on File &gt; Preferences.</li>
+  <li>In the Additional Boards Manager URLs field, entered the following URL: <code class="language-plaintext highlighter-rouge">https://dl.espressif.com/dl/package_esp32_index.json</code>.</li>
+  <li>Clicked on OK to close the Preferences window.</li>
+  <li>Went to Tools &gt; Board &gt; Boards Manager.</li>
+  <li>Typed “esp32” in the search bar and installed “esp32 by Espressif Systems”.</li>
+  <li>Went to Tools &gt; Board and select the ESP32 board.</li>
+  <li>Just needed to write and upload the code to the ESP32 board using the Arduino IDE.</li>
+</ol>
+
+<h1 id="14-programming">1.4 Programming</h1>
+
+<p>C++ was used to program the ESP32 microcontroller. The code is simple and straightforward. Here is a brief overview of the code:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Define the LED pin number</span>
+<span class="cp">#define LED_PIN 2
+</span>
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Set the LED pin as an output pin</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Turn the LED on</span>
+  <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  
+  <span class="c1">// Turn the LED off</span>
+  <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>In the first line of code, we use the #define directive to define the LED pin number as a constant variable called LED_PIN. In this case, we set it to pin 2.</p>
+
+<p>In the setup() function, we set the LED_PIN as an output pin using the pinMode() function.</p>
+
+<p>In the loop() function, we first turn the LED on by setting the LED_PIN output to HIGH using the digitalWrite() function, then we use the delay() function to wait for one second before turning it off again by setting the LED_PIN output to LOW. We then wait another second before repeating the cycle.</p>
+
+<p>So the code turns the LED on and off every second indefinitely.</p>
+
+<p><em>To add a push button to toggle the LED, we will need:</em></p>
+
+<h1 id="21-aditional-materials">2.1 Aditional materials</h1>
+
+<ul>
+  <li>Push button</li>
+</ul>
+
+<h1 id="22-circuit-diagram">2.2 Circuit Diagram</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     +------------------+
+                     |                  |
+                     |    ESP32 Board   |
+                     |                  |
+                     +------------------+
+                              |
+                     +--------+---------+
+                     |        |         |
+                     |        |         |
+                    +--+     ---       ---
+                    |  |     ---       ---
+                    |  |      |         |
+                    |  |      |         |
+                    |  |      |         |
+                    |  |      |         |
+                    |  |      |         |
+                    |  |      |         |
+                    |  |      |         |
+                    +--+      |         |
+                              |         |
+                              |         |
+                              |         |
+                              |         
+                              |
+                              |
+                              |
+                              |
+                     +------------------+
+                     |                  |
+                     |        LED       |
+                     |                  |
+                     +------------------+
+                              |
+                              |
+                             ---
+                              |
+                             GND
+
+</code></pre></div></div>
+
+<p align="center">
+  <img src="/assets/images/post1/3.jpg/" width="250" height="250" />
+</p>
+
+<p>We Connect one leg of the push button to pin 3 of the ESP32 and the other leg to ground. The LED stays connected as in the previous section.</p>
+
+<h1 id="23-arduino-ide">2.3 Arduino IDE</h1>
+
+<p>In the Arduino IDE, we need to define the pin numbers for the LED and the push button. Here is the code to do that:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Define the LED and button pin numbers</span>
+<span class="cp">#define LED_PIN 2
+#define BUTTON_PIN 3
+</span></code></pre></div></div>
+
+<h1 id="24-programming">2.4 Programming</h1>
+
+<p>In the setup() function, we need to set the BUTTON_PIN as an input pin using the pinMode() function:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Set the LED pin as an output pin</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="c1">// Set the button pin as an input pin</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">BUTTON_PIN</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>In the loop() function, we can use the digitalRead() function to read the state of the BUTTON_PIN. If the button is pressed, the LED should toggle its state. Here is the code:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Read the state of the button</span>
+  <span class="kt">int</span> <span class="n">reading</span> <span class="o">=</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">BUTTON_PIN</span><span class="p">);</span>
+
+  <span class="c1">// Check if the button state has changed</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">reading</span> <span class="o">!=</span> <span class="n">lastButtonState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Reset the debounce timer</span>
+    <span class="n">lastDebounceTime</span> <span class="o">=</span> <span class="n">millis</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Check if the debounce delay has passed</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">millis</span><span class="p">()</span> <span class="o">-</span> <span class="n">lastDebounceTime</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">debounceDelay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Check if the button state has stabilized</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">reading</span> <span class="o">!=</span> <span class="n">buttonState</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">buttonState</span> <span class="o">=</span> <span class="n">reading</span><span class="p">;</span>
+      <span class="c1">// If the button has been pressed, toggle the LED</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">buttonState</span> <span class="o">==</span> <span class="n">LOW</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="o">!</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">));</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Update the last button state</span>
+  <span class="n">lastButtonState</span> <span class="o">=</span> <span class="n">reading</span><span class="p">;</span>
+
+  <span class="c1">// Flash the LED if it is on</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">)</span> <span class="o">==</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>In the above code, we first read the state of the BUTTON_PIN using the digitalRead() function and store it in the variable buttonState.</p>
+
+<p>If the button is pressed (i.e., the buttonState is HIGH), we toggle the state of the LED using the digitalWrite() function and the ! operator to invert the current state of the LED. We also add a small debounce delay of 500ms to avoid registering multiple presses for a single button press.</p>
+
+<p>With these changes, the LED should now toggle its state whenever the push button is pressed.</p>
+
+<p><em>We now use pulse-width modulation to create lighting effects.</em></p>
+
+<p>Pulse-width modulation (PWM) is a technique used to control the brightness of an LED by varying the duty cycle of the signal. Instead of turning the LED fully on or off, PWM switches the LED on and off rapidly, with varying amounts of time spent on and off. This creates the illusion of brightness control, as the LED appears to be dimming or brightening depending on the duty cycle of the signal.</p>
+
+<h1 id="31-aditional-materials">3.1 Aditional materials</h1>
+
+<ul>
+  <li>1 x 10k ohm potentiometer</li>
+</ul>
+
+<h1 id="32-circuit-diagram">3.2 Circuit Diagram</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                      +------------------+
+                     |                  |
+                     |    ESP32 Board   |
+                     |                  |
+                     +------------------+
+                              |
+                              |
+                            10kΩ
+                              |
+                     +------|&lt;|-------+
+                     |      |          |
+                     |   GPIO2        |
+                     |               |
+                     |     LED       |
+                     |               |
+                     +---------------+
+
+</code></pre></div></div>
+
+<p align="center">
+  <img src="/assets/images/post1/4.jpg/" width="250" height="250" />
+</p>
+
+<h1 id="33-arduino-ide">3.3 Arduino IDE</h1>
+
+<p>No additional steps are required for the Arduino IDE since we have already installed the ESP32 board support package.</p>
+
+<h1 id="33-programming">3.3 Programming</h1>
+
+<p>Here is the code for using pulse-width modulation to create lighting effects on the LED:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Define the LED pin number and PWM frequency</span>
+<span class="cp">#define LED_PIN 2
+#define PWM_FREQ 5000
+</span>
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Set the LED pin as an output pin</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="c1">// Set the PWM frequency</span>
+  <span class="n">ledcSetup</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PWM_FREQ</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="c1">// Attach the PWM signal to the LED pin</span>
+  <span class="n">ledcAttachPin</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Fade the LED on and off</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">dutyCycle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">dutyCycle</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">;</span> <span class="n">dutyCycle</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Set the LED brightness</span>
+    <span class="n">ledcWrite</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dutyCycle</span><span class="p">);</span>
+    <span class="c1">// Wait a short period of time</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">dutyCycle</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span> <span class="n">dutyCycle</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">dutyCycle</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Set the LED brightness</span>
+    <span class="n">ledcWrite</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dutyCycle</span><span class="p">);</span>
+    <span class="c1">// Wait a short period of time</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In this code, the ledcSetup function is used to set up a PWM channel with a frequency of 5000 Hz and a resolution of 8 bits. The ledcAttachPin function is then used to attach the PWM signal to the LED pin.</p>
+
+<p>The loop function then fades the LED on and off using two for loops. In each loop, the ledcWrite function is used to set the duty cycle of the PWM signal, and the delay function is used to wait a short period of time before changing the duty cycle.</p>
+
+<p>You can adjust the delay time in each loop to change the speed of the fading effect.</p>
+
+<p><em>Finally we proceed to add Wi-Fi connectivity to control the LED via a web interface.</em></p>
+
+<p>To add Wi-Fi connectivity to control the LED via a web interface, we can use the ESP32’s built-in Wi-Fi capabilities and the ESPAsyncWebServer library.</p>
+
+<h1 id="41-aditional-materials">4.1 Aditional materials</h1>
+
+<ul>
+  <li>Wi-Fi router</li>
+</ul>
+
+<h1 id="42-circuit-diagram">4.2 Circuit Diagram</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     +--------------------+
+                     |                    |
+                     |    ESP32 Board     |
+                     |                    |
+                     +--------------------+
+                            |        |
+                            |        |                          
+                            |        |
+                            |        |
+                            |        |
+                            |        |
+                      +------------------+
+                      |                  |
+                      |        LED       |
+                      |                  |
+                      +------------------+
+                               |
+                               |
+                              ---
+                               |
+                              GND
+
+</code></pre></div></div>
+
+<p>In the circuit diagram above, we use the same LED and resistor as before, and connect them to the ESP32 board as shown. We will also need to connect the ESP32 board to a Wi-Fi router to enable it to communicate with other devices over the internet.</p>
+
+<h1 id="43-arduino-ide">4.3 Arduino IDE</h1>
+
+<p>In addition to the steps we took earlier to set up the Arduino IDE for use with the ESP32 board, we will also need to install the WiFi library. To do this, follow these steps:</p>
+
+<ol>
+  <li>Open the Arduino IDE.</li>
+  <li>Go to Sketch &gt; Include Library &gt; Manage Libraries.</li>
+  <li>In the search bar, type “WiFi” and press Enter.</li>
+  <li>Find the “WiFi” library by the Arduino team and click “Install”.</li>
+</ol>
+
+<h1 id="43-programming">4.3 Programming</h1>
+
+<p>We will now write a program that allows us to control the LED via a web interface hosted on the ESP32 board.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;WiFi.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WebServer.h&gt;</span><span class="cp">
+</span>
+<span class="c1">// Define the LED pin number</span>
+<span class="cp">#define LED_PIN 2
+</span>
+<span class="c1">// Replace with your network credentials</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"XXX"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"XXX"</span><span class="p">;</span>
+
+<span class="n">WebServer</span> <span class="nf">server</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span> <span class="c1">// Create a web server on port 80</span>
+
+<span class="kt">void</span> <span class="nf">handleRoot</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">"text/html"</span><span class="p">,</span> <span class="s">"&lt;html&gt;&lt;body&gt;&lt;h1&gt;ESP32 LED Control&lt;/h1&gt;&lt;form method='POST' action='/led'&gt;&lt;button name='state' value='on'&gt;Turn On&lt;/button&gt;&lt;button name='state' value='off'&gt;Turn Off&lt;/button&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">handleLED</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">String</span> <span class="n">state</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="s">"state"</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Received state: "</span> <span class="o">+</span> <span class="n">state</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="o">==</span> <span class="s">"on"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">state</span> <span class="o">==</span> <span class="s">"off"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">"text/html"</span><span class="p">,</span> <span class="s">"&lt;html&gt;&lt;body&gt;&lt;h1&gt;ESP32 LED Control&lt;/h1&gt;&lt;p&gt;LED is now "</span> <span class="o">+</span> <span class="n">state</span> <span class="o">+</span> <span class="s">"&lt;/p&gt;&lt;p&gt;&lt;a href='/'&gt;Back&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Set the LED pin as an output pin</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+
+  <span class="c1">// Connect to Wi-Fi network</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Connecting to WiFi..."</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Connected to WiFi"</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"IP address: "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span> <span class="c1">// Print the IP address of the board</span>
+
+  <span class="c1">// Start the web server</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">on</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">handleRoot</span><span class="p">);</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">on</span><span class="p">(</span><span class="s">"/led"</span><span class="p">,</span> <span class="n">handleLED</span><span class="p">);</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"HTTP server started"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Handle incoming client requests</span>
+  <span class="n">server</span><span class="p">.</span><span class="n">handleClient</span><span class="p">();</span>  
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>This code first defines the LED pin number (LED_PIN) and the network credentials (ssid and password). Then, it creates a web server on port 80. The web server handles requests to the root path (/) and the /led path.</p>
+
+<p>The handleRoot() function is called when a request is made to the root path. This function sends a simple HTML form that allows the user to turn the LED on or off.</p>
+
+<p>The handleLED() function is called when a request is made to the /led path. This function receives the state of the LED (on or off) from the form and sets the LED accordingly. It then sends a simple HTML page that tells the user the current state of the LED.</p>
+
+<p>The setup() function first sets the LED pin as an output pin. Then, it connects to the Wi-Fi network. Once the connection is established, it prints the IP address of the board. Finally, it starts the web server and registers the handleRoot() and handleLED() functions.</p>
+
+<p>The loop() function simply handles incoming client requests.</p>
+
+<p>In the browser, we now should be able to control the LED from the server.</p>
+
+<p align="center">
+  <img src="/assets/images/post1/5.png/" width="300" height="300" />
+</p>
+
+<h1 id="a-flutter-app-to-control-the-led">A Flutter app to control the LED</h1>
+
+<p>To control the LED through a Flutter app, we can create a simple app that sends HTTP requests to the ESP32 web server using the http package.</p>
+
+<p>The following functions define two methods to turn the LED on and off by sending HTTP POST requests to the ESP32 web server:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">turnOnLED</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="na">post</span><span class="p">(</span>
+      <span class="kt">Uri</span><span class="o">.</span><span class="na">parse</span><span class="p">(</span><span class="s">'http://&lt;ESP32_IP_ADDRESS&gt;/led'</span><span class="p">),</span>
+      <span class="nl">body:</span> <span class="p">{</span><span class="s">'state'</span><span class="o">:</span> <span class="s">'on'</span><span class="p">},</span>
+    <span class="p">);</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Response status: </span><span class="si">${response.statusCode}</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">turnOffLED</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="na">post</span><span class="p">(</span>
+      <span class="kt">Uri</span><span class="o">.</span><span class="na">parse</span><span class="p">(</span><span class="s">'http://&lt;ESP32_IP_ADDRESS&gt;/led'</span><span class="p">),</span>
+      <span class="nl">body:</span> <span class="p">{</span><span class="s">'state'</span><span class="o">:</span> <span class="s">'off'</span><span class="p">},</span>
+    <span class="p">);</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Response status: </span><span class="si">${response.statusCode}</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In these functions, we pass the IP address of the ESP32 board as a parameter and then use it to construct the URL. We replace <ESP32_IP_ADDRESS> with the actual IP address of the ESP32 board.</ESP32_IP_ADDRESS></p>
+
+<p>To create the user interface, we can create a new class that extends the StatefulWidget class. In the build method, we can create a Scaffold widget with an AppBar and two ElevatedButton widgets that call the turnOnLED and turnOffLED functions when pressed.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LEDControlApp</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">ipAddress</span><span class="p">;</span>
+
+  <span class="n">LEDControlApp</span><span class="p">({</span><span class="kd">required</span> <span class="k">this</span><span class="o">.</span><span class="na">ipAddress</span><span class="p">});</span>
+
+  <span class="nd">@override</span>
+  <span class="n">_LEDControlAppState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_LEDControlAppState</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">_LEDControlAppState</span> <span class="kd">extends</span> <span class="n">State</span><span class="p">&lt;</span><span class="n">LEDControlApp</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
+      <span class="nl">title:</span> <span class="s">'LED Control'</span><span class="p">,</span>
+      <span class="nl">home:</span> <span class="n">Scaffold</span><span class="p">(</span>
+        <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+          <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'LED Control'</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+          <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+            <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="o">.</span><span class="na">center</span><span class="p">,</span>
+            <span class="nl">children:</span> <span class="p">&lt;</span><span class="n">Widget</span><span class="p">&gt;[</span>
+              <span class="n">ElevatedButton</span><span class="p">(</span>
+                <span class="nl">onPressed:</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">turnOnLED</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="na">ipAddress</span><span class="p">),</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'Turn On'</span><span class="p">),</span>
+              <span class="p">),</span>
+              <span class="n">ElevatedButton</span><span class="p">(</span>
+                <span class="nl">onPressed:</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">turnOffLED</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="na">ipAddress</span><span class="p">),</span>
+                <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s">'Turn Off'</span><span class="p">),</span>
+              <span class="p">),</span>
+            <span class="p">],</span>
+          <span class="p">),</span>
+        <span class="p">),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In this class, we define a constructor that takes the IP address of the ESP32 board as a parameter. In the build method, we pass this IP address to the turnOnLED and turnOffLED functions when the buttons are pressed. We use an anonymous function to wrap the function calls in order to pass the IP address as a parameter.</p>
+
+<p>To use this class, we can create an instance of it and pass the IP address of the ESP32 board as a parameter:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">runApp</span><span class="p">(</span><span class="n">LEDControlApp</span><span class="p">(</span><span class="nl">ipAddress:</span> <span class="s">'&lt;ESP32_IP_ADDRESS&gt;'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We replace <ESP32_IP_ADDRESS> with the actual IP address of the ESP32 board. When we run this app, we will see a screen with two buttons that allow us to turn the LED on and off.</ESP32_IP_ADDRESS></p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Throughout the project, we explored some of the basic features of the ESP32 microcontroller, such as controlling a single LED, adding a push button to toggle the LED on and off, and using pulse-width modulation to create different lighting effects. We then added Wi-Fi connectivity and created a web interface to control the LED remotely.</p>
+
+<p>Finally, we showed how to control the LED through a Flutter app by sending HTTP requests to the ESP32 web server using the http package. The simple UI with two buttons to turn the LED on and off provides a convenient way to remotely control the LED. This demonstrates how the ESP32 can be integrated into mobile applications and can be a useful tool for home automation and remote monitoring systems. The ESP32 LED Control project is an excellent starting point for anyone interested in learning about the possibilities of the ESP32 microcontroller.</p>
+
+<p>The ESP32 LED Control project serves to demonstrate my ability to integrate hardware and software to create a functional system, and showcases the versatility of the Arduino IDE in programming different microcontrollers, including the ESP32. This project will serve as a valuable addition to my portfolio and will highlight my skills in embedded systems design and programming. It is also an excellent starting point for anyone interested in learning about the possibilities of the ESP32 microcontroller.</p>]]></content><author><name>David Coldeira</name></author><category term="embedded" /><category term="ESP32" /><category term="C++" /><category term="electronics" /><summary type="html"><![CDATA[This project shows some of the features of the powerful ESP32 microcontroller. Starting with a simple LED circuit, we demonstrate how to control it using code and how to toggle it on and off with a push button. We then use pulse-width modulation (PWM) to control the LED’s brightness and create various lighting effects.]]></summary></entry></feed>
