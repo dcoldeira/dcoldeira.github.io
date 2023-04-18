@@ -25,7 +25,7 @@ To complete this project, I used the following materials:
 
 
 <p align="center">
-  <img src="/assets/images/post1/1.jpg/" width="250" height="250">
+  <img src="/assets/images/post1/1.jpg/">
 </p>
 
 # 1.2 Circuit Diagram 
@@ -56,7 +56,7 @@ To complete this project, I used the following materials:
 Everything was connected as per the diagram above, pin 2 was used on the ESP32 board.
 
 <p align="center">
-  <img src="/assets/images/post1/2.jpg/" width="250" height="250">
+  <img src="/assets/images/post1/2.jpg/" >
 </p>
 
 
@@ -157,7 +157,7 @@ So the code turns the LED on and off every second indefinitely.
 ```
 
 <p align="center">
-  <img src="/assets/images/post1/3.jpg/" width="250" height="250">
+  <img src="/assets/images/post1/3.jpg/">
 </p>
 
 
@@ -263,7 +263,7 @@ With these changes, the LED should now toggle its state whenever the push button
  ```
 
 <p align="center">
-  <img src="/assets/images/post1/4.jpg/" width="250" height="250">
+  <img src="/assets/images/post1/4.jpg/" >
 </p>
 
 
@@ -440,7 +440,7 @@ The loop() function simply handles incoming client requests.
 In the browser, we now should be able to control the LED from the server. 
 
 <p align="center">
-  <img src="/assets/images/post1/5.png/" width="300" height="300">
+  <img src="/assets/images/post1/5.png/" >
 </p>
 
 
