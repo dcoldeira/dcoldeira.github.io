@@ -38,6 +38,11 @@ To program and debug the WROOM-32D board, we will be using Visual Studio Code an
 - Smartphone with Bluetooth connectivity
 - VS Code
 
+<p align="center">
+  <img src="{{ '/assets/images/post3/1.jpg/' | relative_url }}" width="250" height="250">
+</p>
+
+
 # Setup
 
 1. Connect the anode (+) of the LED to the GPIO pin 13 on the ESP32 board and the cathode (-) to a 220Ω resistor.
