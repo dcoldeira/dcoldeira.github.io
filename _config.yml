@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "David Coldeira"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am a highly motivated software developer with a degree in Science (Physics) and a passion for embedded systems and C++ programming. My background includes experience in mobile application development with Dart and Flutter, and I have recently transitioned into the world of embedded systems. My goal is to continue expanding my knowledge and expertise in the field and create practical projects that demonstrate my skills."
+  bio              : "I am a highly motivated software developer with a degree in Science (Physics) and a passion for embedded systems and C++ programming. My background includes experience in mobile application development with Dart and Flutter, and I have recently transitioned into the world of embedded systems. My goal is to continue expanding my knowledge and expertise in the field by creating practical projects..."
   location         : "Bristol"
   email            :
   links:
