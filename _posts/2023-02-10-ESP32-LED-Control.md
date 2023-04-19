@@ -56,9 +56,8 @@ To complete this project, I used the following materials:
 Everything was connected as per the diagram above, pin 2 was used on the ESP32 board.
 
 <p align="center">
-  <img src="/assets/images/post1/2.jpg/" width="250" height="250">
+  <img src="{{ '/assets/images/post1/2.jpg/' | relative_url }}" width="250" height="250">
 </p>
-
 
 # 1.3 Arduino IDE
 
@@ -156,8 +155,9 @@ So the code turns the LED on and off every second indefinitely.
 
 ```
 
+
 <p align="center">
-  <img src="/assets/images/post1/3.jpg/" width="250" height="250">
+  <img src="{{ '/assets/images/post1/3.jpg/' | relative_url }}" width="250" height="250">
 </p>
 
 
@@ -262,8 +262,9 @@ With these changes, the LED should now toggle its state whenever the push button
 
  ```
 
+
 <p align="center">
-  <img src="/assets/images/post1/4.jpg/" width="250" height="250">
+  <img src="{{ '/assets/images/post1/4.jpg/' | relative_url }}" width="250" height="250">
 </p>
 
 
@@ -439,10 +440,11 @@ The loop() function simply handles incoming client requests.
 
 In the browser, we now should be able to control the LED from the server. 
 
-<p align="center">
-  <img src="/assets/images/post1/5.png/" width="300" height="300">
-</p>
 
+
+<p align="center">
+  <img src="{{ '/assets/images/post1/5.png/' | relative_url }}" width="3300" height="300">
+</p>
 
 # A Flutter app to control the LED
 
