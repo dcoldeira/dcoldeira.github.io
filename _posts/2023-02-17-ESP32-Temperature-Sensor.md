@@ -31,8 +31,9 @@ To complete this project, we will need the following materials:
 - Jumper wires
 - Breadboard
 
+
 <p align="center">
-  <img src="/assets/images/post2/1.jpg/" width="250" height="250">
+  <img src="{{ '/assets/images/post2/1.jpg/' | relative_url }}" width="250" height="250">
 </p>
 
 
@@ -44,8 +45,9 @@ To complete this project, we will need the following materials:
 4. Connect the SCL pin on the BMP180 sensor to the SCL pin on the ESP32 board (GPIO 22).
 5. Connect the Wi-Fi module to the ESP32 board by following the manufacturer's instructions.
 
+
 <p align="center">
-  <img src="/assets/images/post2/2.jpg/" width="250" height="250">
+  <img src="{{ '/assets/images/post2/2.jpg/' | relative_url }}" width="250" height="250">
 </p>
 
 ## Programming
@@ -164,6 +166,13 @@ In the setup() function, the program initializes the serial communication, conne
 In the loop() function, the program handles incoming web requests and reads the temperature and pressure from the BMP180 sensor. It then prints these readings to the serial monitor and waits for a second before taking the next reading.
 
 The handleRoot() function builds an HTML page with the temperature and pressure readings displayed in a centered, nicely formatted layout. It then sends this page to the client when the root path is requested.
+
+
+<p align="center">
+  <img src="{{ '/assets/images/post2/3.png/' | relative_url }}" width="400" height="400">
+</p>
+
+
 
 ## Conclusion
 
