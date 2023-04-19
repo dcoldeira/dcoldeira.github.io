@@ -33,7 +33,7 @@ To complete this project, we will need the following materials:
 
 
 <p align="center">
-  <img src="{{ '/assets/images/post2/1.jpg/' | relative_url }}" width="250" height="250">
+  <img src="{{ '/assets/images/post2/1.jpg' | relative_url }}" width="250" height="250">
 </p>
 
 
@@ -47,7 +47,7 @@ To complete this project, we will need the following materials:
 
 
 <p align="center">
-  <img src="{{ '/assets/images/post2/2.jpg/' | relative_url }}" width="250" height="250">
+  <img src="{{ '/assets/images/post2/2.jpg' | relative_url }}" width="250" height="250">
 </p>
 
 ## Programming
@@ -169,7 +169,7 @@ The handleRoot() function builds an HTML page with the temperature and pressure 
 
 
 <p align="center">
-  <img src="{{ '/assets/images/post2/3.png/' | relative_url }}" width="400" height="400">
+  <img src="{{ '/assets/images/post2/3.png' | relative_url }}" width="400" height="400">
 </p>
 
 

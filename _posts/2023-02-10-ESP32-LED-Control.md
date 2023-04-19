@@ -443,7 +443,7 @@ In the browser, we now should be able to control the LED from the server.
 
 
 <p align="center">
-  <img src="{{ '/assets/images/post1/5.png' | relative_url }}" width="3300" height="300">
+  <img src="{{ '/assets/images/post1/5.png' | relative_url }}" width="300" height="300">
 </p>
 
 # A Flutter app to control the LED
