@@ -39,9 +39,9 @@ To program and debug the WROOM-32D board, we will be using Visual Studio Code an
 - VS Code
 
 <p align="center">
-  <img src="{{ '/assets/images/post3/1.jpg/' | relative_url }}" width="250" height="250">
+  <img src="{{ '/assets/images/post3/1.jpg' | relative_url }}" width="250" height="250">
 </p>
-  
+
 
 # Setup
 
