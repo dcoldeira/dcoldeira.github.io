@@ -1,7 +1,7 @@
 ---
-title: "Weather Station with ESP32 WROOM 32D and BMP180 Sensor"
+title: "Weather Station with ESP32 - Part I"
 layout: single
-date: 2023-04-16
+date: 2023-03-16
 categories:
   - projects
 tags:
@@ -16,11 +16,7 @@ In this project, we have built a weather station using an ESP32 board and a BMP1
 
 The ESP32 board measures temperature and pressure, and the data is displayed on a web-based dashboard that can be accessed remotely from any device with internet access. This project can be used to monitor weather conditions in a specific location and can be expanded to include other sensors like humidity or wind speed in the future.
 
-While this project is not intended to be a tutorial, we have documented our process and provided the  complete [project repository](https://github.com/dcoldeira/ESP32-IoT-Weather-Station), including source code and documentation, on GitHub. This project can serve as an excellent addition to our portfolio, showcasing our skills in programming and hardware design.
-
-Furthermore, this project can be expanded in many ways as we shall see in outcoming posts, such as adding more sensors to measure other weather parameters like humidity and wind speed, or modifying it to send alerts or notifications based on specific conditions. This versatility makes it an excellent platform for further experimentation and exploration.
-
-Overall, this weather station project demonstrates our ability to design and implement complex systems that integrate hardware and software components to achieve a specific goal. We hope that it can serve as an example of our capabilities to potential employers and inspire future projects that leverage the power of IoT technologies.
+While this project is not intended to be a tutorial, we have documented our process and provided the  complete [project repository](https://github.com/dcoldeira/ESP32-IoT-Weather-Station), including source code and documentation, on GitHub. as this is part one of a larger project. We plan to explore further and expand the project by adding new features such as connecting a display module, adding more sensors to measure other weather parameters like humidity and wind speed, and adding alerts or notifications based on specific conditions. All these change will be updated on the repository.
 
 ## Materials
 
