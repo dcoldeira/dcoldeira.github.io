@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Weather Station with ESP32 - Part I - C++ Circuits</title>
-<meta name="description" content="In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.">
+<!-- begin _includes/seo.html --><title>Weather Station with ESP32 - Part II - C++ Circuits</title>
+<meta name="description" content="In the previous post, we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.">
 
 
   <meta name="author" content="David Coldeira">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="C++ Circuits">
-<meta property="og:title" content="Weather Station with ESP32 - Part I">
-<meta property="og:url" content="http://localhost:4000/projects/ESP32-Temperature-Sensor/">
+<meta property="og:title" content="Weather Station with ESP32 - Part II">
+<meta property="og:url" content="http://localhost:4000/projects/XTVTX-module-weather-station-II/">
 
 
-  <meta property="og:description" content="In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2023-03-16T00:00:00+00:00">
+  <meta property="og:description" content="In the previous post, we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2023-04-03T00:00:00+01:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/projects/ESP32-Temperature-Sensor/">
+
+<link rel="canonical" href="http://localhost:4000/projects/XTVTX-module-weather-station-II/">
 
 
 
@@ -252,16 +252,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Weather Station with ESP32 - Part I">
-    <meta itemprop="description" content="In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.">
-    <meta itemprop="datePublished" content="2023-03-16T00:00:00+00:00">
+    <meta itemprop="headline" content="Weather Station with ESP32 - Part II">
+    <meta itemprop="description" content="In the previous post, we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.">
+    <meta itemprop="datePublished" content="2023-04-03T00:00:00+01:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/projects/ESP32-Temperature-Sensor/" class="u-url" itemprop="url">Weather Station with ESP32 - Part I
+            <a href="http://localhost:4000/projects/XTVTX-module-weather-station-II/" class="u-url" itemprop="url">Weather Station with ESP32 - Part II
 </a>
           </h1>
           
@@ -278,7 +278,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          4 minute read
+          5 minute read
         
       </span>
     
@@ -290,68 +290,75 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.</p>
+        <p>In the <a href="https://dcoldeira.github.io/projects/ESP32-Temperature-Sensor/">previous post,</a> we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.</p>
 
-<p>The ESP32 board measures temperature and pressure, and the data is displayed on a web-based dashboard that can be accessed remotely from any device with internet access. This project can be used to monitor weather conditions in a specific location and can be expanded to include other sensors like humidity or wind speed in the future.</p>
+<p>To make it easy to check the readings from the sensor, we created a web-based dashboard using the ESP32’s built-in WiFi capabilities. This dashboard allows us to view the current temperature and pressure readings, as well as historical readings over time.</p>
 
-<p>While this project is not intended to be a tutorial, we have documented our process and provided the  complete <a href="https://github.com/dcoldeira/ESP32-IoT-Weather-Station">project repository</a>, including source code and documentation, on GitHub. as this is part one of a larger project. We plan to explore further and expand the project by adding new features such as connecting a display module, adding more sensors to measure other weather parameters like humidity and wind speed, and adding alerts or notifications based on specific conditions. All these change will be updated on the repository.</p>
+<p>However, we also wanted to have a physical display that we could use to check the sensor readings without having to access the web-based dashboard. To achieve this, we decided to integrate a 0.96 OLED module to display the sensor readings directly on the screen.</p>
 
-<h2 id="materials">Materials</h2>
+<p>With this integration, we can now view the sensor readings both on the web-based dashboard and on the OLED screen. This makes it easy to check the weather conditions at a glance, whether we are sitting at our desk or out and about.</p>
 
-<p>To complete this project, we will need the following materials:</p>
+<h1 id="aditional-materials">Aditional Materials</h1>
 
 <ul>
-  <li>ESP32-WROOM-D32 board</li>
-  <li>BMP180 sensor</li>
-  <li>Jumper wires</li>
-  <li>Breadboard</li>
+  <li>0.96 inch OLED module</li>
 </ul>
 
 <p align="center">
-  <img src="/assets/images/post2/1.jpg" width="250" height="250" />
+  <img src="/assets/images/post4/1.jpg" width="250" height="250" />
 </p>
 
-<h2 id="setup">Setup</h2>
+<h1 id="setup">Setup</h1>
+
+<p>Here are the steps to connect the OLED module to your ESP32 board:</p>
 
 <ol>
-  <li>Connect the GND pin on the BMP180 sensor to the GND pin on the ESP32 board.</li>
-  <li>Connect the VCC pin on the BMP180 sensor to the 3.3V pin on the ESP32 board.</li>
-  <li>Connect the SDA pin on the BMP180 sensor to the SDA pin on the ESP32 board (GPIO 21).</li>
-  <li>Connect the SCL pin on the BMP180 sensor to the SCL pin on the ESP32 board (GPIO 22).</li>
-  <li>Connect the Wi-Fi module to the ESP32 board by following the manufacturer’s instructions.</li>
+  <li>Connect the OLED module’s VCC pin to the 3.3V pin on the ESP32 board.</li>
+  <li>Connect the OLED module’s GND pin to the GND pin on the ESP32 board.</li>
+  <li>Connect the OLED module’s SDA pin to the SDA pin on the ESP32 board (GPIO 21).</li>
+  <li>Connect the OLED module’s SCL pin to the SCL pin on the ESP32 board (GPIO 22).</li>
 </ol>
 
-<p align="center">
-  <img src="/assets/images/post2/2.jpg" width="250" height="250" />
-</p>
+<p>Once we have made these connections, we can use the Adafruit_SSD1306 library to display text and graphics on the OLED module.</p>
 
-<h2 id="programming">Programming</h2>
+<h1 id="programming">Programming</h1>
 
-<p>We will be using VS code with the PlatformIO IDE extension which I have already installed.</p>
+<p>In order to continue with our weather station project, we need to add the <code class="language-plaintext highlighter-rouge">Adafruit_GFX</code> and <code class="language-plaintext highlighter-rouge">Adafruit_SSD1306</code> libraries. These libraries provide the necessary functions to display sensor data on a small OLED module:</p>
 
 <ol>
-  <li>Create a new project in VS Code by selecting “PlatformIO Home” from the sidebar, clicking “New Project,” and selecting the ESP32 board as the target platform.</li>
-  <li>To include the Adafruit_BMP085_Library and the HTTPClient libraries in our project, we need to open the platformio.ini file located in the root directory of the project. Then, we should add the following lines under the [env:esp32] section:</li>
+  <li>Open the PlatformIO IDE and navigate to the “Libraries” tab on the left-hand side.</li>
+  <li>In the search bar, search for “Adafruit GFX Library” and click on the first result.</li>
+  <li>Click on the “Install” button and wait for the installation process to complete.</li>
+  <li>Repeat steps 2 and 3 for the “Adafruit SSD1306” library.</li>
+  <li>Once the libraries are installed, open the ‘PlatformIO.ini’ file and add the following lines of code to the [env:d1_mini] section:</li>
 </ol>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   lib_deps =
-     Adafruit BMP085 Library
-     HTTPClient
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib_deps =
+  ...
+  ...
+  Adafruit GFX Library
+  Adafruit SSD1306
 </code></pre></div></div>
+<ol>
+  <li>Save the file and the libraries should now be added to the project.</li>
+</ol>
 
-<p>We then open the src/main.cpp file and replace the existing code with the following code:</p>
+<p>With the required libraries installed and added to the project, we can now move on to integrating the OLED module and displaying the sensor values on the screen.</p>
 
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;Wire.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_GFX.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_SSD1306.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;Adafruit_Sensor.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;Adafruit_BMP085.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;WiFi.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;WebServer.h&gt;</span><span class="cp">
-#define BMP085_ADDRESS 0x76
 #include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;WiFiClientSecure.h&gt;</span><span class="cp">
 </span>
+<span class="cp">#define BMP085_ADDRESS 0x76
+</span>
 <span class="c1">// Replace with your network credentials</span>
-<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"XXX"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"xxx"</span><span class="p">;</span>
 <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"xxx"</span><span class="p">;</span>
 
 <span class="c1">// Create an instance of the BMP180 sensor</span>
@@ -359,6 +366,9 @@
 
 <span class="c1">// Create an instance of the WebServer</span>
 <span class="n">WebServer</span> <span class="nf">server</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+<span class="c1">// Create an instance of the OLED display</span>
+<span class="n">Adafruit_SSD1306</span> <span class="nf">display</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Wire</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
 <span class="c1">// Function prototype for handleRoot()</span>
 <span class="kt">void</span> <span class="nf">handleRoot</span><span class="p">();</span>
@@ -384,9 +394,27 @@
     <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
 
+  <span class="c1">// Initialize the OLED display</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">display</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SSD1306_SWITCHCAPVCC</span><span class="p">,</span> <span class="mh">0x3C</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"SSD1306 allocation failed"</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(;;);</span>
+  <span class="p">}</span>
+
   <span class="c1">// Serve the web page</span>
   <span class="n">server</span><span class="p">.</span><span class="n">on</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">handleRoot</span><span class="p">);</span>
   <span class="n">server</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+
+  <span class="c1">// Display a message on the OLED screen</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextSize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="n">WHITE</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Weather Station"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"with ESP32 WROOM"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"and BMP180 Sensor"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
@@ -404,6 +432,19 @@
   <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Pressure = "</span><span class="p">);</span>
   <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">pressure</span><span class="p">);</span>
   <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" hPa"</span><span class="p">);</span>
+
+  <span class="c1">// Display the readings on the OLED screen</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextSize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="n">WHITE</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Temp: "</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" C"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Pressure: "</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">pressure</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" hPa"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
 
   <span class="c1">// Wait for a second before taking the next reading</span>
   <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
@@ -429,25 +470,48 @@
   <span class="n">server</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">"text/html"</span><span class="p">,</span> <span class="n">html</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>This is a program serves a web page with the temperature and pressure readings from the sensor.</p>
 
-<p>The program starts by including the necessary libraries for the BMP180 sensor, the WiFi module, and the web server. It also defines the BMP180 sensor address and the WiFi network credentials.</p>
+<p>In the loop function, we also use the <code class="language-plaintext highlighter-rouge">display</code> object of the Adafruit_SSD1306 class so we can display the readings of the sensor on our little screen, however we can definitelly improve it by implementing some designing and making fonts bigger etc by using the methods on this class:</p>
 
-<p>Then, it creates an instance of the BMP180 sensor and the web server. It also defines the function prototype for handleRoot(), which will handle the web page request.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Start the serial communication</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
 
-<p>In the setup() function, the program initializes the serial communication, connects to the WiFi network, and prints the IP address of the board. It also initializes the BMP180 sensor and checks if it is working properly. Finally, it sets up the web server to serve the root path (“/”) with the handleRoot() function and starts it.</p>
+  <span class="c1">// Connect to Wi-Fi network</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Connecting to WiFi..."</span><span class="p">);</span>
+  <span class="p">}</span>
 
-<p>In the loop() function, the program handles incoming web requests and reads the temperature and pressure from the BMP180 sensor. It then prints these readings to the serial monitor and waits for a second before taking the next reading.</p>
+  <span class="c1">// Print the IP address of the board</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"IP address: "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span>
 
-<p>The handleRoot() function builds an HTML page with the temperature and pressure readings displayed in a centered, nicely formatted layout. It then sends this page to the client when the root path is requested.</p>
+  <span class="c1">// Initialize the BMP180 sensor</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bmp</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">BMP085_ADDRESS</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Could not find a valid BMP085 sensor, check wiring!"</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
 
-<p align="center">
-  <img src="/assets/images/post2/3.png" width="400" height="400" />
-</p>
+  <span class="c1">//xzvtx 0.96 inch OLED Module display added</span>
+  <span class="n">Wire</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+  <span class="n">Adafruit_SSD1306</span> <span class="nf">display</span><span class="p">(</span><span class="n">SSD1306_SWITCHCAPVCC</span><span class="p">,</span> <span class="mh">0x3C</span><span class="p">);</span> <span class="c1">// 0x3C is the I2C address of the OLED module</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// Set the text size to 3</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="n">WHITE</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">((</span><span class="n">display</span><span class="p">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">display</span><span class="p">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="mi">24</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// Position the text in the center</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Hello world!"</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+<span class="p">}</span>
 
-<h2 id="conclusion">Conclusion</h2>
 
-<p>We have successfully built a weather station using an ESP32 WROOM 32D board and a BMP180 sensor. The project involved setting up the hardware, programming the board to read temperature and pressure data from the sensor, and displaying the data on a web-based dashboard. This project serves as a great introduction to IoT and can be expanded to include other sensors to monitor additional weather conditions. By using the code and instructions provided in this project, you can create your own weather station that can be accessed remotely from any device with internet access.</p>
+</code></pre></div></div>
+
+<p>In the above code, we set the text size to 3 by calling display.setTextSize(3) and position the text in the center of the screen by calculating the X and Y coordinates of the center of the screen using the width() and height() methods of the Adafruit_SSD1306 class, respectively.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>we have successfully built a weather station using an ESP32 board and a BMP180 sensor, and we have added a 0.96 inch OLED module to display the temperature and pressure readings on the screen. By integrating the capabilities of the ESP32 board, BMP180 sensor, and the OLED display, we have created a custom weather station that is tailored to our specific needs. Additionally, we have created a web-based dashboard that allows us to remotely monitor the sensor values from anywhere with an internet connection. This project is a great example of how the combination of hardware and software can be used to create innovative solutions to real-world problems. With some basic knowledge of electronics and programming, anyone can create their own custom weather station or similar projects</p>
 
         
       </section>
@@ -495,7 +559,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2023-03-16T00:00:00+00:00">March 16, 2023</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2023-04-03T00:00:00+01:00">April 3, 2023</time></p>
 
       </footer>
 
@@ -504,23 +568,22 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Weather+Station+with+ESP32+-+Part+I%20http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-Temperature-Sensor%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Weather+Station+with+ESP32+-+Part+II%20http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FXTVTX-module-weather-station-II%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-Temperature-Sensor%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FXTVTX-module-weather-station-II%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-Temperature-Sensor%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FXTVTX-module-weather-station-II%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/projects/Building-Embedded-Systems-with-Dart-and-Flutter/" class="pagination--pager" title="IoT Smart Light using an ESP32 and Flutter
+      <a href="/projects/ESP32-Temperature-Sensor/" class="pagination--pager" title="Weather Station with ESP32 - Part I
 ">Previous</a>
     
     
-      <a href="/projects/XTVTX-module-weather-station-II/" class="pagination--pager" title="Weather Station with ESP32 - Part II
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -544,7 +607,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/projects/XTVTX-module-weather-station-II/" rel="permalink">Weather Station with ESP32 - Part II
+        <a href="/projects/ESP32-Temperature-Sensor/" rel="permalink">Weather Station with ESP32 - Part I
 </a>
       
     </h2>
@@ -562,14 +625,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          5 minute read
+          4 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">In the previous post, we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependabl...</p>
+    <p class="archive__item-excerpt" itemprop="description">In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored t...</p>
   </article>
 </div>
 
