@@ -20,7 +20,7 @@ However, we also wanted to have a physical display that we could use to check th
 
 With this integration, we can now view the sensor readings both on the web-based dashboard and on the OLED screen. This makes it easy to check the weather conditions at a glance, whether we are sitting at our desk or out and about.
 
-# Aditional Materials
+## Aditional Materials
 
 - 0.96 inch OLED module
 
@@ -29,7 +29,7 @@ With this integration, we can now view the sensor readings both on the web-based
 </p>
 
 
-# Setup
+## Setup
 
 Here are the steps to connect the OLED module to your ESP32 board:
 
@@ -41,7 +41,7 @@ Here are the steps to connect the OLED module to your ESP32 board:
 Once we have made these connections, we can use the Adafruit_SSD1306 library to display text and graphics on the OLED module.
 
 
-# Programming 
+## Programming 
 
 In order to continue with our weather station project, we need to add the `Adafruit_GFX` and `Adafruit_SSD1306` libraries. These libraries provide the necessary functions to display sensor data on a small OLED module:
 
@@ -232,5 +232,5 @@ void setup() {
 
 In the above code, we set the text size to 3 by calling display.setTextSize(3) and position the text in the center of the screen by calculating the X and Y coordinates of the center of the screen using the width() and height() methods of the Adafruit_SSD1306 class, respectively. 
 
-# Conclusion
+## Conclusion
  we have successfully built a weather station using an ESP32 board and a BMP180 sensor, and we have added a 0.96 inch OLED module to display the temperature and pressure readings on the screen. By integrating the capabilities of the ESP32 board, BMP180 sensor, and the OLED display, we have created a custom weather station that is tailored to our specific needs. Additionally, we have created a web-based dashboard that allows us to remotely monitor the sensor values from anywhere with an internet connection. This project is a great example of how the combination of hardware and software can be used to create innovative solutions to real-world problems. With some basic knowledge of electronics and programming, anyone can create their own custom weather station or similar projects
