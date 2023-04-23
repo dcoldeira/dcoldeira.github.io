@@ -278,7 +278,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          8 minute read
         
       </span>
     
@@ -290,7 +290,7 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <h1 id="dart-and-flutter-for-embedded-systems">Dart and Flutter for Embedded Systems</h1>
+        <h2 id="dart-and-flutter-for-embedded-systems">Dart and Flutter for Embedded Systems</h2>
 
 <p>Dart is a modern, object-oriented programming language created by Google. It’s fast, efficient, and easy to learn. Flutter, on the other hand, is a UI toolkit built on top of Dart that allows you to create beautiful, native applications for mobile, web, and desktop.</p>
 
@@ -298,7 +298,7 @@
 
 <p>Another benefit is the fact that Dart and Flutter are open source, which means that there are many libraries and resources available for developers to use. This can significantly reduce development time and effort, as well as allow for greater collaboration and knowledge-sharing within the developer community.</p>
 
-<h1 id="using-the-esp32-with-dart-and-flutter">Using the ESP32 with Dart and Flutter</h1>
+<h2 id="using-the-esp32-with-dart-and-flutter">Using the ESP32 with Dart and Flutter</h2>
 
 <p>The ESP32 is a powerful chip that includes built-in Wi-Fi and Bluetooth capabilities. It’s often used in IoT devices, wearables, and robotics, among other applications. By combining the ESP32 with Dart and Flutter, developers can create powerful and flexible embedded systems with rich user interfaces.</p>
 
@@ -308,7 +308,7 @@
 
 <p>To program and debug the WROOM-32D board, we will be using Visual Studio Code and the PlatformIO plugin. This IDE supports a wide range of ESP32 boards, including the WROOM-32D, making it easy to get started with our project. If you run into any issues during the setup or programming process, don’t hesitate to ask for further assistance.</p>
 
-<h1 id="materials">Materials</h1>
+<h2 id="materials">Materials</h2>
 
 <ul>
   <li>ESP32 WROOM D32 development board</li>
@@ -325,43 +325,16 @@
   <img src="/assets/images/post3/1.jpg" width="250" height="250" />
 </p>
 
-<h1 id="setup">Setup</h1>
+<h2 id="setup">Setup</h2>
 
 <ol>
   <li>Connect the anode (+) of the LED to the GPIO pin 13 on the ESP32 board and the cathode (-) to a 220Ω resistor.</li>
-</ol>
-
-<p>The anode of the LED is connected to the GPIO pin 13 on the ESP32 board, which will allow us to control the LED using software. The cathode of the LED is connected to a 220Ω resistor, which is used to limit the amount of current that flows through the LED and prevent it from burning out.</p>
-
-<ol>
   <li>Connect the other end of the 220Ω resistor to ground.</li>
-</ol>
-
-<p>The other end of the 220Ω resistor is connected to ground, which provides a path for the current to flow through the LED when it is turned on.</p>
-
-<ol>
   <li>Connect one end of the photoresistor to the 3.3V pin on the board.</li>
-</ol>
-
-<p>The photoresistor is a type of resistor that changes its resistance based on the amount of light that falls on it. One end of the photoresistor is connected to the 3.3V pin on the board, which will provide a reference voltage for measuring the resistance of the photoresistor.</p>
-
-<ol>
   <li>Connect the other end of the photoresistor to a 10kΩ resistor.</li>
-</ol>
-
-<p>The other end of the photoresistor is connected to a 10kΩ resistor, which is used to form a voltage divider with the photoresistor. The voltage at the junction between the photoresistor and the 10kΩ resistor will vary based on the resistance of the photoresistor, which in turn depends on the amount of light falling on it.</p>
-
-<ol>
   <li>Connect the other end of the 10kΩ resistor to the GPIO pin 12 on the board.</li>
-</ol>
-
-<p>The other end of the 10kΩ resistor is connected to GPIO pin 12 on the board, which will be used to measure the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
-
-<ol>
   <li>Connect the ground pin on the board to the other end of the 10kΩ resistor.</li>
 </ol>
-
-<p>Finally, the ground pin on the board is connected to the other end of the 10kΩ resistor, which provides a reference for measuring the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                      +3.3V
                                          |
@@ -399,7 +372,7 @@ GND -------------------------------------+
 
 </code></pre></div></div>
 
-<h1 id="programming">Programming</h1>
+<h2 id="programming">Programming</h2>
 
 <p>This is the C++ code that we have to upload into the board:</p>
 
@@ -475,7 +448,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
 
 <p>The loop function is defined, which reads the value of the photoresistor using the analogRead function, maps the sensorValue from 0-4095 to 0-255, which is the range of brightness for the LED, and updates the LED brightness using the analogWrite function. The function then waits for 50 milliseconds before repeating.</p>
 
-<h1 id="mobile-application">Mobile Application</h1>
+<h2 id="mobile-application">Mobile Application</h2>
 
 <p>In this section we explain how to build an example Flutter app that controls the IoT Smart Light. In this example we are using the flutter_blue_plus library to communicate with the ESP32 over Bluetooth and control the LED brightness using the photoresistor:</p>
 
@@ -668,6 +641,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
   <span class="p">}</span>
 
 </code></pre></div></div>
+
 <p>The MyHomePage widget is a stateful widget that defines the UI of the home screen. It has a <code class="language-plaintext highlighter-rouge">BluetoothDevice</code> variable <code class="language-plaintext highlighter-rouge">_device</code>, a <code class="language-plaintext highlighter-rouge">BluetoothCharacteristic</code> variable <code class="language-plaintext highlighter-rouge">_characteristic</code>, a boolean variable <code class="language-plaintext highlighter-rouge">_isConnected</code> to keep track of the connection status, a boolean variable <code class="language-plaintext highlighter-rouge">_isOn</code> to keep track of the light’s on/off status, and an integer variable <code class="language-plaintext highlighter-rouge">_brightness</code> to keep track of the light’s brightness level.</p>
 
 <p>There are several functions defined within the <code class="language-plaintext highlighter-rouge">_MyHomePageState</code> class, including <code class="language-plaintext highlighter-rouge">_connectToDevice()</code>, <code class="language-plaintext highlighter-rouge">_disconnectFromDevice()</code>, <code class="language-plaintext highlighter-rouge">_toggleLight()</code>, and <code class="language-plaintext highlighter-rouge">_updateBrightness()</code>.</p>
@@ -684,7 +658,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
 
 <p>The <code class="language-plaintext highlighter-rouge">sendOnMessageToBluetooth()</code> and <code class="language-plaintext highlighter-rouge">sendOffMessageToBluetooth()</code> functions are used to send messages to the connected device to turn the light on or off, respectively. They are called when the user taps the corresponding <code class="language-plaintext highlighter-rouge">ElevatedButton</code> widgets on the UI.</p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>In this project, we have demonstrated how to use Dart and Flutter with an ESP32 board to create an IoT smart light. We have shown how Dart and Flutter can be used to build an intuitive mobile app that communicates with the ESP32 board over Bluetooth and controls the brightness of an LED using a photoresistor.</p>
 
@@ -779,6 +753,45 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
     <div class="page__related">
       <h2 class="page__related-title">You may also enjoy</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/projects/ESP32-light-sensor/" rel="permalink">Weather Station with ESP32 - Part III
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on ...</p>
+  </article>
+</div>
+
         
           
 
@@ -893,45 +906,6 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
 
 
     <p class="archive__item-excerpt" itemprop="description">This project shows some of the features of the powerful ESP32 microcontroller. Starting with a simple LED circuit, we demonstrate how to control it using cod...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/projects/signal-k/" rel="permalink">Navigating the Seas with Signal K and Microcontrollers
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">As technology advances, more and more devices are being connected to the internet and the concept of the Internet of Things (IoT) is becoming increasingly po...</p>
   </article>
 </div>
 

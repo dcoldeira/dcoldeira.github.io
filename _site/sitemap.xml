@@ -21,6 +21,13 @@
 <lastmod>2023-04-03T00:00:00+01:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/projects/ESP32-light-sensor/</loc>
+<lastmod>2023-04-17T00:00:00+01:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 </urlset>

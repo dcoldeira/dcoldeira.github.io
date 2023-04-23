@@ -9,28 +9,32 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>C++ Circuits</title>
-<meta name="description" content="C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one’s skills and knowledge to potential employers in the field.">
+<!-- begin _includes/seo.html --><title>Weather Station with ESP32 - Part III - C++ Circuits</title>
+<meta name="description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
 
 
   <meta name="author" content="David Coldeira">
   
+  <meta property="article:author" content="David Coldeira">
+  
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="C++ Circuits">
-<meta property="og:title" content="C++ Circuits">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="Weather Station with ESP32 - Part III">
+<meta property="og:url" content="http://localhost:4000/projects/ESP32-light-sensor/">
 
 
-  <meta property="og:description" content="C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one’s skills and knowledge to potential employers in the field.">
-
-
-
+  <meta property="og:description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
 
 
 
+
+
+
+
+  <meta property="article:published_time" content="2023-04-17T00:00:00+01:00">
 
 
 
@@ -41,11 +45,9 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/projects/ESP32-light-sensor/">
 
 
-
-  <link rel="next" href="http://localhost:4000/page2/">
 
 
 <script type="application/ld+json">
@@ -94,7 +96,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -131,6 +133,8 @@
 
     <div class="initial-content">
       
+
+
 
 
 
@@ -247,33 +251,20 @@
 
 
 
-  <div class="archive">
-    
-      <h1 id="page-title" class="page__title"></h1>
-    
-    
-
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-
-
-<div class="entries-list">
-  
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Weather Station with ESP32 - Part III">
+    <meta itemprop="description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
+    <meta itemprop="datePublished" content="2023-04-17T00:00:00+01:00">
     
 
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
+    <div class="page__inner-wrap">
       
-        <a href="/projects/ESP32-light-sensor/" rel="permalink">Weather Station with ESP32 - Part III
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/projects/ESP32-light-sensor/" class="u-url" itemprop="url">Weather Station with ESP32 - Part III
 </a>
-      
-    </h2>
-    
+          </h1>
+          
 
   <p class="page__meta">
     
@@ -294,16 +285,134 @@
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on ...</p>
-  </article>
-</div>
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>In this project, we will be building upon the <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous post</a>, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.</p>
+
+<h2 id="materials">Materials</h2>
+
+<ul>
+  <li>Photoresistor</li>
+  <li>10kΩ resistor (for the photoresistor)</li>
+  <li>Active buzzer</li>
+  <li>Push button</li>
+  <li>10kΩ resistor (for the push button)</li>
+</ul>
+
+<p align="center">
+  <img src="/assets/images/post5/1.jpg" width="250" height="250" />
+</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>These are the step to connect the components:</p>
+
+<ol>
+  <li>We Connect the photoresistor to the ESP32 board. We use a resistor as a voltage divider to convert the varying resistance of the photoresistor into a measurable voltage.</li>
+  <li>We then connect the active buzzer and LED to the ESP32 board. Using a transistor to switch the power to the buzzer and LED when a threshold value is reached.</li>
+</ol>
+
+<h2 id="programming">Programming</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">//work in progress</span>
+
+</code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
 
   
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
     
+      <a href="/tags/#bmp180" class="page__taxonomy-item p-category" rel="tag">BMP180</a><span class="sep">, </span>
+    
+      <a href="/tags/#esp32" class="page__taxonomy-item p-category" rel="tag">ESP32</a><span class="sep">, </span>
+    
+      <a href="/tags/#iot" class="page__taxonomy-item p-category" rel="tag">IoT</a><span class="sep">, </span>
+    
+      <a href="/tags/#weather-station" class="page__taxonomy-item p-category" rel="tag">weather station</a>
+    
+    </span>
+  </p>
 
 
 
-<div class="list__item">
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#projects" class="page__taxonomy-item p-category" rel="tag">projects</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2023-04-17T00:00:00+01:00">April 17, 2023</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Weather+Station+with+ESP32+-+Part+III%20http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-light-sensor%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-light-sensor%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprojects%2FESP32-light-sensor%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/projects/XTVTX-module-weather-station-II/" class="pagination--pager" title="Weather Station with ESP32 - Part II
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You may also enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -337,12 +446,12 @@
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -376,12 +485,12 @@
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -416,12 +525,12 @@
   </article>
 </div>
 
-  
-    
+        
+          
 
 
 
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
@@ -455,50 +564,13 @@
   </article>
 </div>
 
+        
+      </div>
+    </div>
+  
   
 </div>
 
-
-<nav class="pagination">
-  
-  <ul>
-    
-    
-    <li><a href="#" class="disabled"><span aria-hidden="true">Previous</span></a></li>
-    
-
-    
-    
-      <li><a href="#" class="disabled current">1</a></li>
-    
-
-    
-    
-
-    
-    
-    
-
-    
-
-    
-    
-
-    
-      <li><a href="/page2/">2</a></li>
-    
-
-    
-    
-      <li><a href="/page2/">Next</a></li>
-    
-  </ul>
-</nav>
-
-
-
-  </div>
-</div>
     </div>
 
     

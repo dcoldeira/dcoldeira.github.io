@@ -7,7 +7,7 @@ tags: [embedded systems, Dart, mobile app, Flutter, ESP32]
 ---
 
 
-# Dart and Flutter for Embedded Systems
+## Dart and Flutter for Embedded Systems
 
 Dart is a modern, object-oriented programming language created by Google. It's fast, efficient, and easy to learn. Flutter, on the other hand, is a UI toolkit built on top of Dart that allows you to create beautiful, native applications for mobile, web, and desktop.
 
@@ -15,7 +15,7 @@ One of the key benefits of using Dart and Flutter in embedded systems is the abi
 
 Another benefit is the fact that Dart and Flutter are open source, which means that there are many libraries and resources available for developers to use. This can significantly reduce development time and effort, as well as allow for greater collaboration and knowledge-sharing within the developer community.
 
-# Using the ESP32 with Dart and Flutter
+## Using the ESP32 with Dart and Flutter
 
 The ESP32 is a powerful chip that includes built-in Wi-Fi and Bluetooth capabilities. It's often used in IoT devices, wearables, and robotics, among other applications. By combining the ESP32 with Dart and Flutter, developers can create powerful and flexible embedded systems with rich user interfaces.
 
@@ -27,7 +27,7 @@ To program and debug the WROOM-32D board, we will be using Visual Studio Code an
 
 
 
-# Materials
+## Materials
 
 - ESP32 WROOM D32 development board
 - LED (5mm)
@@ -43,31 +43,15 @@ To program and debug the WROOM-32D board, we will be using Visual Studio Code an
 </p>
 
 
-# Setup
+## Setup
 
 1. Connect the anode (+) of the LED to the GPIO pin 13 on the ESP32 board and the cathode (-) to a 220Ω resistor.
-
-The anode of the LED is connected to the GPIO pin 13 on the ESP32 board, which will allow us to control the LED using software. The cathode of the LED is connected to a 220Ω resistor, which is used to limit the amount of current that flows through the LED and prevent it from burning out.
-
 2. Connect the other end of the 220Ω resistor to ground.
-
-The other end of the 220Ω resistor is connected to ground, which provides a path for the current to flow through the LED when it is turned on.
-
 3. Connect one end of the photoresistor to the 3.3V pin on the board.
-
-The photoresistor is a type of resistor that changes its resistance based on the amount of light that falls on it. One end of the photoresistor is connected to the 3.3V pin on the board, which will provide a reference voltage for measuring the resistance of the photoresistor.
-
 4. Connect the other end of the photoresistor to a 10kΩ resistor.
-
-The other end of the photoresistor is connected to a 10kΩ resistor, which is used to form a voltage divider with the photoresistor. The voltage at the junction between the photoresistor and the 10kΩ resistor will vary based on the resistance of the photoresistor, which in turn depends on the amount of light falling on it.
-
 5. Connect the other end of the 10kΩ resistor to the GPIO pin 12 on the board.
-
-The other end of the 10kΩ resistor is connected to GPIO pin 12 on the board, which will be used to measure the voltage at the junction between the photoresistor and the 10kΩ resistor.
-
 6. Connect the ground pin on the board to the other end of the 10kΩ resistor.
 
-Finally, the ground pin on the board is connected to the other end of the 10kΩ resistor, which provides a reference for measuring the voltage at the junction between the photoresistor and the 10kΩ resistor.
 
 
 ```
@@ -108,7 +92,7 @@ GND -------------------------------------+
 ```
 
 
-# Programming
+## Programming
 
 This is the C++ code that we have to upload into the board:
 
@@ -186,7 +170,7 @@ The setup function is defined, which initializes the microcontroller, sets the L
 The loop function is defined, which reads the value of the photoresistor using the analogRead function, maps the sensorValue from 0-4095 to 0-255, which is the range of brightness for the LED, and updates the LED brightness using the analogWrite function. The function then waits for 50 milliseconds before repeating.
 
 
-# Mobile Application
+## Mobile Application
 
 In this section we explain how to build an example Flutter app that controls the IoT Smart Light. In this example we are using the flutter_blue_plus library to communicate with the ESP32 over Bluetooth and control the LED brightness using the photoresistor:
 
@@ -380,6 +364,7 @@ _isOn = false;
   }
 
 ```
+
 The MyHomePage widget is a stateful widget that defines the UI of the home screen. It has a `BluetoothDevice` variable `_device`, a `BluetoothCharacteristic` variable `_characteristic`, a boolean variable `_isConnected` to keep track of the connection status, a boolean variable `_isOn` to keep track of the light’s on/off status, and an integer variable `_brightness` to keep track of the light’s brightness level.
 
 There are several functions defined within the `_MyHomePageState` class, including `_connectToDevice()`, `_disconnectFromDevice()`, `_toggleLight()`, and `_updateBrightness()`.
@@ -398,7 +383,7 @@ The `sendOnMessageToBluetooth()` and `sendOffMessageToBluetooth()` functions are
 
 
 
-# Conclusion
+## Conclusion
 
 In this project, we have demonstrated how to use Dart and Flutter with an ESP32 board to create an IoT smart light. We have shown how Dart and Flutter can be used to build an intuitive mobile app that communicates with the ESP32 board over Bluetooth and controls the brightness of an LED using a photoresistor.
 

@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-22T15:58:55+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C++ Circuits</title><subtitle>C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one&apos;s skills and knowledge to potential employers in the field.</subtitle><author><name>David Coldeira</name></author><entry><title type="html">Weather Station with ESP32 - Part II</title><link href="http://localhost:4000/projects/XTVTX-module-weather-station-II/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part II" /><published>2023-04-03T00:00:00+01:00</published><updated>2023-04-03T00:00:00+01:00</updated><id>http://localhost:4000/projects/XTVTX-module-weather-station-II</id><content type="html" xml:base="http://localhost:4000/projects/XTVTX-module-weather-station-II/"><![CDATA[<p>In the <a href="https://dcoldeira.github.io/projects/ESP32-Temperature-Sensor/">previous post,</a> we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-23T17:03:32+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C++ Circuits</title><subtitle>C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one&apos;s skills and knowledge to potential employers in the field.</subtitle><author><name>David Coldeira</name></author><entry><title type="html">Weather Station with ESP32 - Part III</title><link href="http://localhost:4000/projects/ESP32-light-sensor/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part III" /><published>2023-04-17T00:00:00+01:00</published><updated>2023-04-17T00:00:00+01:00</updated><id>http://localhost:4000/projects/ESP32-light-sensor</id><content type="html" xml:base="http://localhost:4000/projects/ESP32-light-sensor/"><![CDATA[<p>In this project, we will be building upon the <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous post</a>, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.</p>
+
+<h2 id="materials">Materials</h2>
+
+<ul>
+  <li>Photoresistor</li>
+  <li>10kΩ resistor (for the photoresistor)</li>
+  <li>Active buzzer</li>
+  <li>Push button</li>
+  <li>10kΩ resistor (for the push button)</li>
+</ul>
+
+<p align="center">
+  <img src="/assets/images/post5/1.jpg" width="250" height="250" />
+</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>These are the step to connect the components:</p>
+
+<ol>
+  <li>We Connect the photoresistor to the ESP32 board. We use a resistor as a voltage divider to convert the varying resistance of the photoresistor into a measurable voltage.</li>
+  <li>We then connect the active buzzer and LED to the ESP32 board. Using a transistor to switch the power to the buzzer and LED when a threshold value is reached.</li>
+</ol>
+
+<h2 id="programming">Programming</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">//work in progress</span>
+
+</code></pre></div></div>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.]]></summary></entry><entry><title type="html">Weather Station with ESP32 - Part II</title><link href="http://localhost:4000/projects/XTVTX-module-weather-station-II/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part II" /><published>2023-04-03T00:00:00+01:00</published><updated>2023-04-03T00:00:00+01:00</updated><id>http://localhost:4000/projects/XTVTX-module-weather-station-II</id><content type="html" xml:base="http://localhost:4000/projects/XTVTX-module-weather-station-II/"><![CDATA[<p>In the <a href="https://dcoldeira.github.io/projects/ESP32-Temperature-Sensor/">previous post,</a> we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.</p>
 
 <p>To make it easy to check the readings from the sensor, we created a web-based dashboard using the ESP32’s built-in WiFi capabilities. This dashboard allows us to view the current temperature and pressure readings, as well as historical readings over time.</p>
 
@@ -6,7 +36,7 @@
 
 <p>With this integration, we can now view the sensor readings both on the web-based dashboard and on the OLED screen. This makes it easy to check the weather conditions at a glance, whether we are sitting at our desk or out and about.</p>
 
-<h1 id="aditional-materials">Aditional Materials</h1>
+<h2 id="aditional-materials">Aditional Materials</h2>
 
 <ul>
   <li>0.96 inch OLED module</li>
@@ -16,7 +46,7 @@
   <img src="/assets/images/post4/1.jpg" width="250" height="250" />
 </p>
 
-<h1 id="setup">Setup</h1>
+<h2 id="setup">Setup</h2>
 
 <p>Here are the steps to connect the OLED module to your ESP32 board:</p>
 
@@ -29,7 +59,7 @@
 
 <p>Once we have made these connections, we can use the Adafruit_SSD1306 library to display text and graphics on the OLED module.</p>
 
-<h1 id="programming">Programming</h1>
+<h2 id="programming">Programming</h2>
 
 <p>In order to continue with our weather station project, we need to add the <code class="language-plaintext highlighter-rouge">Adafruit_GFX</code> and <code class="language-plaintext highlighter-rouge">Adafruit_SSD1306</code> libraries. These libraries provide the necessary functions to display sensor data on a small OLED module:</p>
 
@@ -218,7 +248,7 @@
 
 <p>In the above code, we set the text size to 3 by calling display.setTextSize(3) and position the text in the center of the screen by calculating the X and Y coordinates of the center of the screen using the width() and height() methods of the Adafruit_SSD1306 class, respectively.</p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>we have successfully built a weather station using an ESP32 board and a BMP180 sensor, and we have added a 0.96 inch OLED module to display the temperature and pressure readings on the screen. By integrating the capabilities of the ESP32 board, BMP180 sensor, and the OLED display, we have created a custom weather station that is tailored to our specific needs. Additionally, we have created a web-based dashboard that allows us to remotely monitor the sensor values from anywhere with an internet connection. This project is a great example of how the combination of hardware and software can be used to create innovative solutions to real-world problems. With some basic knowledge of electronics and programming, anyone can create their own custom weather station or similar projects</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In the previous post, we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.]]></summary></entry><entry><title type="html">Weather Station with ESP32 - Part I</title><link href="http://localhost:4000/projects/ESP32-Temperature-Sensor/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part I" /><published>2023-03-16T00:00:00+00:00</published><updated>2023-03-16T00:00:00+00:00</updated><id>http://localhost:4000/projects/ESP32-Temperature-Sensor</id><content type="html" xml:base="http://localhost:4000/projects/ESP32-Temperature-Sensor/"><![CDATA[<p>In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.</p>
 
 <p>The ESP32 board measures temperature and pressure, and the data is displayed on a web-based dashboard that can be accessed remotely from any device with internet access. This project can be used to monitor weather conditions in a specific location and can be expanded to include other sensors like humidity or wind speed in the future.</p>
@@ -376,7 +406,7 @@
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>We have successfully built a weather station using an ESP32 WROOM 32D board and a BMP180 sensor. The project involved setting up the hardware, programming the board to read temperature and pressure data from the sensor, and displaying the data on a web-based dashboard. This project serves as a great introduction to IoT and can be expanded to include other sensors to monitor additional weather conditions. By using the code and instructions provided in this project, you can create your own weather station that can be accessed remotely from any device with internet access.</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.]]></summary></entry><entry><title type="html">IoT Smart Light using an ESP32 and Flutter</title><link href="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/" rel="alternate" type="text/html" title="IoT Smart Light using an ESP32 and Flutter" /><published>2023-03-03T00:00:00+00:00</published><updated>2023-03-03T00:00:00+00:00</updated><id>http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter</id><content type="html" xml:base="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/"><![CDATA[<h1 id="dart-and-flutter-for-embedded-systems">Dart and Flutter for Embedded Systems</h1>
+<p>We have successfully built a weather station using an ESP32 WROOM 32D board and a BMP180 sensor. The project involved setting up the hardware, programming the board to read temperature and pressure data from the sensor, and displaying the data on a web-based dashboard. This project serves as a great introduction to IoT and can be expanded to include other sensors to monitor additional weather conditions. By using the code and instructions provided in this project, you can create your own weather station that can be accessed remotely from any device with internet access.</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we have built a weather station using an ESP32 board and a BMP180 sensor. Our goal was to create a custom weather station that is tailored to our specific needs, and we have achieved this by combining the powerful capabilities of the ESP32 board with the accurate and reliable BMP180 sensor.]]></summary></entry><entry><title type="html">IoT Smart Light using an ESP32 and Flutter</title><link href="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/" rel="alternate" type="text/html" title="IoT Smart Light using an ESP32 and Flutter" /><published>2023-03-03T00:00:00+00:00</published><updated>2023-03-03T00:00:00+00:00</updated><id>http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter</id><content type="html" xml:base="http://localhost:4000/projects/Building-Embedded-Systems-with-Dart-and-Flutter/"><![CDATA[<h2 id="dart-and-flutter-for-embedded-systems">Dart and Flutter for Embedded Systems</h2>
 
 <p>Dart is a modern, object-oriented programming language created by Google. It’s fast, efficient, and easy to learn. Flutter, on the other hand, is a UI toolkit built on top of Dart that allows you to create beautiful, native applications for mobile, web, and desktop.</p>
 
@@ -384,7 +414,7 @@
 
 <p>Another benefit is the fact that Dart and Flutter are open source, which means that there are many libraries and resources available for developers to use. This can significantly reduce development time and effort, as well as allow for greater collaboration and knowledge-sharing within the developer community.</p>
 
-<h1 id="using-the-esp32-with-dart-and-flutter">Using the ESP32 with Dart and Flutter</h1>
+<h2 id="using-the-esp32-with-dart-and-flutter">Using the ESP32 with Dart and Flutter</h2>
 
 <p>The ESP32 is a powerful chip that includes built-in Wi-Fi and Bluetooth capabilities. It’s often used in IoT devices, wearables, and robotics, among other applications. By combining the ESP32 with Dart and Flutter, developers can create powerful and flexible embedded systems with rich user interfaces.</p>
 
@@ -394,7 +424,7 @@
 
 <p>To program and debug the WROOM-32D board, we will be using Visual Studio Code and the PlatformIO plugin. This IDE supports a wide range of ESP32 boards, including the WROOM-32D, making it easy to get started with our project. If you run into any issues during the setup or programming process, don’t hesitate to ask for further assistance.</p>
 
-<h1 id="materials">Materials</h1>
+<h2 id="materials">Materials</h2>
 
 <ul>
   <li>ESP32 WROOM D32 development board</li>
@@ -411,43 +441,16 @@
   <img src="/assets/images/post3/1.jpg" width="250" height="250" />
 </p>
 
-<h1 id="setup">Setup</h1>
+<h2 id="setup">Setup</h2>
 
 <ol>
   <li>Connect the anode (+) of the LED to the GPIO pin 13 on the ESP32 board and the cathode (-) to a 220Ω resistor.</li>
-</ol>
-
-<p>The anode of the LED is connected to the GPIO pin 13 on the ESP32 board, which will allow us to control the LED using software. The cathode of the LED is connected to a 220Ω resistor, which is used to limit the amount of current that flows through the LED and prevent it from burning out.</p>
-
-<ol>
   <li>Connect the other end of the 220Ω resistor to ground.</li>
-</ol>
-
-<p>The other end of the 220Ω resistor is connected to ground, which provides a path for the current to flow through the LED when it is turned on.</p>
-
-<ol>
   <li>Connect one end of the photoresistor to the 3.3V pin on the board.</li>
-</ol>
-
-<p>The photoresistor is a type of resistor that changes its resistance based on the amount of light that falls on it. One end of the photoresistor is connected to the 3.3V pin on the board, which will provide a reference voltage for measuring the resistance of the photoresistor.</p>
-
-<ol>
   <li>Connect the other end of the photoresistor to a 10kΩ resistor.</li>
-</ol>
-
-<p>The other end of the photoresistor is connected to a 10kΩ resistor, which is used to form a voltage divider with the photoresistor. The voltage at the junction between the photoresistor and the 10kΩ resistor will vary based on the resistance of the photoresistor, which in turn depends on the amount of light falling on it.</p>
-
-<ol>
   <li>Connect the other end of the 10kΩ resistor to the GPIO pin 12 on the board.</li>
-</ol>
-
-<p>The other end of the 10kΩ resistor is connected to GPIO pin 12 on the board, which will be used to measure the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
-
-<ol>
   <li>Connect the ground pin on the board to the other end of the 10kΩ resistor.</li>
 </ol>
-
-<p>Finally, the ground pin on the board is connected to the other end of the 10kΩ resistor, which provides a reference for measuring the voltage at the junction between the photoresistor and the 10kΩ resistor.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                      +3.3V
                                          |
@@ -485,7 +488,7 @@ GND -------------------------------------+
 
 </code></pre></div></div>
 
-<h1 id="programming">Programming</h1>
+<h2 id="programming">Programming</h2>
 
 <p>This is the C++ code that we have to upload into the board:</p>
 
@@ -561,7 +564,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
 
 <p>The loop function is defined, which reads the value of the photoresistor using the analogRead function, maps the sensorValue from 0-4095 to 0-255, which is the range of brightness for the LED, and updates the LED brightness using the analogWrite function. The function then waits for 50 milliseconds before repeating.</p>
 
-<h1 id="mobile-application">Mobile Application</h1>
+<h2 id="mobile-application">Mobile Application</h2>
 
 <p>In this section we explain how to build an example Flutter app that controls the IoT Smart Light. In this example we are using the flutter_blue_plus library to communicate with the ESP32 over Bluetooth and control the LED brightness using the photoresistor:</p>
 
@@ -754,6 +757,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
   <span class="p">}</span>
 
 </code></pre></div></div>
+
 <p>The MyHomePage widget is a stateful widget that defines the UI of the home screen. It has a <code class="language-plaintext highlighter-rouge">BluetoothDevice</code> variable <code class="language-plaintext highlighter-rouge">_device</code>, a <code class="language-plaintext highlighter-rouge">BluetoothCharacteristic</code> variable <code class="language-plaintext highlighter-rouge">_characteristic</code>, a boolean variable <code class="language-plaintext highlighter-rouge">_isConnected</code> to keep track of the connection status, a boolean variable <code class="language-plaintext highlighter-rouge">_isOn</code> to keep track of the light’s on/off status, and an integer variable <code class="language-plaintext highlighter-rouge">_brightness</code> to keep track of the light’s brightness level.</p>
 
 <p>There are several functions defined within the <code class="language-plaintext highlighter-rouge">_MyHomePageState</code> class, including <code class="language-plaintext highlighter-rouge">_connectToDevice()</code>, <code class="language-plaintext highlighter-rouge">_disconnectFromDevice()</code>, <code class="language-plaintext highlighter-rouge">_toggleLight()</code>, and <code class="language-plaintext highlighter-rouge">_updateBrightness()</code>.</p>
@@ -770,7 +774,7 @@ A BLECharacteristic pointer named pCharacteristic is declared.</p>
 
 <p>The <code class="language-plaintext highlighter-rouge">sendOnMessageToBluetooth()</code> and <code class="language-plaintext highlighter-rouge">sendOffMessageToBluetooth()</code> functions are used to send messages to the connected device to turn the light on or off, respectively. They are called when the user taps the corresponding <code class="language-plaintext highlighter-rouge">ElevatedButton</code> widgets on the UI.</p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>In this project, we have demonstrated how to use Dart and Flutter with an ESP32 board to create an IoT smart light. We have shown how Dart and Flutter can be used to build an intuitive mobile app that communicates with the ESP32 board over Bluetooth and controls the brightness of an LED using a photoresistor.</p>
 

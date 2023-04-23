@@ -28,4 +28,10 @@ var store = [{
         "tags": ["ESP32","BMP180","weather station","IoT"],
         "url": "/projects/XTVTX-module-weather-station-II/",
         "teaser": null
+      },{
+        "title": "Weather Station with ESP32 - Part III",
+        "excerpt":"In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time...","categories": ["projects"],
+        "tags": ["ESP32","BMP180","weather station","IoT"],
+        "url": "/projects/ESP32-light-sensor/",
+        "teaser": null
       }]
