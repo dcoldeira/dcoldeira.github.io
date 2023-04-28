@@ -190,8 +190,7 @@ This code now includes several new libraries that provide the necessary function
 Here is a breakdown of the code:
 
 - Constant values are defined for the network credentials, OLED display, and pins used for the button, buzzer, LED, and photoresistor.
-- An instance of the BMP180 sensor, the WebServer, and the RTC_DS3231 real-time clock are created.
-- The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found.
+- The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found just as previously.
 - The getFormattedTime function converts the current time to a formatted string.
 - The loop function runs continuously, reading the temperature, humidity, pressure, and light level using the BMP180 sensor and photoresistor. It also checks if the button is pressed, and changes the mode (which determines what data is displayed on the OLED screen) accordingly.
 - Depending on the mode, the OLED screen will display either the temperature, humidity, or pressure readings.
