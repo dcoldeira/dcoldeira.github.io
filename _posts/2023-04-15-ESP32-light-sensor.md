@@ -11,10 +11,7 @@ tags:
   - IoT
 ---
 
-In this project, we will be building upon the [previous post](https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/), in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.
-
-
-In this project, we are taking our [previous work](https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/) a step further. We previously utilized a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.
+In this project, we are taking our [previous work](https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/) a step further. We previously utilised a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.
 
 Firstly, we will implement the internal clock of the ESP32 to display the duration of the sensor's activity alongside the collected data. Moreover, we will integrate a photoresistor to measure the ambient light level and enable the weather station to provide more detailed insights. To further enhance its functionality, we will include a push button that can switch between various display modes on the OLED.
 
@@ -188,7 +185,7 @@ void loop() {
   delay(1000);
 }
 ```
-This code now includes several libraries new libraries that provide the necessary functionality. We now have included a button to cycle through the different readings, and can activate a buzzer and LED if the temperature or pressure readings exceed a certain threshold.
+This code now includes several new libraries that provide the necessary functionality. We now have included a button to cycle through the different readings, and can activate a buzzer and LED if the temperature or pressure readings exceed a certain threshold.
 
 Here is a breakdown of the code:
 
