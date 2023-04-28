@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-26T10:50:38+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C++ Circuits</title><subtitle>C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one&apos;s skills and knowledge to potential employers in the field.</subtitle><author><name>David Coldeira</name></author><entry><title type="html">Weather Station with ESP32 - Part III</title><link href="http://localhost:4000/projects/ESP32-light-sensor/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part III" /><published>2023-04-17T00:00:00+01:00</published><updated>2023-04-17T00:00:00+01:00</updated><id>http://localhost:4000/projects/ESP32-light-sensor</id><content type="html" xml:base="http://localhost:4000/projects/ESP32-light-sensor/"><![CDATA[<p>In this project, we will be building upon the <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous post</a>, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-28T15:41:23+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">C++ Circuits</title><subtitle>C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one&apos;s skills and knowledge to potential employers in the field.</subtitle><author><name>David Coldeira</name></author><entry><title type="html">Weather Station with ESP32 - Part III</title><link href="http://localhost:4000/projects/ESP32-light-sensor/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part III" /><published>2023-04-17T00:00:00+01:00</published><updated>2023-04-17T00:00:00+01:00</updated><id>http://localhost:4000/projects/ESP32-light-sensor</id><content type="html" xml:base="http://localhost:4000/projects/ESP32-light-sensor/"><![CDATA[<p>In this project, we will be building upon the <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous post</a>, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.</p>
 
+<p>In this project, we are taking our <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous work</a> a step further. We previously utilized a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.</p>
+
+<p>Firstly, we will implement the internal clock of the ESP32 to display the duration of the sensor’s activity alongside the collected data. Moreover, we will integrate a photoresistor to measure the ambient light level and enable the weather station to provide more detailed insights. To further enhance its functionality, we will include a push button that can switch between various display modes on the OLED.</p>
+
+<p>Furthermore, we will include an active buzzer and an LED that will notify the user when the temperature or pressure exceeds specific threshold values. These additions will enable our weather station to provide real-time and accurate weather information that can help the user make informed decisions.</p>
 <h2 id="materials">Materials</h2>
 
 <ul>
@@ -25,10 +30,166 @@
 
 <h2 id="programming">Programming</h2>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="c1">//work in progress</span>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;Wire.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_Sensor.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_BME280.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_GFX.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Adafruit_SSD1306.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WiFi.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WebServer.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;WiFiClientSecure.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;RTClib.h&gt;</span><span class="cp">
+</span>
+<span class="cp">#define BMP085_ADDRESS 0x76
+</span>
+<span class="c1">// Replace with your network credentials</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"zzz"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"xxx"</span><span class="p">;</span>
 
-</code></pre></div></div>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the current date and time using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.]]></summary></entry><entry><title type="html">Weather Station with ESP32 - Part II</title><link href="http://localhost:4000/projects/XTVTX-module-weather-station-II/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part II" /><published>2023-04-03T00:00:00+01:00</published><updated>2023-04-03T00:00:00+01:00</updated><id>http://localhost:4000/projects/XTVTX-module-weather-station-II</id><content type="html" xml:base="http://localhost:4000/projects/XTVTX-module-weather-station-II/"><![CDATA[<p>In the <a href="https://dcoldeira.github.io/projects/ESP32-Temperature-Sensor/">previous post,</a> we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.</p>
+<span class="cp">#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 32
+#define OLED_RESET -1
+</span><span class="n">Adafruit_SSD1306</span> <span class="nf">display</span><span class="p">(</span><span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Wire</span><span class="p">,</span> <span class="n">OLED_RESET</span><span class="p">);</span>
+
+<span class="cp">#define BUTTON_PIN 2
+#define BUZZER_PIN 16
+#define LED_PIN 17
+#define PHOTO_PIN A0
+#define PHOTO_RESISTOR 10000
+</span>
+<span class="c1">// Create an instance of the BMP180 sensor</span>
+<span class="n">Adafruit_BME280</span> <span class="n">bme</span><span class="p">;</span>
+
+<span class="c1">// Create an instance of the WebServer</span>
+<span class="n">WebServer</span> <span class="nf">server</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+<span class="c1">// Create an instance of the real-time clock</span>
+<span class="n">RTC_DS3231</span> <span class="n">rtc</span><span class="p">;</span>
+<span class="c1">// Function prototype for handleRoot()</span>
+<span class="kt">void</span> <span class="nf">handleRoot</span><span class="p">();</span>
+
+<span class="c1">// Function prototype for getFormattedTime()</span>
+<span class="n">String</span> <span class="nf">getFormattedTime</span><span class="p">();</span>
+
+<span class="kt">int</span> <span class="n">buttonState</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">buzzerState</span> <span class="o">=</span> <span class="n">LOW</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">ledState</span> <span class="o">=</span> <span class="n">LOW</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">mode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">buzzerThreshold</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">ledThreshold</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Start the serial communication</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+  <span class="c1">// Connect to Wi-Fi network</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Connecting to WiFi..."</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Print the IP address of the board</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"IP address: "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">BUZZER_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">BUTTON_PIN</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SSD1306_SWITCHCAPVCC</span><span class="p">,</span> <span class="mh">0x3C</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextSize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="n">WHITE</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Starting up..."</span><span class="p">);</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bme</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mh">0x76</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Could not find a valid BMP180 sensor, check wiring!"</span><span class="p">);</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">String</span> <span class="nf">getFormattedTime</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Get the current time</span>
+  <span class="kt">time_t</span> <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">);</span>
+
+  <span class="c1">// Convert the current time to a struct tm</span>
+  <span class="k">struct</span> <span class="nc">tm</span> <span class="o">*</span><span class="n">timeinfo</span> <span class="o">=</span> <span class="n">localtime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span>
+
+  <span class="c1">// Create a string for the formatted time</span>
+  <span class="kt">char</span> <span class="n">formattedTime</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+  <span class="n">strftime</span><span class="p">(</span><span class="n">formattedTime</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">formattedTime</span><span class="p">),</span> <span class="s">"%H:%M:%S"</span><span class="p">,</span> <span class="n">timeinfo</span><span class="p">);</span>
+
+  <span class="c1">// Return the formatted time as a string</span>
+  <span class="k">return</span> <span class="n">String</span><span class="p">(</span><span class="n">formattedTime</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">bme</span><span class="p">.</span><span class="n">readTemperature</span><span class="p">();</span>
+  <span class="kt">float</span> <span class="n">humidity</span> <span class="o">=</span> <span class="n">bme</span><span class="p">.</span><span class="n">readHumidity</span><span class="p">();</span>
+  <span class="kt">float</span> <span class="n">pressure</span> <span class="o">=</span> <span class="n">bme</span><span class="p">.</span><span class="n">readPressure</span><span class="p">()</span> <span class="o">/</span> <span class="mf">100.0</span><span class="n">F</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">lightLevel</span> <span class="o">=</span> <span class="n">analogRead</span><span class="p">(</span><span class="n">PHOTO_PIN</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">buzzerOn</span> <span class="o">=</span> <span class="p">(</span><span class="n">pressure</span> <span class="o">&gt;</span> <span class="n">buzzerThreshold</span> <span class="o">||</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="n">buzzerThreshold</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">ledOn</span> <span class="o">=</span> <span class="p">(</span><span class="n">pressure</span> <span class="o">&gt;</span> <span class="n">ledThreshold</span> <span class="o">||</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="n">ledThreshold</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">buttonState</span> <span class="o">=</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">BUTTON_PIN</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">buttonState</span> <span class="o">==</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">mode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">clearDisplay</span><span class="p">();</span>
+  <span class="n">display</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">mode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Temperature:"</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">temperature</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" *C"</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Humidity:"</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">humidity</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"%"</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Pressure:"</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">pressure</span><span class="p">);</span>
+      <span class="n">display</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" hPa"</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">buzzerOn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">BUZZER_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">BUZZER_PIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ledOn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This code now includes several libraries new libraries that provide the necessary functionality. We now have included a button to cycle through the different readings, and can activate a buzzer and LED if the temperature or pressure readings exceed a certain threshold.</p>
+
+<p>Here is a breakdown of the code:</p>
+
+<ul>
+  <li>The required libraries are included using the #include directive.</li>
+  <li>Constant values are defined for the network credentials, OLED display, and pins used for the button, buzzer, LED, and photoresistor.</li>
+  <li>An instance of the BMP180 sensor, the WebServer, and the RTC_DS3231 real-time clock are created.</li>
+  <li>The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found.</li>
+  <li>The getFormattedTime function converts the current time to a formatted string.</li>
+  <li>The loop function runs continuously, reading the temperature, humidity, pressure, and light level using the BMP180 sensor and photoresistor. It also checks if the button is pressed, and changes the mode (which determines what data is displayed on the OLED screen) accordingly.</li>
+  <li>Depending on the mode, the OLED screen will display either the temperature, humidity, or pressure readings.</li>
+  <li>If the temperature or pressure readings exceed a certain threshold, the buzzer and LED will be activated.</li>
+  <li>There is a 1-second delay at the end of the loop to prevent the program from running too quickly.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this project, we have added new features to the weather station project from the previous post. These include the ability to display the time of displaying, using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we have incorporated an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, the weather station is even more capable of providing real-time weather information. The code has been provided for the project, along with the necessary connections and setup.</p>]]></content><author><name>David Coldeira</name></author><category term="projects" /><category term="ESP32" /><category term="BMP180" /><category term="weather station" /><category term="IoT" /><summary type="html"><![CDATA[In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.]]></summary></entry><entry><title type="html">Weather Station with ESP32 - Part II</title><link href="http://localhost:4000/projects/XTVTX-module-weather-station-II/" rel="alternate" type="text/html" title="Weather Station with ESP32 - Part II" /><published>2023-04-03T00:00:00+01:00</published><updated>2023-04-03T00:00:00+01:00</updated><id>http://localhost:4000/projects/XTVTX-module-weather-station-II</id><content type="html" xml:base="http://localhost:4000/projects/XTVTX-module-weather-station-II/"><![CDATA[<p>In the <a href="https://dcoldeira.github.io/projects/ESP32-Temperature-Sensor/">previous post,</a> we began the process of building a weather station using an ESP32 board. We selected the BMP180 sensor due to its precise and dependable temperature and pressure measurements.</p>
 
 <p>To make it easy to check the readings from the sensor, we created a web-based dashboard using the ESP32’s built-in WiFi capabilities. This dashboard allows us to view the current temperature and pressure readings, as well as historical readings over time.</p>
 
