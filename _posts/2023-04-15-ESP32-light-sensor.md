@@ -189,7 +189,6 @@ This code now includes several new libraries that provide the necessary function
 
 Here is a breakdown of the code:
 
-- The required libraries are included using the #include directive.
 - Constant values are defined for the network credentials, OLED display, and pins used for the button, buzzer, LED, and photoresistor.
 - An instance of the BMP180 sensor, the WebServer, and the RTC_DS3231 real-time clock are created.
 - The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found.
