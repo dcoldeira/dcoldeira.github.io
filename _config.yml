@@ -20,7 +20,7 @@ title                    : "C++ Circuits"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "David Coldeira"
-description              : "C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one's skills and knowledge to potential employers in the field."
+description              : "C++ Circuits is a blog about learning and applying C++ programming concepts, code examples and insights into the intersection of hardware and software. From object-oriented programming and data structures to algorithms, design patterns, and best practices...."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
