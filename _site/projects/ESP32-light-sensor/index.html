@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Weather Station with ESP32 - Part III - C++ Circuits</title>
-<meta name="description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
+<meta name="description" content="In this project, we are taking our previous work a step further. We previously utilised a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.">
 
 
   <meta name="author" content="David Coldeira">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://localhost:4000/projects/ESP32-light-sensor/">
 
 
-  <meta property="og:description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
+  <meta property="og:description" content="In this project, we are taking our previous work a step further. We previously utilised a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.">
 
 
 
@@ -154,7 +154,7 @@
     </h3>
     
       <div class="author__bio p-note" itemprop="description">
-        <p>I am a highly motivated software developer with a degree in Science (Physics) and a passion for embedded systems and C++ programming. My background includes experience in mobile application development with Dart and Flutter, and I have recently transitioned into the world of embedded systems. My goal is to continue expanding my knowledge and expertise in the field by creating practical projects…</p>
+        <p>C++ code examples, insights into the intersection of hardware and software. From object-oriented programming and data structures to algorithms, design patterns, and best practices…</p>
 
       </div>
     
@@ -253,7 +253,7 @@
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Weather Station with ESP32 - Part III">
-    <meta itemprop="description" content="In this project, we will be building upon the previous post, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.">
+    <meta itemprop="description" content="In this project, we are taking our previous work a step further. We previously utilised a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.">
     <meta itemprop="datePublished" content="2023-04-17T00:00:00+01:00">
     
 
@@ -278,7 +278,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          5 minute read
+          4 minute read
         
       </span>
     
@@ -290,9 +290,7 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>In this project, we will be building upon the <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous post</a>, in which we used a BMP180 sensor to measure temperature and pressure, and displayed the data on an OLED display. We will be adding new features to the project, including the ability to display the time of displying (i.e time the sensor has been active) using the internal clock of the ESP32, a photoresistor to measure the ambient light level, and a push button to switch between different modes of display on the OLED. Additionally, we will incorporate an active buzzer and LED to alert the user when the temperature or pressure exceeds a certain threshold value. With these new features, our weather station will be even more capable of providing real-time weather information.</p>
-
-<p>In this project, we are taking our <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous work</a> a step further. We previously utilized a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.</p>
+        <p>In this project, we are taking our <a href="https://dcoldeira.github.io/projects/XTVTX-module-weather-station-II/">previous work</a> a step further. We previously utilised a BMP180 sensor to collect data on temperature and pressure, and then showcased the information on an OLED display. However, we are now expanding the project by adding exciting new features.</p>
 
 <p>Firstly, we will implement the internal clock of the ESP32 to display the duration of the sensor’s activity alongside the collected data. Moreover, we will integrate a photoresistor to measure the ambient light level and enable the weather station to provide more detailed insights. To further enhance its functionality, we will include a push button that can switch between various display modes on the OLED.</p>
 
@@ -463,15 +461,13 @@
   <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>This code now includes several libraries new libraries that provide the necessary functionality. We now have included a button to cycle through the different readings, and can activate a buzzer and LED if the temperature or pressure readings exceed a certain threshold.</p>
+<p>This code now includes several new libraries that provide the necessary functionality. We now have included a button to cycle through the different readings, and can activate a buzzer and LED if the temperature or pressure readings exceed a certain threshold.</p>
 
 <p>Here is a breakdown of the code:</p>
 
 <ul>
-  <li>The required libraries are included using the #include directive.</li>
   <li>Constant values are defined for the network credentials, OLED display, and pins used for the button, buzzer, LED, and photoresistor.</li>
-  <li>An instance of the BMP180 sensor, the WebServer, and the RTC_DS3231 real-time clock are created.</li>
-  <li>The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found.</li>
+  <li>The setup function is called once when the program starts, and sets up the Wi-Fi connection, pin modes, and initializes the OLED display. It also checks if the BMP180 sensor is connected and will print an error message and stop the program if it is not found just as previously.</li>
   <li>The getFormattedTime function converts the current time to a formatted string.</li>
   <li>The loop function runs continuously, reading the temperature, humidity, pressure, and light level using the BMP180 sensor and photoresistor. It also checks if the button is pressed, and changes the mode (which determines what data is displayed on the OLED screen) accordingly.</li>
   <li>Depending on the mode, the OLED screen will display either the temperature, humidity, or pressure readings.</li>
