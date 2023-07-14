@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "dark"  #"default" # "air", "aqua", "contrast", "dark
 
 # Site Settings
 locale                   : "en-GB"
-title                    : "C++ Circuits"
+title                    : "YachtCraft Chronicles"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "David Coldeira"
-description              : "C++ Circuits is a blog about learning and applying C++ programming concepts, code examples and insights into the intersection of hardware and software. From object-oriented programming and data structures to algorithms, design patterns, and best practices...."
+description              : "Dive into marine engineering, electricals, and the art of crafting classic sailboats. Explore innovative technologies, techniques, and the allure of these magnificent vessels. Join us on a captivating journey through the seas of yacht craftsmanship"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -106,28 +106,28 @@ analytics:
 author:
   name             : "David Coldeira"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "C++ code examples, insights into the intersection of hardware and software. From object-oriented programming and data structures to algorithms, design patterns, and best practices..."
-  location         : "Bristol"
+  bio              : "Dive into marine engineering, electricals, and the art of crafting classic sailboats. Explore innovative technologies, techniques, and the allure of yacht craftsmanship. Join us on a captivating journey through the seas of yacht engineering"
+  
   email            :
-  links:
-    - label: "dcoldeira@tuta.io"
-      icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/dcoldeira"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
+  # links:
+  #   - label: "dcoldeira@tuta.io"
+  #     icon: ""
+  #     # url: "mailto:your.name@email.com"
+  #   - label: "Website"
+  #     icon: "fas fa-fw fa-link"
+  #     # url: "https://your-website.com"
+  #   - label: "Twitter"
+  #     icon: "fab fa-fw fa-twitter-square"
+  #     # url: "https://twitter.com/"
+  #   - label: "Facebook"
+  #     icon: "fab fa-fw fa-facebook-square"
+  #     # url: "https://facebook.com/"
+  #   - label: ""
+  #     icon: ""
+  #     url: ""
+  #   - label: "Instagram"
+  #     icon: "fab fa-fw fa-instagram"
+  #     # url: "https://instagram.com/"
 
 # Site Footer
 footer:
