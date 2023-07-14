@@ -34,4 +34,10 @@ var store = [{
         "tags": ["ESP32","BMP180","weather station","IoT"],
         "url": "/projects/ESP32-light-sensor/",
         "teaser": null
+      },{
+        "title": "The Art of Classic Yacht Restoration - Preserving Maritime Heritage",
+        "excerpt":"Preserving the beauty and history of classic yachts through restoration is an extraordinary art form that pays homage to the timeless allure of maritime heritage. These majestic vessels, once the epitome of elegance and grandeur, hold stories of past adventures, memorable voyages, and the craftsmanship of a bygone era. In...","categories": ["projects"],
+        "tags": [],
+        "url": "/projects/The-Art-of-Classic-Yacht-Restoration/",
+        "teaser": null
       }]
