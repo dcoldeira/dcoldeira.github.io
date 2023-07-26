@@ -119,4 +119,3 @@ Managing the restoration project within budget and time constraints is a crucial
 *Classic yacht restoration is a labor of love that encompasses the preservation of maritime heritage, the revival of timeless beauty, and the meticulous craftsmanship of skilled artisans. The challenges faced throughout the restoration journey, from historical research to budget management, are outweighed by the rewarding moments of witnessing the transformation of a weathered vessel into a stunning masterpiece. Each restored classic yacht becomes a living testament to a rich maritime history, captivating enthusiasts and enabling future generations to experience the elegance and grace of these magnificent vessels. The art of classic yacht restoration, with its dedication to historical accuracy and unwavering commitment to craftsmanship, ensures that maritime heritage endures for years to come.*
 
 
-
