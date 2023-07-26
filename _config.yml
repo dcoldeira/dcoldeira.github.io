@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "dark"  #"default" # "air", "aqua", "contrast", "dark
 
 # Site Settings
 locale                   : "en-GB"
-title                    : "YachtCraft Chronicles"
+title                    : "C++ Circuits"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "David Coldeira"
-description              : "Dive into marine engineering, electricals, and the art of crafting classic sailboats. Explore innovative technologies, techniques, and the allure of these magnificent vessels. Join us on a captivating journey through the seas of yacht craftsmanship"
+description              : "C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects with microcontrollers, using C++ programming language. The focus is on practical projects that can be used to showcase one's skills and knowledge to potential employers in the field."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -106,8 +106,8 @@ analytics:
 author:
   name             : "David Coldeira"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Dive into marine engineering, electricals, and the art of crafting classic sailboats. Explore innovative technologies, techniques, and the allure of yacht craftsmanship. Join us on a captivating journey through the seas of yacht engineering"
-  
+  bio              : "I am a highly motivated software developer with a degree in Science (Physics) and a passion for embedded systems and C++ programming. My background includes experience in mobile application development with Dart and Flutter, and I have recently transitioned into the world of embedded systems. My goal is to continue expanding my knowledge and expertise in the field by creating practical projects..."
+  location         : "Bristol"
   email            :
   # links:
   #   - label: "dcoldeira@tuta.io"
