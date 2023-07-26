@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "David Coldeira"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics..."
+  bio              : "C++ Circuits is a blog about learning and applying C++ programming concepts in the field of embedded systems. The blog coveres various topics related to creating circuits and projects including microcontrollers using C++ programming language and more..."
   location         : "Bristol"
   email            :
   # links:
