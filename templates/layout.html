@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}My Flask Blog{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logo">My Blog</h1>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+                <button id="theme-toggle">Toggle Theme</button>
+            </div>
+        </nav>
+    </header>
+    
+    {% block content %}{% endblock %}
+    
+    <!-- Use the direct route for JavaScript -->
+    <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

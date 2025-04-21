@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }} - My Flask Blog{% endblock %}
+
+{% block content %}
+    <main class="post-container container">
+        <article class="post-content">
+            <h1>{{ title }}</h1>
+            <div class="post-body">
+                {{ content|safe }}
+            </div>
+            <div class="post-footer">
+                <a href="{{ url_for('index') }}" class="back-link">← Back to all posts</a>
+            </div>
+        </article>
+    </main>
+{% endblock %}
