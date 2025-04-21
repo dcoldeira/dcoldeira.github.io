@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Home - My Flask Blog{% endblock %}
+
+{% block content %}
+<main class="posts-container">
+    <div class="posts-list">
+        {% if posts %}
+            {% for post in posts %}
+                <article class="post-card">
+                    <h2><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h2>
+                    <div class="post-excerpt">
+                        {{ post.content|safe|truncate(300) }}
+                    </div>
+                    <a href="{{ url_for('post', slug=post.slug) }}" class="read-more">Read more</a>
+                </article>
+            {% endfor %}
+        {% else %}
+            <div class="no-posts">
+                <p>No posts found. Check back soon!</p>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
