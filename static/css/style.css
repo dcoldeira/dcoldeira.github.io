@@ -1,44 +1,70 @@
 /* Base Variables for Light Theme */
 :root {
-    --primary-color: #4a6fa5;
-    --secondary-color: #166088;
-    --text-color: #333;
-    --bg-color: #f9f9f9;
-    --card-bg: #fff;
-    --border-color: #e1e1e1;
+    --primary-color: #3a5f8a;
+    --secondary-color: #1a7db2;
+    --accent-color: #e67e22;
+    --text-color: #2c3e50;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #e6e9ec;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+    --header-font: 'Montserrat', sans-serif;
+    --body-font: 'Open Sans', sans-serif;
 }
 
 /* Dark Theme Variables */
 body.dark-theme {
     --primary-color: #6d9dc5;
-    --secondary-color: #2a7da1;
-    --text-color: #f0f0f0;
+    --secondary-color: #3498db;
+    --accent-color: #f39c12;
+    --text-color: #ecf0f1;
     --bg-color: #121212;
     --card-bg: #1e1e1e;
-    --border-color: #333;
+    --border-color: #2c3e50;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* General Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: var(--body-font);
+    line-height: 1.8;
     color: var(--text-color);
     background-color: var(--bg-color);
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: var(--transition);
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--header-font);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 2.2rem;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Navbar Improvements */
 .navbar {
     background-color: var(--primary-color);
-    padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 18px 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar .container {
@@ -47,122 +73,181 @@ body {
     align-items: center;
 }
 
-.logo {
-    color: white;
+/* Add this specific styling for the blog name */
+.logo, .logo a {
+    color: white; /* Ensuring this is enforced */
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: var(--header-font);
+    text-decoration: none;
+    /* Add specific background to ensure contrast */
+    background-color: transparent;
 }
+
+/* Add specific styling for @dcoldeira */
+.logo .blog-name, 
+.logo a .blog-name,
+.navbar .logo, 
+.navbar .logo a {
+    color: white !important; /* Force white color */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Add subtle shadow for better visibility */
+}
+
+/* If the text has a specific class like @username */
+.username-prefix {
+    color: var(--accent-color); /* Make the @ symbol a different color for style */
+}
+
+/* If there is a specific element with ID */
+
+
 
 .nav-links {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 .nav-links li {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 8px 0;
+    position: relative;
+    font-size: 1.05rem;
 }
 
-h1 {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 10px;
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    bottom: 0;
+    left: 0;
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 #theme-toggle {
     background-color: var(--secondary-color);
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
 }
 
+#theme-toggle:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Content Containers */
 .about-container, .posts-container, .contact-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 30px;
     background-color: var(--card-bg);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
+    transition: var(--transition);
 }
 
-/* Additional dark theme styling to make changes more visible */
-.dark-theme .navbar {
-    background-color: #2c3e50;
+.about-container:hover, .posts-container:hover, .contact-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.dark-theme #theme-toggle {
-    background-color: #34495e;
-}
-
-.dark-theme a {
-    color: #6d9dc5;
-}
-
-.dark-theme .nav-links a {
-    color: #f0f0f0;
-}
-
+/* Social Links */
 .social-links {
     list-style: none;
     padding: 0;
     display: flex;
-    gap: 15px;
+    gap: 18px;
 }
 
 .social-links a {
     color: var(--secondary-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 /* Blog Posts */
 .post-card {
     background-color: var(--card-bg);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
 .post-card h2 {
     margin-top: 0;
-    color: var(--primary-color);
+    font-size: 1.8rem;
 }
 
 .post-card a {
     color: var(--secondary-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.post-card a:hover {
+    color: var(--accent-color);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar .container {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
     }
     
     .nav-links {
-        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
     }
     
     .nav-links li {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin: 0 10px;
     }
     
     #theme-toggle {
-        margin-top: 10px;
+        margin-top: 5px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
     }
 }
