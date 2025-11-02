@@ -1,0 +1,62 @@
+---
+title: "About"
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/dcoldeira
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com
+    - icon: envelope
+      text: Email
+      href: mailto:contact@example.com
+---
+
+## Hello! I'm dcoldeira 👋
+
+I'm a **full stack developer** with a degree in **physics**, currently exploring the fascinating world of **quantum computing**. This blog is my journey from classical to quantum programming - learning in public and sharing what I discover.
+
+### What I Do
+
+**Professional:**
+- 💻 Full stack development (Python/Flask backend + Flutter frontend)
+- 🐳 Docker & cloud deployment
+- 🗄️ Database design (MySQL)
+- 📊 JupyterLab for data analysis
+
+**Learning:**
+- ⚛️ Quantum computing with Qiskit
+- 🔬 Quantum algorithms (Grover's, Shor's, VQE)
+- 🎯 Quantum machine learning
+- 🌌 Bridging physics theory with practical programming
+
+### Why Quantum Computing?
+
+With my physics background and programming experience, quantum computing feels like the perfect intersection of my interests. Classical computing is powerful, but quantum computing promises to solve problems that are currently intractable - from drug discovery to cryptography to optimization.
+
+### What You'll Find Here
+
+📝 **Tutorials** - Hands-on quantum programming with code you can run
+🧠 **Concepts** - Quantum mechanics explained for developers
+🚀 **Projects** - Building quantum applications and experiments
+💭 **Reflections** - My learning journey and insights
+
+### My Approach
+
+I believe in **learning by doing**. Every post includes:
+- ✅ Executable code (Jupyter notebooks)
+- 📊 Visualizations of quantum circuits and results
+- 🎯 Practical examples over heavy mathematics
+- 🌉 Bridging quantum physics and software engineering
+
+### Connect
+
+I'm always happy to discuss quantum computing, software development, or anything tech-related:
+
+- **GitHub**: [@dcoldeira](https://github.com/dcoldeira)
+- **Blog**: Right here on Entangled Code
+- **Projects**: Check out my quantum experiments on GitHub
+
+*Let's explore the quantum realm together!* 🚀⟨ψ⟩
