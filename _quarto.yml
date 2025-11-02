@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "dcoldeira"
+  description: "Where Physics Meets Programming - Full Stack Developer exploring Quantum Computing"
+  site-url: https://dcoldeira.github.io
+  repo-url: https://github.com/dcoldeira/dcoldeira.github.io
+  favicon: favicon.svg
+
+  navbar:
+    background: white
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "About"
+        href: about.qmd
+    right:
+      - icon: github
+        href: https://github.com/dcoldeira
+      - icon: rss
+        href: index.xml
+
+  page-footer:
+    background: "#fafafa"
+    center: |
+      Entangled Code | Where Physics Meets Programming
+
+      Full Stack Developer exploring Quantum Computing
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    link-external-newwindow: true
+
+
+

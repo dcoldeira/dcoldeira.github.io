@@ -5,3 +5,10 @@ ENV/
 .env
 .venv
 virtualenv/
+
+# Planning documents (internal use only)
+BLOG_PLANNING.md
+
+# Quarto build output
+/.quarto/
+_site/
