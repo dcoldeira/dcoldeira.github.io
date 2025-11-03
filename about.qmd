@@ -8,55 +8,68 @@ about:
       href: https://github.com/dcoldeira
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://uk.linkedin.com/in/dcoldeira
     - icon: envelope
       text: Email
-      href: mailto:contact@example.com
+      href: mailto:dcoldeira@tuta.io
 ---
 
-## Hello! I'm dcoldeira 👋
+## About Entangled Code
 
-I'm a **full stack developer** with a degree in **physics**, currently exploring the fascinating world of **quantum computing**. This blog is my journey from classical to quantum programming - learning in public and sharing what I discover.
+**Entangled Code** explores the intersection of classical software engineering and quantum computing, offering technical insights, architectural analysis, and practical implementations for the quantum computing era.
 
-### What I Do
+### Background
 
-**Professional:**
-- 💻 Full stack development (Python/Flask backend + Flutter frontend)
-- 🐳 Docker & cloud deployment
-- 🗄️ Database design (MySQL)
-- 📊 JupyterLab for data analysis
+I'm a full stack developer with a physics degree, bringing together rigorous software engineering practices and quantum mechanical principles. My work focuses on bridging the gap between classical infrastructure and quantum algorithms, exploring how quantum computing integrates into real-world systems.
 
-**Learning:**
-- ⚛️ Quantum computing with Qiskit
-- 🔬 Quantum algorithms (Grover's, Shor's, VQE)
-- 🎯 Quantum machine learning
-- 🌌 Bridging physics theory with practical programming
+### Technical Focus
 
-### Why Quantum Computing?
+**Software Engineering:**
+- Full stack development with Python APIs and backend systems
+- Cloud-native architectures and containerization
+- Database design and optimization
+- Data analysis and computational workflows
 
-With my physics background and programming experience, quantum computing feels like the perfect intersection of my interests. Classical computing is powerful, but quantum computing promises to solve problems that are currently intractable - from drug discovery to cryptography to optimization.
+**Quantum Computing:**
+- Quantum algorithm implementation and analysis
+- Quantum circuit optimization and performance profiling
+- Hybrid classical-quantum system architecture
+- Framework evaluation (Qiskit, Cirq, PennyLane)
+- Practical applications in optimization and simulation
 
-### What You'll Find Here
+### What This Blog Offers
 
-📝 **Tutorials** - Hands-on quantum programming with code you can run
-🧠 **Concepts** - Quantum mechanics explained for developers
-🚀 **Projects** - Building quantum applications and experiments
-💭 **Reflections** - My learning journey and insights
+**Architectural Insights** - Design patterns and trade-offs in quantum-classical systems
 
-### My Approach
+**Algorithm Analysis** - Deep dives into quantum algorithms with performance considerations
 
-I believe in **learning by doing**. Every post includes:
-- ✅ Executable code (Jupyter notebooks)
-- 📊 Visualizations of quantum circuits and results
-- 🎯 Practical examples over heavy mathematics
-- 🌉 Bridging quantum physics and software engineering
+**Implementation Patterns** - Production-quality code examples and best practices
+
+**Critical Perspective** - Honest evaluation of quantum computing's current capabilities and limitations
+
+### Content Philosophy
+
+This blog moves beyond introductory tutorials to provide expert-level analysis. Each post synthesizes hands-on experimentation with theoretical understanding, offering insights for software engineers and researchers working with quantum computing technologies.
+
+The content assumes programming fundamentals and focuses on the "why" behind architectural decisions, performance implications, and real-world applicability of quantum algorithms.
+
+### Areas of Exploration
+
+- Variational quantum algorithms and optimization landscapes
+- Error mitigation strategies in NISQ devices
+- Integration patterns for quantum-enhanced applications
+- Quantum machine learning: capabilities and constraints
+- Circuit compilation and optimization techniques
+- Hardware-aware algorithm design
 
 ### Connect
 
-I'm always happy to discuss quantum computing, software development, or anything tech-related:
+Interested in quantum computing architecture, algorithm implementation, or exploring collaboration opportunities:
 
 - **GitHub**: [@dcoldeira](https://github.com/dcoldeira)
-- **Blog**: Right here on Entangled Code
-- **Projects**: Check out my quantum experiments on GitHub
+- **Research**: Implementation code and experiments available in repositories
+- **Discussion**: Open to technical conversations about quantum computing systems
 
-*Let's explore the quantum realm together!* 🚀⟨ψ⟩
+---
+
+*Building bridges between quantum theory and production systems.*
