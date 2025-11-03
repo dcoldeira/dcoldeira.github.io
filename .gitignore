@@ -7,7 +7,7 @@ ENV/
 virtualenv/
 
 # Planning documents (internal use only)
-BLOG_PLANNING.md
+CONTENT_STRATEGY.md
 
 # Quarto build output
 /.quarto/

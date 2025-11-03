@@ -1,6 +1,6 @@
 ---
 title: "dcoldeira"
-subtitle: "Where Physics Meets Programming"
+subtitle: "Entangled Code"
 listing:
   contents: posts
   sort: "date desc"
@@ -13,8 +13,8 @@ page-layout: full
 title-block-banner: true
 ---
 
-I'm a **full stack developer with a physics degree**, exploring **quantum computing**. This blog documents my journey from classical to quantum programming with hands-on tutorials, code, and visualizations.
+**Technical insights at the intersection of classical software engineering and quantum computing.**
 
-**What's here:** Every post is a Jupyter notebook with executable code, quantum circuit visualizations, and actual simulations using Qiskit. Learn by doing, not just reading.
+Exploring quantum algorithms, system architecture, and implementation patterns through rigorous analysis and hands-on experimentation. Each post combines theoretical depth with practical code, offering expert-level perspectives for engineers and researchers working with quantum computing technologies.
 
 

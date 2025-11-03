@@ -4,7 +4,7 @@ project:
 
 website:
   title: "dcoldeira"
-  description: "Where Physics Meets Programming - Full Stack Developer exploring Quantum Computing"
+  description: "Bridging classical software engineering and quantum computing through rigorous exploration and architectural insights"
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
   favicon: favicon.svg

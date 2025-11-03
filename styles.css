@@ -43,6 +43,16 @@ html {
     padding-right: 20px;
 }
 
+/* Reduce gap between title banner and content on homepage */
+.page-layout-full #quarto-content {
+    margin-top: 0;
+}
+
+.page-layout-full #quarto-content main > p:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /* Title banner should break out and be full width */
 #quarto-header {
     width: 100vw;
@@ -276,7 +286,7 @@ pre code {
 /* Title Block Banner */
 .quarto-title-banner {
     background-color: var(--bg-primary);
-    padding: 3rem 0;
+    padding: 3rem 0 1rem 0;
 }
 
 .quarto-title .title {
@@ -423,6 +433,61 @@ figcaption {
 }
 
 /* Responsive Design */
+@media (max-width: 991px) {
+    /* Navbar responsive fixes */
+    .navbar {
+        min-height: 50px;
+        height: auto !important; /* Allow navbar to expand when collapsed */
+    }
+
+    .navbar-collapse {
+        background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+        padding: 1rem;
+        margin-top: 0.5rem;
+        border-radius: 8px;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start !important;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 0 !important;
+        width: 100%;
+    }
+
+    /* Right side icons (GitHub, RSS) in collapsed menu */
+    .navbar-nav.ms-auto {
+        flex-direction: row;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        justify-content: flex-start;
+        width: auto;
+    }
+
+    .navbar-nav.ms-auto .nav-link {
+        width: auto;
+        padding: 0.5rem !important;
+    }
+
+    /* Hide elements that create white rectangles */
+    .navbar-collapse .quarto-navbar-tools,
+    .navbar-collapse #quarto-search,
+    #quarto-search-results {
+        display: none !important;
+    }
+}
+
+/* Keep icons on the right on larger screens */
+@media (min-width: 992px) {
+    .navbar-nav.ms-auto {
+        margin-left: auto !important;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 16px;
