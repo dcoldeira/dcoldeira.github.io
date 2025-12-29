@@ -522,102 +522,244 @@ figcaption {
     }
 }
 
-/* Mobile optimizations */
+/* Perfect Mobile Experience */
 @media (max-width: 768px) {
+    /* Beautiful typography for mobile reading */
     body {
-        font-size: 18px; /* Larger base font for mobile readability */
+        font-size: 18px;
+        line-height: 1.75; /* Generous line height for comfortable reading */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Optimal heading sizes and spacing */
     h1 {
         font-size: 2rem;
-        line-height: 1.2;
+        line-height: 1.3;
+        margin-top: 1.5em;
+        margin-bottom: 0.75em;
     }
 
     h2 {
         font-size: 1.6rem;
+        line-height: 1.35;
+        margin-top: 1.75em;
+        margin-bottom: 0.75em;
     }
 
     h3 {
-        font-size: 1.3rem;
+        font-size: 1.35rem;
+        line-height: 1.4;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
     }
 
-    /* Post cards - stack vertically on mobile */
+    /* Comfortable paragraph spacing */
+    p {
+        margin-bottom: 1.5em;
+        max-width: 100%; /* Prevent overflow */
+    }
+
+    /* Post cards - beautiful vertical layout */
     .quarto-post {
         padding: 1.5rem;
         flex-direction: column;
+        margin-bottom: 1.5rem;
+        border-radius: 16px; /* Softer corners on mobile */
     }
 
-    /* Hide thumbnails on very small screens or make them smaller */
+    /* Stunning thumbnails on mobile */
     .quarto-post .thumbnail {
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
         height: auto;
         aspect-ratio: 16/9;
-        margin: 0 auto 1rem auto;
-        order: 0; /* Show thumbnail first on mobile */
+        margin: 0 0 1.25rem 0;
+        order: 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
+    /* Date and reading time - clear and accessible */
     .quarto-post .metadata {
         order: 1;
         min-width: auto;
         margin-bottom: 1rem;
+        font-size: 0.95rem;
+        opacity: 0.8;
     }
 
+    .quarto-post .listing-date {
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .quarto-post .listing-reading-time {
+        font-size: 0.9rem;
+    }
+
+    /* Content body - perfect reading width */
     .quarto-post .body {
         order: 2;
     }
 
-    /* Article content - better mobile spacing */
+    .listing-title {
+        font-size: 1.4rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+    }
+
+    .listing-description {
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-top: 0.75rem;
+    }
+
+    /* Article content - generous mobile spacing */
+    #quarto-content main {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        padding-top: 1rem;
+        max-width: 100%;
+    }
+
+    /* Code blocks - smooth scrolling */
+    pre.sourceCode, div.sourceCode {
+        font-size: 0.9rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+
+    /* Inline code - comfortable size */
+    p code, li code {
+        font-size: 0.92em;
+        padding: 3px 6px;
+    }
+
+    /* Tables - smooth horizontal scroll */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.95rem;
+    }
+
+    /* Hide TOC on mobile */
+    #TOC {
+        display: none !important;
+    }
+
+    /* Categories - wrap nicely */
+    .listing-categories {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .quarto-category {
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+
+    /* Links - larger touch targets */
+    a {
+        padding: 2px 0;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+    }
+
+    /* Images - fit screen perfectly */
+    img, .quarto-figure {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+    }
+
+    /* Navbar - optimize for mobile */
+    .navbar {
+        padding: 0.5rem 1rem !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    /* Title banner - perfect spacing */
+    .quarto-title-banner {
+        padding: 2rem 1.25rem 1.5rem 1.25rem;
+    }
+
+    .quarto-title .title {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+    }
+
+    .quarto-title .subtitle {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+
+    /* Blockquotes - comfortable reading */
+    blockquote {
+        margin: 1.5rem 0;
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    /* Lists - good spacing */
+    ul, ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    li {
+        margin-bottom: 0.5rem;
+        line-height: 1.7;
+    }
+
+    /* Smooth scrolling for better UX */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Remove hover effects on mobile (they don't work well) */
+    .quarto-post:hover {
+        transform: none;
+    }
+}
+
+/* Extra small phones - adjust for tiny screens */
+@media (max-width: 480px) {
+    body {
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .quarto-post {
+        padding: 1.25rem;
+    }
+
     #quarto-content main {
         padding-left: 1rem;
         padding-right: 1rem;
     }
 
-    /* Code blocks - horizontal scroll */
-    pre.sourceCode {
-        font-size: 0.85rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Tables - make scrollable */
-    table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Hide TOC on mobile (it interferes with content) */
-    #TOC {
-        display: none;
-    }
-
-    /* Listing categories - wrap on mobile */
-    .listing-categories {
-        flex-wrap: wrap;
-    }
-
-    .quarto-category {
-        margin-bottom: 0.5rem;
-    }
-}
-
-/* Very small phones */
-@media (max-width: 480px) {
-    body {
-        font-size: 17px;
-    }
-
-    h1 {
+    .quarto-title .title {
         font-size: 1.75rem;
-    }
-
-    .quarto-post {
-        padding: 1rem;
-    }
-
-    .quarto-post .thumbnail {
-        max-width: 100%;
     }
 }
 
