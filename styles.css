@@ -522,21 +522,102 @@ figcaption {
     }
 }
 
+/* Mobile optimizations */
 @media (max-width: 768px) {
     body {
-        font-size: 16px;
+        font-size: 18px; /* Larger base font for mobile readability */
     }
 
     h1 {
         font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    /* Post cards - stack vertically on mobile */
+    .quarto-post {
+        padding: 1.5rem;
+        flex-direction: column;
+    }
+
+    /* Hide thumbnails on very small screens or make them smaller */
+    .quarto-post .thumbnail {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        aspect-ratio: 16/9;
+        margin: 0 auto 1rem auto;
+        order: 0; /* Show thumbnail first on mobile */
+    }
+
+    .quarto-post .metadata {
+        order: 1;
+        min-width: auto;
+        margin-bottom: 1rem;
+    }
+
+    .quarto-post .body {
+        order: 2;
+    }
+
+    /* Article content - better mobile spacing */
+    #quarto-content main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Code blocks - horizontal scroll */
+    pre.sourceCode {
+        font-size: 0.85rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tables - make scrollable */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide TOC on mobile (it interferes with content) */
+    #TOC {
+        display: none;
+    }
+
+    /* Listing categories - wrap on mobile */
+    .listing-categories {
+        flex-wrap: wrap;
+    }
+
+    .quarto-category {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+    body {
+        font-size: 17px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
     }
 
     .quarto-post {
-        padding: 20px;
+        padding: 1rem;
     }
 
-    pre.sourceCode {
-        font-size: 0.85rem;
+    .quarto-post .thumbnail {
+        max-width: 100%;
     }
 }
 
