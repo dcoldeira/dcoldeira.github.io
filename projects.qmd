@@ -44,7 +44,7 @@ print(f"Entanglement entropy: {ghz3.entanglement_entropy:.3f}")
 ---
 
 ### Quantum Advisor
-**[GitHub](https://github.com/dcoldeira/quantum-process-language) | 2025**
+**[GitHub](https://github.com/dcoldeira/quantum-process-language/tree/main/quantum_advisor) | 2025**
 
 The honest quantum computing consultant—tells you whether your problem actually has proven quantum advantage before you waste months implementing it.
 
@@ -153,7 +153,7 @@ Expert-level insights on quantum computing, physics-informed software engineerin
 
 **David Coldeira**
 
-- **Email:** dcoldeira@gmail.com
+- **Gmail:** dcoldeira
 - **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
 - **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
 
