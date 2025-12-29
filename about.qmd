@@ -23,12 +23,20 @@ Building educational tools and frameworks that make quantum mechanics accessible
 - **Photon Duality Simulator**: Novel theoretical framework for quantum interference
 
 ### Scientific Software Engineering
-Production systems for complex scientific domains, from geotechnical lab automation to quantum simulation.
+Production systems for complex scientific domains, applying rigorous engineering principles to real-world physics problems.
 
-**Experience:**
-- Lead developer for geotechnical LIMS at Geoquip Marine
-- Full-stack scientific software across domains
-- ML pipelines for physical system predictions
+**Day Job - Laboratory Software Engineering:**
+- Lead developer for GQMLab LIMS at Geoquip Marine
+- Processing offshore seabed instrument data (GDS, JVtech)
+- ML pipelines predicting soil mechanics from field measurements
+- Full-stack: Python, Flutter, Docker, PostgreSQL
+
+**Night Job - Quantum Computing Research:**
+- QPL: Relations-first quantum programming language
+- Quantum Advisor: Honest evaluation of quantum advantage
+- Educational tools with production-quality standards
+
+**Cross-Domain Insight:** Both domains require physics-informed design, rigorous correctness, and honest evaluation over hype. The same principles that make geotechnical predictions reliable apply to quantum software.
 
 ---
 
