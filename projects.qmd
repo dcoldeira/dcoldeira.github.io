@@ -153,7 +153,7 @@ Expert-level insights on quantum computing, physics-informed software engineerin
 
 **David Coldeira**
 
-- **Gmail:** dcoldeira
+- **Gmail:** [dcoldeira](mailto:dcoldeira@gmail.com)
 - **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
 - **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
 
