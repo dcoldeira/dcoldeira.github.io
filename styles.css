@@ -118,14 +118,37 @@ a:hover {
 }
 
 /* Clean Code Blocks */
+/* Remove padding from cell containers to give code blocks full width */
+.cell {
+    padding: 0 !important;
+    margin: 1.5rem 0 !important;
+}
+
+.cell-code {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 pre.sourceCode, div.sourceCode {
     background-color: var(--code-bg) !important;
     border: 1px solid var(--border-light);
     border-radius: 8px;
-    padding: 1.25rem;
-    overflow-x: auto;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    padding: 1rem !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+pre.sourceCode code, div.sourceCode code {
+    white-space: pre !important;
+    display: block;
+    padding: 0 !important;
 }
 
 code {
@@ -160,7 +183,8 @@ pre code {
     transition: box-shadow 0.2s ease, transform 0.2s ease;
     display: flex;
     gap: 1.5rem;
-    align-items: flex-start;
+    align-items: center; /* Center items vertically */
+    overflow: hidden; /* Keep content inside card */
 }
 
 .quarto-post:hover {
@@ -368,11 +392,19 @@ blockquote p {
 }
 
 /* Tables - Clean & Readable */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 2rem 0;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 2rem 0;
     font-size: 0.95rem;
+    min-width: 600px; /* Ensure table doesn't get too cramped */
 }
 
 table thead {
@@ -385,6 +417,7 @@ table th {
     text-align: left;
     font-weight: 600;
     color: var(--text-primary);
+    white-space: nowrap;
 }
 
 table td {
@@ -394,6 +427,18 @@ table td {
 
 table tbody tr:hover {
     background: var(--bg-secondary);
+}
+
+/* Mobile table improvements */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9rem;
+        min-width: 500px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
 }
 
 /* Images and Figures - Generous Spacing */
@@ -570,14 +615,15 @@ figcaption {
 
     /* Stunning thumbnails on mobile */
     .quarto-post .thumbnail {
-        width: 100%;
-        max-width: 100%;
+        width: calc(100% + 3rem); /* Extend beyond card padding */
+        max-width: calc(100% + 3rem);
         height: auto;
         aspect-ratio: 16/9;
-        margin: 0 0 1.25rem 0;
+        margin: -1.5rem -1.5rem 1.25rem -1.5rem; /* Negative margins to align with card border */
+        padding: 0;
         order: 0;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-radius: 16px 16px 0 0; /* Round only top corners to match card */
+        box-shadow: none; /* Remove shadow since it's flush with card */
     }
 
     /* Date and reading time - clear and accessible */
@@ -767,18 +813,24 @@ figcaption {
 .thumbnail {
     width: 200px;
     min-width: 200px;
-    height: 200px;
-    overflow: hidden;
+    height: auto; /* Auto height to respect aspect ratio */
+    overflow: hidden; /* Keep content inside thumbnail container */
     border-radius: 8px;
     margin-left: 2rem;
-    display: block !important; /* Force display on all screen sizes */
+    padding-left: 3rem; /* More padding for better spacing from left border */
+    box-sizing: border-box;
+    display: flex !important; /* Use flex for centering */
+    align-items: center; /* Center image vertically */
+    justify-content: center; /* Center image horizontally */
     visibility: visible !important;
+    flex-shrink: 0; /* Prevent thumbnail from shrinking */
 }
 
 .thumbnail img.thumbnail-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* Auto height for proper aspect ratio */
+    max-height: 200px;
+    object-fit: contain; /* Contain instead of cover for SVGs */
     display: block !important;
     visibility: visible !important;
 }
