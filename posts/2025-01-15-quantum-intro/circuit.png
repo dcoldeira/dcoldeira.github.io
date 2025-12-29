@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50" text-anchor="middle">
+    Quantum Computing Foundations
+  </text>
+
+  <!-- Quantum States -->
+  <g transform="translate(150, 120)">
+    <!-- |0⟩ state -->
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#3498db" stroke-width="3"/>
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="24" fill="#3498db" text-anchor="middle">|0⟩</text>
+    <text x="0" y="80" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d" text-anchor="middle">Ground State</text>
+  </g>
+
+  <g transform="translate(400, 120)">
+    <!-- |+⟩ superposition -->
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#e74c3c" stroke-width="3"/>
+    <circle cx="-15" cy="0" r="15" fill="#e74c3c" opacity="0.5"/>
+    <circle cx="15" cy="0" r="15" fill="#e74c3c" opacity="0.5"/>
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="24" fill="#e74c3c" text-anchor="middle">|+⟩</text>
+    <text x="0" y="80" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d" text-anchor="middle">Superposition</text>
+  </g>
+
+  <g transform="translate(650, 120)">
+    <!-- Entangled pair -->
+    <circle cx="-30" cy="0" r="35" fill="none" stroke="#9b59b6" stroke-width="3"/>
+    <circle cx="30" cy="0" r="35" fill="none" stroke="#9b59b6" stroke-width="3"/>
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="20" fill="#9b59b6" text-anchor="middle">|Φ⁺⟩</text>
+    <text x="0" y="80" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d" text-anchor="middle">Entanglement</text>
+  </g>
+
+  <!-- Arrow transformations -->
+  <g>
+    <line x1="200" y1="150" x2="340" y2="150" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="270" y="140" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="middle">H</text>
+
+    <line x1="450" y1="150" x2="570" y2="150" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="510" y="140" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d" text-anchor="middle">CNOT</text>
+  </g>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#95a5a6"/>
+    </marker>
+  </defs>
+
+  <!-- Subtitle -->
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="16" fill="#7f8c8d" text-anchor="middle">
+    From States to Superposition to Entanglement
+  </text>
+</svg>
