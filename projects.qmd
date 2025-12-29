@@ -1,0 +1,168 @@
+---
+title: "Projects"
+subtitle: "Quantum Computing & Scientific Software"
+page-layout: article
+---
+
+## Research & Open Source
+
+### Quantum Process Language (QPL)
+**[GitHub](https://github.com/dcoldeira/quantum-process-language) | 2025 | Active Development**
+
+Educational quantum programming language where entanglement is first-class—teaching quantum mechanics through relations-first programming.
+
+**Recent Milestones:**
+
+- ✅ **Stage 0 Complete**: 2-qubit Bell states, correct cross-basis measurements
+- ✅ **Stage 1 Complete**: n-qubit GHZ states, arbitrary entanglement (tested to 5 qubits)
+- 🚧 **Stage 2 In Progress**: Process algebra, quantum type system
+
+**Philosophy:**
+
+- **Relations over objects** - Entanglement is fundamental
+- **Questions over measurements** - Asking changes the system
+- **Processes over gates** - Everything is an interaction
+- **Context over absolute** - Observer-dependent reality
+
+**Example:**
+```python
+# Create 3-qubit GHZ state: (|000⟩ + |111⟩)/√2
+program = QPLProgram("GHZ Demo")
+q0, q1, q2 = program.create_system(), program.create_system(), program.create_system()
+ghz3 = program.entangle(q0, q1, q2)
+
+print(f"Entanglement entropy: {ghz3.entanglement_entropy:.3f}")
+# Output: 1.0 (maximally entangled)
+```
+
+**Use Case:** Teaching quantum thinking to programmers
+
+**Tech:** Python • NumPy • Quantum state simulation • Tensor networks
+
+**Status:** Core physics verified, n-qubit relations working, ready for educational use
+
+---
+
+### Quantum Advisor
+**[GitHub](https://github.com/dcoldeira/quantum-process-language) | 2025**
+
+The honest quantum computing consultant—tells you whether your problem actually has proven quantum advantage before you waste months implementing it.
+
+**Why It Exists:**
+
+Most quantum computing content is hype. This tool provides **evidence-based assessments** with peer-reviewed citations, honest timelines, and clear recommendations.
+
+**Example Output:**
+```
+❌ QUANTUM NOT RECOMMENDED for Traveling Salesman Problem
+
+Reason: No proven quantum advantage for general NP-complete problems
+Classical: Concorde solver, LKH heuristic (highly effective)
+Quantum Status: No demonstrated speedup
+Timeline: No advantage expected (fundamental limitation)
+
+References:
+- Aaronson & Arkhipov (2011): Quantum complexity theory
+- Cook & Cunningham (1997): TSP classical algorithms
+```
+
+**Knowledge Base:**
+
+- 4 problem classes (factorization, search, optimization, simulation)
+- 3 quantum algorithms (Shor's, Grover's, VQE)
+- Evidence-based with citations
+- Honest about NISQ limitations vs fault-tolerant era
+
+**Tech:** Python • JSON schema • Curated scientific knowledge
+
+**Status:** Working prototype, expanding knowledge base
+
+---
+
+### Photon Duality Simulator
+**[GitHub](https://github.com/dcoldeira/photon-duality-simulator) | 2025**
+
+Novel theoretical framework proposing that interference patterns arise from interactions between "bright" (detectable) and "dark" (undetectable) photon states.
+
+**Theoretical Contribution:**
+
+- Bright/dark state mathematical formulation
+- Testable experimental predictions
+- Connections to pilot-wave theory, decoherence, weak measurement
+
+**Features:**
+
+- Interactive parameter exploration
+- Animated phase variation visualizations
+- Double-slit experiment simulations
+- Fringe visibility analysis
+
+**Tech:** Python • NumPy • Matplotlib • SciPy
+
+**Status:** Theoretical framework complete, seeking experimental collaboration
+
+---
+
+## Scientific Computing
+
+### Principles & Approach
+
+Cross-domain patterns for building software in complex scientific environments.
+
+**Physics-Informed Design**
+
+Domain knowledge drives architecture. Understanding quantum mechanics shapes how QPL handles entanglement. Understanding physics is not optional—it's the foundation.
+
+**Honest Evaluation**
+
+Both geotechnical predictions and quantum algorithms face hype. Rigorous validation and transparent limitations are essential. If something doesn't work, say so.
+
+**Production-Ready Research Code**
+
+Research code shouldn't be throwaway. Build with testing, documentation, and maintainability from day one. QPL has 100% test pass rate because correctness matters.
+
+**Rigorous Physics**
+
+Get the math right. QPL's cross-basis bug fix (Stage 0) demonstrated: assumptions must be tested, quantum mechanics is unforgiving, and correct physics is non-negotiable.
+
+---
+
+## Writing
+
+### Entangled Code Blog
+**[dcoldeira.github.io](https://dcoldeira.github.io) | 2025-Present**
+
+Expert-level insights on quantum computing, physics-informed software engineering, and honest evaluation of quantum claims.
+
+**Recent Posts:**
+
+- "Quantum Computing Foundations: The Theory Behind QPL" - Complete quantum mechanics primer
+- "Stage Zero: Programming Quantum Reality Through Relations, Not Gates" - QPL philosophy and implementation
+- Coming: "Stage 1: n-Qubit Entanglement and GHZ States"
+
+**Focus:**
+
+- Deep technical analysis over tutorials
+- Critical evaluation of quantum claims
+- Architectural patterns for scientific software
+- Real-world applications and limitations
+
+---
+
+## Contact
+
+**David Coldeira**
+
+- **Email:** dcoldeira@gmail.com
+- **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
+- **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
+
+Open to discussions about:
+- Quantum computing (honest evaluation, not hype)
+- Scientific software engineering
+- Physics-informed software design
+- Collaboration on educational tools or research
+
+---
+
+*Building software at the intersection of quantum mechanics and production engineering.*

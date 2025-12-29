@@ -9,6 +9,9 @@ virtualenv/
 # Planning documents (internal use only)
 CONTENT_STRATEGY.md
 
+# Private learning directory (local only)
+learning/
+
 # Quarto build output
 /.quarto/
 _site/

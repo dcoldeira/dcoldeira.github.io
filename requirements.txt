@@ -1,0 +1,30 @@
+# Quantum Computing Development Environment
+# Python 3.9+ required
+
+# Core Quantum Frameworks
+qiskit>=1.0.0                    # IBM's quantum computing framework
+qiskit-aer>=0.13.0              # High-performance simulators
+qiskit-ibm-runtime>=0.17.0      # Access to IBM Quantum hardware
+
+# Visualization
+matplotlib>=3.8.0                # Plotting and visualizations
+pylatexenc>=2.10                # LaTeX rendering for circuits
+
+# Jupyter Environment (for experimentation)
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.25.0
+ipywidgets>=8.1.0               # Interactive widgets
+
+# Scientific Computing
+numpy>=1.24.0
+scipy>=1.11.0
+pandas>=2.1.0                   # Data analysis
+
+# Optional: Additional Quantum Frameworks (for comparison)
+# cirq>=1.3.0                   # Google's quantum framework
+# pennylane>=0.33.0             # Quantum ML framework
+
+# Development Tools
+black>=23.0.0                   # Code formatting
+pytest>=7.4.0                   # Testing framework

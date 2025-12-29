@@ -3,8 +3,8 @@ project:
   output-dir: _site
 
 website:
-  title: "dcoldeira"
-  description: "Bridging classical software engineering and quantum computing through rigorous exploration and architectural insights"
+  title: "Entangled Code"
+  description: "Rigorous quantum computing and physics-informed software engineering"
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
   favicon: favicon.svg
@@ -14,20 +14,24 @@ website:
     left:
       - text: "Home"
         href: index.qmd
+      - text: "Projects"
+        href: projects.qmd
       - text: "About"
         href: about.qmd
     right:
       - icon: github
         href: https://github.com/dcoldeira
+      - icon: linkedin
+        href: https://uk.linkedin.com/in/dcoldeira
       - icon: rss
         href: index.xml
 
   page-footer:
     background: "#fafafa"
     center: |
-      Entangled Code | Where Physics Meets Programming
+      Rigorous Quantum Computing • Physics-Informed Software Engineering
 
-      Full Stack Developer exploring Quantum Computing
+      Where quantum mechanics meets production code
 
 format:
   html:

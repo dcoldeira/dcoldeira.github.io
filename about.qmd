@@ -1,75 +1,144 @@
 ---
 title: "About"
-about:
-  template: jolla
-  links:
-    - icon: github
-      text: GitHub
-      href: https://github.com/dcoldeira
-    - icon: linkedin
-      text: LinkedIn
-      href: https://uk.linkedin.com/in/dcoldeira
-    - icon: envelope
-      text: Email
-      href: mailto:dcoldeira@tuta.io
+subtitle: "Building software at the intersection of quantum mechanics and engineering"
+page-layout: article
 ---
 
-## About Entangled Code
+## David Coldeira
 
-**Entangled Code** explores the intersection of classical software engineering and quantum computing, offering technical insights, architectural analysis, and practical implementations for the quantum computing era.
+**Scientific Software Engineer** specializing in quantum computing and physics-informed software design.
 
-### Background
+I build production-quality tools for complex physical systems—combining deep physics knowledge with rigorous software engineering to create solutions that actually work.
 
-I'm a full stack developer with a physics degree, bringing together rigorous software engineering practices and quantum mechanical principles. My work focuses on bridging the gap between classical infrastructure and quantum algorithms, exploring how quantum computing integrates into real-world systems.
+---
 
-### Technical Focus
+## What I Do
 
-**Software Engineering:**
-- Full stack development with Python APIs and backend systems
-- Cloud-native architectures and containerization
-- Database design and optimization
-- Data analysis and computational workflows
+### Quantum Computing Research
+Building educational tools and frameworks that make quantum mechanics accessible while maintaining physical rigor.
 
-**Quantum Computing:**
-- Quantum algorithm implementation and analysis
-- Quantum circuit optimization and performance profiling
-- Hybrid classical-quantum system architecture
-- Framework evaluation (Qiskit, Cirq, PennyLane)
-- Practical applications in optimization and simulation
+**Current Projects:**
+- **Quantum Process Language (QPL)**: Relations-first quantum programming where entanglement is first-class
+- **Quantum Advisor**: Honest evaluation tool for quantum computational advantage
+- **Photon Duality Simulator**: Novel theoretical framework for quantum interference
 
-### What This Blog Offers
+### Scientific Software Engineering
+Production systems for complex scientific domains, from geotechnical lab automation to quantum simulation.
 
-**Architectural Insights** - Design patterns and trade-offs in quantum-classical systems
+**Experience:**
+- Lead developer for geotechnical LIMS at Geoquip Marine
+- Full-stack scientific software across domains
+- ML pipelines for physical system predictions
 
-**Algorithm Analysis** - Deep dives into quantum algorithms with performance considerations
+---
 
-**Implementation Patterns** - Production-quality code examples and best practices
+## Philosophy
 
-**Critical Perspective** - Honest evaluation of quantum computing's current capabilities and limitations
+### Honest Evaluation Over Hype
 
-### Content Philosophy
+Most quantum computing content is hype. I provide **critical, evidence-based analysis** of when quantum computing actually helps (and when it doesn't).
 
-This blog moves beyond introductory tutorials to provide expert-level analysis. Each post synthesizes hands-on experimentation with theoretical understanding, offering insights for software engineers and researchers working with quantum computing technologies.
+If something doesn't work, I say so. If classical methods are better, I recommend them. Honesty matters more than excitement.
 
-The content assumes programming fundamentals and focuses on the "why" behind architectural decisions, performance implications, and real-world applicability of quantum algorithms.
+### Physics-Informed Design
 
-### Areas of Exploration
+Domain knowledge drives architecture. Understanding quantum mechanics shapes how QPL handles entanglement. Understanding soil mechanics influences geotechnical data pipelines.
 
-- Variational quantum algorithms and optimization landscapes
-- Error mitigation strategies in NISQ devices
-- Integration patterns for quantum-enhanced applications
-- Quantum machine learning: capabilities and constraints
-- Circuit compilation and optimization techniques
-- Hardware-aware algorithm design
+**The best software for physical systems comes from understanding both the physics and the engineering.**
 
-### Connect
+### Production-Ready Research Code
 
-Interested in quantum computing architecture, algorithm implementation, or exploring collaboration opportunities:
+Research code shouldn't be throwaway. Build with:
+- Comprehensive testing (QPL: 100% test pass rate)
+- Clear documentation
+- Maintainability from day one
+- Real-world applicability
 
+### Rigorous Correctness
+
+Get the math right. Quantum mechanics is unforgiving:
+- Test assumptions
+- Verify against known physics
+- Fix bugs thoroughly (see: QPL cross-basis measurement bug fix)
+
+---
+
+## Background
+
+**Education:** Physics BSc → Self-taught software engineering → Production systems
+
+**Technical Domains:**
+- **Quantum Computing**: Python, NumPy, Qiskit, quantum state simulation, tensor networks
+- **Scientific Software**: Python (FastAPI, Pandas, Scikit-learn), PostgreSQL, Docker, Kubernetes
+- **Full-Stack**: Flutter, modern web frameworks, REST APIs, ML pipelines
+
+---
+
+## What This Blog Offers
+
+**Deep Technical Analysis**
+
+Expert-level quantum computing and scientific software insights. Not tutorials—assumes you know programming fundamentals and focuses on the "why" behind architectural decisions.
+
+**Honest Quantum Evaluation**
+
+Critical assessment of quantum computing claims. When does quantum actually help? When are classical methods better? Evidence-based answers with peer-reviewed citations.
+
+**Physics-Informed Design Patterns**
+
+How domain knowledge shapes software architecture. Patterns that work across domains—from quantum computing to geotechnical engineering.
+
+**Real-World Experience**
+
+Lessons from building production scientific software. What actually works? What doesn't? What matters?
+
+---
+
+## Current Focus
+
+### Stage 1: n-Qubit Relations (Completed)
+
+QPL now supports arbitrary n-qubit entanglement:
+- GHZ states up to 5 qubits tested
+- General tensor product operations
+- Proper measurement and state collapse
+- 100% test pass rate
+
+### Stage 2: Process Algebra (Next)
+
+Building quantum type system and process composition for QPL.
+
+### Quantum Advisor Expansion
+
+Growing the knowledge base with more quantum algorithms and problem classes.
+
+---
+
+## Connect
+
+**Open to discussions about:**
+- Quantum computing (honest evaluation, not hype)
+- Scientific software engineering
+- Physics-informed software design
+- Collaboration on educational tools or research
+
+**Contact:**
+- **Email**: dcoldeira@gmail.com
 - **GitHub**: [@dcoldeira](https://github.com/dcoldeira)
-- **Research**: Implementation code and experiments available in repositories
-- **Discussion**: Open to technical conversations about quantum computing systems
+- **LinkedIn**: [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
 
 ---
 
-*Building bridges between quantum theory and production systems.*
+## Content Philosophy
+
+**Rigorous over flashy.** Every claim backed by evidence. Honest about limitations. Clear about what works and what doesn't.
+
+**Expert-level, not beginner.** Assumes programming fundamentals and physics basics. Focuses on depth, not breadth.
+
+**Cross-domain insights.** Principles that apply whether you're building geotechnical software or quantum computing tools.
+
+**Production mindset.** Research code should be production-quality. Tools should be usable. Claims should be testable.
+
+---
+
+*"The best software for physical systems comes from understanding both the physics and the engineering."*
