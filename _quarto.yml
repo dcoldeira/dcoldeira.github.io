@@ -4,10 +4,14 @@ project:
 
 website:
   title: "Entangled Code"
-  description: "Rigorous quantum computing and physics-informed software engineering"
+  description: "Rigorous quantum computing and physics-informed software engineering. Expert-level insights on quantum mechanics, QPL (Quantum Process Language), and building production-quality quantum computing tools."
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
   favicon: favicon.svg
+  open-graph: true
+  twitter-card:
+    creator: "@dcoldeira"
+    site: "@dcoldeira"
 
   navbar:
     background: white

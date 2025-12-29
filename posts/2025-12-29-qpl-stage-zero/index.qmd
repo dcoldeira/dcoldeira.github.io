@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2025-12-29"
 categories: [quantum computing, QPL, physics, programming languages, research]
 description: "Most quantum frameworks force you to think in gates. QPL Stage Zero proves you can build from entanglement instead. Here's why relations-first quantum programming might unlock something bigger."
-image: "qpl-stage-zero.png"
+image: "qpl-stage-zero.svg"
 ---
 
 ## The Constraint We Don't Question
