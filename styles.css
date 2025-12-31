@@ -337,6 +337,11 @@ pre code {
     opacity: 0.8;
 }
 
+/* Add spacing between icon and text in navbar links */
+.navbar-nav .nav-link .bi {
+    margin-right: 0.5rem;
+}
+
 .navbar-nav .nav-item .bi {
     color: white !important;
 }
