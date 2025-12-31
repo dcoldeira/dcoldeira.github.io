@@ -7,15 +7,15 @@ page-layout: article
 ## Research & Open Source
 
 ### Quantum Process Language (QPL)
-**[GitHub](https://github.com/dcoldeira/quantum-process-language) | 2025 | Active Development**
+**[GitHub Repository](https://github.com/dcoldeira/quantum-process-language) | [Documentation](https://github.com/dcoldeira/quantum-process-language#readme) | 2025 | Active Development**
 
-Educational quantum programming language where entanglement is first-class—teaching quantum mechanics through relations-first programming.
+A quantum programming language built from first principles where entanglement is a first-class citizen. Not another gate-based framework—this is **relations-first quantum programming**.
 
 **Recent Milestones:**
 
-- ✅ **Stage 0 Complete**: 2-qubit Bell states, correct cross-basis measurements
-- ✅ **Stage 1 Complete**: n-qubit GHZ states, arbitrary entanglement (tested to 5 qubits)
-- 🚧 **Stage 2 In Progress**: Process algebra, quantum type system
+- ✅ **Stage 0 Complete** (Dec 2025): 2-qubit Bell states, correct cross-basis measurements, entanglement tracking
+- ✅ **Stage 1 Complete** (Dec 2025): n-qubit GHZ & W states, arbitrary entanglement (tested to 5 qubits), partial measurements
+- 🔜 **Stage 2 Next**: Process algebra, quantum type system, gate application
 
 **Philosophy:**
 

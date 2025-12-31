@@ -18,14 +18,24 @@ title-block-banner: true
 
 Building quantum computing tools and scientific software with **honest evaluation**, **rigorous physics**, and **production-quality engineering**.
 
+::: {.callout-note icon=false appearance="simple"}
+## 🔬 Featured Project: Quantum Process Language (QPL)
+
+**Relations-first quantum programming** where entanglement is a first-class citizen.
+
+- ✅ Stage 0 & 1 Complete: n-qubit entanglement, GHZ states, proper physics
+- 🔜 Stage 2 Next: Process algebra & quantum type system
+- **[View on GitHub →](https://github.com/dcoldeira/quantum-process-language)** | **[Read the Docs →](https://github.com/dcoldeira/quantum-process-language#readme)**
+
+*Not another gate-based framework—this is quantum computing built from first principles.*
+:::
+
 **What You'll Find Here:**
 
 - 🔬 **Deep Technical Analysis** - Expert-level quantum computing insights, not tutorials
 - ⚛️ **Honest Quantum Evaluation** - Critical assessment of quantum claims and real-world viability
 - 🎯 **Physics-Informed Design** - How domain knowledge shapes software architecture
 - 🛠️ **Production Experience** - Lessons from building real quantum computing tools
-
-**Current Focus:** Quantum Process Language (QPL), n-qubit entanglement, GHZ states, and relations-first quantum programming.
 
 ---
 

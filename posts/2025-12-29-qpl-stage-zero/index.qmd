@@ -7,6 +7,16 @@ description: "Most quantum frameworks force you to think in gates. QPL Stage Zer
 image: "qpl-stage-zero.svg"
 ---
 
+::: {.callout-tip icon=false}
+## 🔗 Quantum Process Language (QPL) Repository
+
+This post documents QPL Stage Zero development. View the source code, run examples, and contribute:
+
+**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+
+Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
+:::
+
 ## The Constraint We Don't Question
 
 Every mainstream quantum framework—Qiskit, Cirq, Q#—makes you think like this:

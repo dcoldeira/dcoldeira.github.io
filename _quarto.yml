@@ -23,6 +23,9 @@ website:
       - text: "About"
         href: about.qmd
     right:
+      - text: "QPL"
+        icon: code-square
+        href: https://github.com/dcoldeira/quantum-process-language
       - icon: github
         href: https://github.com/dcoldeira
       - icon: linkedin
