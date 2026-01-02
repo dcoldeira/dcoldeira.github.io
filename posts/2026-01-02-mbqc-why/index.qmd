@@ -1,0 +1,680 @@
+---
+title: "Why QPL is Adopting Measurement-Based Quantum Computing"
+author: "David Coldeira"
+date: "2026-01-02"
+categories: [quantum computing, QPL, MBQC, research, quantum foundations]
+description: "Gates are not how quantum mechanics works. QPL is adopting Measurement-Based Quantum Computing (MBQC) as its compilation target—not because it's easier, but because it's what the physics actually says. Here's the theory, the motivation, and the research program ahead."
+image: "mbqc-paradigm.svg"
+---
+
+::: {.callout-tip icon=false}
+## 🔗 Quantum Process Language (QPL) Repository
+
+This post outlines QPL's research direction toward MBQC compilation.
+
+**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+
+Status: ✅ Stage 1 Complete | 🔜 Stage 2: MBQC Compilation
+:::
+
+::: {.callout-note icon=false appearance="simple"}
+## Research Program Announcement
+
+This post marks a significant pivot for QPL: from educational quantum language to **research-grade quantum compiler targeting measurement-based quantum computing**.
+
+If you're a researcher, PhD supervisor, or funding body working on quantum computing, photonic quantum systems, or quantum compilers—this might interest you.
+:::
+
+---
+
+## The Problem with Gates
+
+Every mainstream quantum framework compiles to **gates**:
+
+```python
+# Qiskit: Create Bell pair via gates
+qc = QuantumCircuit(2)
+qc.h(0)           # Hadamard gate
+qc.cx(0, 1)       # CNOT gate
+qc.measure_all()
+```
+
+This works. It's been the standard for 30 years. But here's the uncomfortable truth:
+
+**Gates are not how quantum mechanics actually works.**
+
+Quantum systems don't "apply Hadamard gates" to themselves. They evolve continuously under Hamiltonians:
+
+$$i\hbar \frac{d|\psi\rangle}{dt} = H |\psi\rangle$$
+
+Gates are **discretizations** of continuous evolution—a useful approximation, but fundamentally classical thinking applied to quantum systems.
+
+### Why We Use Gates Anyway
+
+Gates won because:
+
+1. **Historical accident:** Circuit model from classical computing
+2. **Mathematical convenience:** Unitary matrices compose cleanly
+3. **Hardware mapping:** Easy to compile H → microwave pulse on superconducting qubit
+
+But they're not inevitable. And for some quantum computing paradigms, they're **actively wrong**.
+
+---
+
+## What is Measurement-Based Quantum Computing (MBQC)?
+
+MBQC is a fundamentally different model of quantum computation discovered by Raussendorf and Briegel in 2001 ([Physical Review Letters 86, 5188](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.5188)).
+
+### The One-Way Quantum Computer
+
+**Core idea:** Computation happens through **measurements**, not gates.
+
+**Protocol:**
+
+1. **Prepare a highly entangled resource state** (cluster state, graph state)
+2. **Measure qubits adaptively** in chosen bases
+3. **Measurement outcomes steer the computation**
+4. **Final state encodes the result**
+
+**No gates during computation.** All entanglement created upfront. Computation = asking questions of the entangled system.
+
+### Formal Definition: Cluster States
+
+A **cluster state** $|G\rangle$ is defined by a graph $G = (V, E)$:
+
+$$|G\rangle = \prod_{(i,j) \in E} CZ_{ij} |+\rangle^{\otimes n}$$
+
+where:
+- $|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$ (Hadamard basis)
+- $CZ_{ij}$ is the controlled-Z gate between qubits $i$ and $j$
+
+**Example: 2-qubit cluster state**
+
+$$|G\rangle = CZ_{01}|+\rangle|+\rangle = \frac{1}{2}(|00\rangle + |01\rangle + |10\rangle - |11\rangle)$$
+
+This is a **graph state**—the entanglement structure encodes the graph topology.
+
+### Measurement Pattern
+
+Computation is a sequence of **single-qubit measurements** in bases:
+
+$$M_i(\theta) = \cos(\theta)|0\rangle + \sin(\theta)|1\rangle$$
+
+**Adaptive measurements:** Basis angles depend on previous outcomes:
+
+$$\theta_i = \theta_i^0 + \sum_{j < i} (-1)^{s_j} \pi$$
+
+where $s_j$ are measurement outcomes from earlier qubits.
+
+### Example: CNOT Gate via MBQC
+
+To implement CNOT using MBQC:
+
+**Resource:** 4-qubit cluster state
+```
+q0 --- a1 --- a2 --- q3
+```
+
+**Measurements:**
+1. Measure $a_1$ in X basis → outcome $s_1$
+2. Measure $a_2$ in basis $\theta = 0 + s_1 \pi$ → outcome $s_2$
+
+**Result:** Qubits $q_0$ and $q_3$ now in CNOT-equivalent state (up to Pauli corrections based on $s_1, s_2$).
+
+**Key insight:** The gate is **teleported** through the cluster via measurements.
+
+---
+
+## Why MBQC Fits QPL Perfectly
+
+Look at QPL's core abstractions from Stage 1:
+
+```python
+# Create entangled relation
+ghz5 = program.entangle(q0, q1, q2, q3, q4)
+
+# Computation via questions
+result = program.ask(ghz5, question_z, perspective="alice")
+```
+
+**This is already MBQC.**
+
+- **`entangle()`** → Prepare cluster state
+- **`ask()`** → Adaptive measurement
+- **`QuantumRelation`** → Graph state representation
+
+QPL didn't **choose** MBQC—the relations-first model **naturally expresses** MBQC.
+
+### The Conceptual Alignment
+
+| MBQC Concept | QPL Abstraction |
+|--------------|-----------------|
+| Cluster state preparation | `program.entangle(*systems)` |
+| Graph topology | `QuantumRelation.systems` graph |
+| Single-qubit measurement | `program.ask(relation, question, ...)` |
+| Adaptive measurement | `question` depends on previous `ask()` results |
+| Measurement basis | `QuestionType.SPIN_X`, `SPIN_Z`, custom |
+| Pauli corrections | Tracked in `QuantumRelation.history` |
+
+**We're not forcing MBQC onto QPL. QPL naturally expresses MBQC semantics.**
+
+---
+
+## The Theory: Why MBQC is Fundamental
+
+MBQC isn't just "gates but different"—it reveals deep truths about quantum mechanics.
+
+### 1. Universality via Entanglement + Measurement
+
+**Theorem (Raussendorf & Briegel, 2001):** Any quantum circuit can be simulated by:
+1. Preparing a universal cluster state
+2. Measuring in appropriate single-qubit bases
+
+**Implication:** Entanglement + measurement is **computationally universal**. Gates are not necessary.
+
+**Proof sketch:**
+- Universal gate set: $\{H, T, CNOT\}$
+- Each gate corresponds to a measurement pattern on cluster state
+- Compose patterns to implement arbitrary circuits
+- **Conclusion:** MBQC = Circuit model (computationally equivalent)
+
+But the **physics** is different.
+
+### 2. Quantum Teleportation as Primitive
+
+MBQC is **quantum teleportation** iterated.
+
+**Standard teleportation:**
+1. Alice and Bob share Bell pair
+2. Alice entangles message with her half
+3. Alice measures both qubits → 2 classical bits
+4. Bob applies corrections based on bits
+5. Bob now has Alice's original state
+
+**MBQC teleportation:**
+1. Prepare cluster state
+2. Measure qubit in basis $\theta$
+3. Information teleports to adjacent qubits in cluster
+4. Repeat adaptively
+5. Final qubit has computed result
+
+**MBQC is teleportation through an entanglement network.**
+
+### 3. Measurement is Contextual Projection
+
+In QPL, `ask(relation, question, perspective)` captures quantum **contextuality**:
+
+- **Question:** What basis am I measuring in? (Z, X, custom $\theta$)
+- **Perspective:** Who is observing? (Alice, Bob, experimenter)
+- **Relation:** What entangled system am I probing?
+
+This is **Bohr's complementarity** made explicit:
+- Measuring Z gives different physics than measuring X
+- The question changes the system
+- Different observers can have different measurement records
+
+**MBQC makes this operational:** The measurement basis **is** the computation.
+
+---
+
+## Why This Matters: MBQC is Powering Real Quantum Computers
+
+MBQC isn't theoretical—it's **how some quantum computers actually work**.
+
+### 1. Photonic Quantum Computing
+
+**Companies:** PsiQuantum, Xanadu
+
+**Why photonic = MBQC:**
+- Creating photonic gates (controlled operations) is **hard**
+- Creating entangled photons (SPDC, squeezing) is **easier**
+- Photodetection (measurement) is **natural**
+
+**PsiQuantum's approach:**
+1. Generate millions of entangled photons
+2. Route through photonic chips to form cluster state
+3. Detect photons (measure) at fusion points
+4. Measurement outcomes = computation
+
+**No photonic gates. Pure MBQC.**
+
+### 2. Fault-Tolerant Quantum Computing (Surface Codes)
+
+**Google, IBM, Rigetti, IonQ**
+
+**Surface codes** are the leading approach to quantum error correction:
+- Qubits arranged on 2D lattice
+- Syndrome measurements detect errors
+- Logical gates = measurement patterns on surface code
+
+**Surface codes ARE MBQC.**
+
+**Example: Logical CNOT on surface code**
+1. Prepare topological cluster state (surface code)
+2. Measure stabilizers (syndrome extraction)
+3. Measure data qubits in specific pattern
+4. Classical processing + Pauli corrections
+5. Logical CNOT implemented via measurements
+
+**Fault-tolerant quantum computing is MBQC applied to error correction.**
+
+### 3. Neutral Atom Quantum Computers
+
+**Companies:** QuEra, Pasqal, Atom Computing
+
+**Recent developments:**
+- Can create large cluster states (100+ qubits)
+- Rydberg blockade creates entanglement
+- Single-atom measurement via fluorescence
+
+**QuEra Aquila** (256 qubits) can prepare graph states natively. Natural MBQC platform.
+
+---
+
+## The Compilation Problem: Gate-Based is a Detour
+
+Here's the current quantum compilation stack:
+
+```
+High-level algorithm (Python)
+    ↓
+Abstract gates (H, CNOT, T)
+    ↓
+Hardware-specific gates (√iSWAP, Rz, CZ)
+    ↓
+Pulse sequences (microwave, laser)
+    ↓
+Physical quantum system
+```
+
+**Every level is gate-centric.**
+
+But for **photonic** and **surface code** systems, this is a **detour**:
+
+```
+Algorithm
+    ↓ (compile to gates)
+Gates (H, CNOT, T)
+    ↓ (decompose to MBQC - expensive!)
+MBQC measurement pattern
+    ↓
+Photonic hardware / Surface code
+```
+
+**We're compiling to gates, then compiling gates to MBQC.** Why?
+
+**Because we don't have languages that natively express MBQC.**
+
+---
+
+## QPL's Compilation Path: Direct to MBQC
+
+QPL can **skip the gate layer entirely**:
+
+```
+QPL Program (relations + measurements)
+    ↓
+Extract entanglement graph
+    ↓
+Cluster state preparation
+    ↓
+MBQC measurement pattern
+    ↓
+Execute on photonic / surface code / neutral atom hardware
+```
+
+**No gate decomposition. Relations compile directly to cluster states.**
+
+### Example: Bell State Preparation
+
+**Qiskit (gates):**
+```python
+qc = QuantumCircuit(2)
+qc.h(0)       # Gate 1
+qc.cx(0, 1)   # Gate 2
+```
+
+**QPL (relations):**
+```python
+bell = program.entangle(q0, q1)
+```
+
+**Compilation to MBQC:**
+
+QPL:
+```
+entangle(q0, q1)
+    ↓
+Graph: q0 --- q1
+    ↓
+Cluster state: CZ_{01} |+⟩|+⟩
+    ↓
+Measurement pattern: [None] (Bell state is the resource)
+```
+
+Qiskit:
+```
+H(0); CNOT(0,1)
+    ↓
+Decompose H → measurement pattern
+    ↓
+Decompose CNOT → 4-qubit cluster + 2 measurements
+    ↓
+More complex cluster state needed
+```
+
+**QPL's representation is more direct.**
+
+---
+
+## The Research Program: Stages 2-4
+
+QPL's path forward is now clear:
+
+### Stage 2: MBQC Compiler (Target: 2025 Q2)
+
+**Goals:**
+
+1. **Graph state extraction**
+   - Every QPL `entangle()` operation defines a graph
+   - Build graph representation from `QuantumRelation`
+   - Visualize entanglement topology
+
+2. **Cluster state compilation**
+   - Given graph $G$, output cluster state preparation circuit
+   - Optimize for hardware constraints (photonic, surface code)
+
+3. **Measurement pattern generation**
+   - Compile `ask()` operations to measurement bases and timings
+   - Handle adaptive measurements (basis depends on outcomes)
+   - Track Pauli corrections
+
+4. **Photonic backend**
+   - Interface with **Strawberry Fields** (Xanadu's photonic framework)
+   - QPL → Strawberry Fields compilation
+   - Run on photonic simulators / hardware
+
+**Deliverables:**
+- `qpl_program.compile(target="mbqc")` → measurement pattern
+- Integration with Strawberry Fields
+- Example: Compile QPL teleportation to photonic MBQC
+
+**Success criteria:**
+- QPL programs run on photonic quantum computers without gate layer
+- Measurement patterns verified against MBQC theory
+
+---
+
+### Stage 3: Tensor Networks for Simulation (Target: 2025 Q3-Q4)
+
+**Problem:** Cluster states for n qubits require $2^n$ amplitudes.
+
+**Solution:** Matrix Product States (MPS) and Tensor Networks.
+
+**Goals:**
+
+1. **MPS representation of QuantumRelation**
+   - Replace `state: np.ndarray` with `state: MatrixProductState`
+   - Operations (entangle, measure) work on MPS directly
+
+2. **Efficient MBQC simulation**
+   - Cluster states have local entanglement → MPS is efficient
+   - Measurements = tensor contractions
+   - Simulate 100+ qubit MBQC patterns
+
+3. **Integration with TensorNetwork / quimb**
+   - Use Google's TensorNetwork library
+   - Automatic contraction order optimization
+
+**Deliverables:**
+- QPL simulates 50+ qubit MBQC programs efficiently
+- Tensor network visualizations of entanglement structure
+- Paper: "Efficient Simulation of MBQC via Relations-First Tensor Networks"
+
+**Success criteria:**
+- Simulate larger systems than full state vector approach
+- Demonstrate efficiency gains for sparse entanglement graphs
+
+---
+
+### Stage 4: Fault-Tolerant MBQC (Target: 2026+)
+
+**Goals:**
+
+1. **Surface code compilation**
+   - QPL relations → surface code stabilizer measurements
+   - Logical gates as measurement patterns
+   - Error correction via syndrome extraction
+
+2. **Topological error correction**
+   - Integrate with surface code simulators (Stim, PyMatching)
+   - QPL programs compiled to fault-tolerant MBQC
+
+3. **Real quantum hardware**
+   - Run on IBM / Google quantum computers via surface codes
+   - Run on PsiQuantum photonic systems (when available)
+
+**Long-term vision:**
+- QPL becomes a **high-level language for fault-tolerant quantum computing**
+- Compiles directly to surface code MBQC patterns
+- Abstracts away error correction (handled by compiler)
+
+---
+
+## Why This is PhD-Level Research
+
+If executed, this is a **legitimate PhD thesis**:
+
+### Thesis Title (Hypothetical)
+
+**"Relations-First Quantum Computing: A Programming Language and Compiler for Measurement-Based Quantum Computing"**
+
+### Contributions
+
+1. **Programming Language Design**
+   - Relations-first semantics for quantum computing
+   - Formal operational semantics of MBQC in QPL
+   - Type system preventing quantum no-cloning at compile time
+
+2. **Compiler Design**
+   - QPL → MBQC measurement pattern compilation
+   - Graph state extraction and optimization
+   - Adaptive measurement handling
+
+3. **Tensor Network Integration**
+   - MPS representation of quantum relations
+   - Efficient simulation of MBQC programs
+   - Scaling beyond state vector methods
+
+4. **Hardware Implementation**
+   - Photonic quantum computing backend
+   - Surface code compilation
+   - Real hardware execution and validation
+
+### Research Questions
+
+1. **RQ1:** Can relations-first programming simplify MBQC compilation?
+2. **RQ2:** Do tensor networks enable efficient simulation of MBQC programs?
+3. **RQ3:** Does QPL → MBQC produce more efficient patterns than gate-based → MBQC?
+4. **RQ4:** Can QPL abstract fault-tolerant quantum computing via MBQC?
+
+### Publications (Target Venues)
+
+- **QPL Workshop** (Quantum Physics and Logic) - programming language semantics
+- **QCE** (Quantum Computing and Engineering) - compiler design
+- **PLDI / POPL** (Programming Language conferences) - type systems
+- **PRL / PRX Quantum** (Physics journals) - MBQC theory contributions
+
+---
+
+## Open Questions and Challenges
+
+### 1. Cluster State Preparation Cost
+
+**Problem:** Preparing cluster states still requires gates (H, CZ).
+
+**Mitigation:**
+- Cluster state prepared **once**, reused for many computations
+- Photonic systems create entangled photons natively (no gates)
+- Future: Direct cluster state generation via Rydberg atoms
+
+**Research question:** Can QPL optimize cluster state reuse?
+
+### 2. Measurement Error Handling
+
+**Problem:** MBQC measurements are irreversible—errors propagate.
+
+**Mitigation:**
+- Surface codes provide fault-tolerance via redundant measurements
+- Error correction = part of MBQC pattern
+
+**Research question:** How do QPL's perspectives model error correction?
+
+### 3. Classical Processing Overhead
+
+**Problem:** Adaptive measurements require fast classical feedback.
+
+**Mitigation:**
+- Modern quantum computers have FPGA-based fast feedback
+- Google's surface code uses real-time syndrome processing
+
+**Research question:** Can QPL's compiler optimize classical control flow?
+
+### 4. Hardware Availability
+
+**Problem:** Photonic quantum computers aren't widely available yet.
+
+**Mitigation:**
+- Simulators: Strawberry Fields, QuTiP, custom MPS simulator
+- Near-term: Neutral atom systems (QuEra) support graph states
+- Long-term: Photonic and surface code systems mature
+
+---
+
+## Comparison: QPL vs. Existing MBQC Tools
+
+| Tool | Approach | Target | Limitations |
+|------|----------|--------|-------------|
+| **Qiskit** | Gate-based → MBQC (transpiler) | IBM hardware | Inefficient conversion |
+| **Strawberry Fields** | Photonic gates + MBQC | Photonic simulators | Low-level, gate-centric |
+| **Perceval** | Photonic circuits | Photonic simulators | Circuit model |
+| **Stim** | Surface code simulator | Error correction | No high-level language |
+| **QPL** | **Relations-first → MBQC** | Photonic, surface codes | Early stage (Stage 1) |
+
+**QPL's unique position:**
+- Only language designed **natively** for MBQC
+- Relations = cluster states (direct mapping)
+- Targets photonic + surface code systems
+- High-level abstractions for fault-tolerance
+
+---
+
+## Academic and Industry Interest
+
+### Academic Research Groups Working on MBQC
+
+1. **University of Oxford** - Quantum Information Theory
+   - Prof. Dan Browne (MBQC theory)
+   - Surface code compilation
+
+2. **University of Bristol** - Quantum Engineering Technology Labs
+   - Photonic quantum computing
+   - Integrated photonics
+
+3. **Delft University of Technology** - QuTech
+   - Topological quantum computing
+   - Surface codes
+
+4. **University of Innsbruck** - Quantum Optics Group
+   - Trapped ions
+   - Graph state generation
+
+5. **MIT** - Quantum Photonics Lab
+   - Photonic quantum computing
+   - MBQC implementations
+
+### Industry Interest
+
+1. **PsiQuantum** - Building fault-tolerant photonic quantum computer
+   - Need: High-level MBQC programming tools
+
+2. **Xanadu** - Photonic quantum computing
+   - Strawberry Fields = MBQC framework
+   - Potential collaboration on QPL integration
+
+3. **QuEra** - Neutral atom quantum computing
+   - Graph state preparation natively supported
+   - MBQC natural fit
+
+4. **Google Quantum AI** - Surface code development
+   - MBQC for error correction
+   - Compiler research
+
+---
+
+## Call for Collaboration
+
+QPL is transitioning from educational project to **research-grade quantum compiler**.
+
+**We're looking for:**
+
+1. **PhD supervisors** interested in quantum programming languages / MBQC
+2. **Research groups** working on photonic quantum computing or surface codes
+3. **Funding opportunities** (EU grants, EPSRC, NSF, industry partnerships)
+4. **Collaborators** with expertise in:
+   - Tensor networks
+   - Photonic quantum computing
+   - Quantum error correction
+   - Programming language theory
+
+**If you're interested in collaborating or supervising this research, please reach out:**
+
+- **Email:** dcoldeira@gmail.com
+- **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
+- **LinkedIn:** [David Coldeira](https://uk.linkedin.com/in/dcoldeira)
+
+---
+
+## Conclusion: Computation is Asking Questions
+
+Gate-based quantum computing says: **"Computation is applying transformations."**
+
+MBQC says: **"Computation is asking questions of an entangled system."**
+
+QPL has always said: **"Quantum mechanics is about relations and questions, not objects and gates."**
+
+MBQC vindicates this. It's not just a philosophical stance—it's **how photonic quantum computers work**, it's **how fault-tolerant quantum computing works**, and it's **what the physics actually says**.
+
+Stage 2 begins. We're building a compiler that speaks the language of quantum mechanics, not the language of classical circuits.
+
+**Relations first. Measurements as questions. MBQC as the compilation target.**
+
+Let's see how far this goes.
+
+---
+
+**Status:** ✅ Stage 1 Complete | 🚧 Stage 2 Starting | Research Program Defined
+
+**Code:** [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+
+**Theoretical Foundation:** Raussendorf & Briegel (2001), Quantum Computation via MBQC
+
+**Next Steps:** MBQC compiler implementation, photonic backend, academic collaboration
+
+---
+
+## References
+
+1. Raussendorf, R., & Briegel, H. J. (2001). A one-way quantum computer. *Physical Review Letters*, 86(22), 5188. [DOI: 10.1103/PhysRevLett.86.5188](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.5188)
+
+2. Raussendorf, R., Browne, D. E., & Briegel, H. J. (2003). Measurement-based quantum computation on cluster states. *Physical Review A*, 68(2), 022312. [DOI: 10.1103/PhysRevA.68.022312](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.68.022312)
+
+3. Nielsen, M. A., & Chuang, I. L. (2010). *Quantum Computation and Quantum Information* (10th Anniversary Edition). Cambridge University Press.
+
+4. Briegel, H. J., Browne, D. E., Dür, W., Raussendorf, R., & Van den Nest, M. (2009). Measurement-based quantum computation. *Nature Physics*, 5(1), 19-26. [DOI: 10.1038/nphys1157](https://www.nature.com/articles/nphys1157)
+
+5. Bombin, H., & Martin-Delgado, M. A. (2006). Topological quantum distillation. *Physical Review Letters*, 97(18), 180501. [DOI: 10.1103/PhysRevLett.97.180501](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.97.180501)
+
+6. Fowler, A. G., Mariantoni, M., Martinis, J. M., & Cleland, A. N. (2012). Surface codes: Towards practical large-scale quantum computation. *Physical Review A*, 86(3), 032324. [DOI: 10.1103/PhysRevA.86.032324](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.86.032324)
+
+7. Rudolph, T. (2017). Why I am optimistic about the silicon-photonic route to quantum computing. *APL Photonics*, 2(3), 030901. [DOI: 10.1063/1.4976737](https://aip.scitation.org/doi/10.1063/1.4976737)
