@@ -9,7 +9,7 @@ website:
   description: "Rigorous quantum computing and physics-informed software engineering. Expert-level insights on quantum mechanics, QPL (Quantum Process Language), and building production-quality quantum computing tools."
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
-  favicon: favicon.svg
+  favicon: favicon.ico
   open-graph: true
   twitter-card:
     creator: "@dcoldeira"
@@ -50,6 +50,11 @@ format:
     toc-depth: 3
     code-copy: true
     link-external-newwindow: true
+    include-in-header:
+      text: |
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 
 
