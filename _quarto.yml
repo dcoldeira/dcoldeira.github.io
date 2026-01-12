@@ -22,6 +22,9 @@ website:
         href: index.qmd
       - text: "Projects"
         href: projects.qmd
+      - text: "QPL Book"
+        icon: book
+        href: https://dcoldeira.github.io/qpl-book/
       - text: "About"
         href: about.qmd
     right:

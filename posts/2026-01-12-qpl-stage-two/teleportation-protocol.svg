@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Quantum Teleportation Protocol
+  </text>
+
+  <!-- Alice's side -->
+  <g id="alice">
+    <!-- Box -->
+    <rect x="50" y="80" width="200" height="250" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="10"/>
+    <text x="150" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#1976d2">
+      Alice
+    </text>
+
+    <!-- Qubit 0 (input) -->
+    <circle cx="100" cy="150" r="20" fill="#ff9800" stroke="#e65100" stroke-width="2"/>
+    <text x="100" y="157" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">
+      q₀
+    </text>
+    <text x="100" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#424242">
+      Input state
+    </text>
+    <text x="100" y="205" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+      |ψ⟩ = α|0⟩+β|1⟩
+    </text>
+
+    <!-- Qubit 1 (Bell pair half) -->
+    <circle cx="200" cy="150" r="20" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+    <text x="200" y="157" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">
+      q₁
+    </text>
+    <text x="200" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#424242">
+      Bell pair
+    </text>
+
+    <!-- Entanglement indicator between q0 and q1 -->
+    <line x1="120" y1="150" x2="180" y2="150" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="150" y="145" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#9c27b0">
+      CZ
+    </text>
+
+    <!-- Measurements -->
+    <rect x="80" y="230" width="140" height="35" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="150" y="252" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#7b1fa2" font-weight="bold">
+      Measure q₀, q₁
+    </text>
+
+    <!-- Measurement results -->
+    <text x="150" y="290" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#424242">
+      Outcomes: (m₀, m₁)
+    </text>
+  </g>
+
+  <!-- Bob's side -->
+  <g id="bob">
+    <!-- Box -->
+    <rect x="550" y="80" width="200" height="250" fill="#fce4ec" stroke="#c2185b" stroke-width="2" rx="10"/>
+    <text x="650" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#c2185b">
+      Bob
+    </text>
+
+    <!-- Qubit 2 (Bell pair half / output) -->
+    <circle cx="650" cy="150" r="20" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+    <text x="650" y="157" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">
+      q₂
+    </text>
+    <text x="650" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#424242">
+      Bell pair
+    </text>
+
+    <!-- Corrections -->
+    <rect x="580" y="230" width="140" height="35" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+    <text x="650" y="252" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#f57c00" font-weight="bold">
+      Apply corrections
+    </text>
+
+    <!-- Output state -->
+    <circle cx="650" cy="295" r="20" fill="#ff9800" stroke="#e65100" stroke-width="2"/>
+    <text x="650" y="302" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white" font-weight="bold">
+      |ψ⟩
+    </text>
+    <text x="650" y="325" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#424242">
+      Teleported!
+    </text>
+  </g>
+
+  <!-- Bell pair entanglement line -->
+  <line x1="220" y1="150" x2="630" y2="150" stroke="#9c27b0" stroke-width="3" stroke-dasharray="8,4"/>
+  <text x="425" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#9c27b0" font-weight="bold">
+    Entangled Bell Pair
+  </text>
+  <text x="425" y="165" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#7b1fa2">
+    (|00⟩ + |11⟩)/√2
+  </text>
+
+  <!-- Classical communication -->
+  <path d="M 250 260 Q 400 220 550 260" fill="none" stroke="#2196f3" stroke-width="3" marker-end="url(#arrowblue)"/>
+  <text x="400" y="230" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2196f3" font-weight="bold">
+    Classical bits (m₀, m₁)
+  </text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2196f3" />
+    </marker>
+  </defs>
+
+  <!-- Steps -->
+  <g id="steps">
+    <text x="400" y="365" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#424242" font-weight="bold">
+      Steps: 1. Share Bell pair  2. Alice entangles + measures  3. Send results  4. Bob corrects
+    </text>
+  </g>
+
+  <!-- Truth table -->
+  <g id="truth-table">
+    <rect x="280" y="280" width="240" height="75" fill="#f5f5f5" stroke="#757575" stroke-width="1" rx="5"/>
+    <text x="400" y="298" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#424242">
+      Correction Truth Table
+    </text>
+    <text x="340" y="315" font-family="monospace" font-size="10" text-anchor="start" fill="#424242">
+      (0,0) → None
+    </text>
+    <text x="340" y="330" font-family="monospace" font-size="10" text-anchor="start" fill="#424242">
+      (0,1) → X
+    </text>
+    <text x="450" y="315" font-family="monospace" font-size="10" text-anchor="start" fill="#424242">
+      (1,0) → Z
+    </text>
+    <text x="450" y="330" font-family="monospace" font-size="10" text-anchor="start" fill="#424242">
+      (1,1) → ZX
+    </text>
+  </g>
+</svg>
