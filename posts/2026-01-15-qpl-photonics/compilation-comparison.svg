@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <!-- Title -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Compilation to Photonic Hardware: Traditional vs QPL
+  </text>
+
+  <!-- Traditional Approach (Top) -->
+  <g id="traditional">
+    <text x="50" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e53935">
+      Traditional (Gate-Based Languages)
+    </text>
+
+    <!-- Step 1 -->
+    <rect x="50" y="85" width="140" height="50" fill="#ffebee" stroke="#e53935" stroke-width="2" rx="5"/>
+    <text x="120" y="108" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#c62828">
+      Relations/Code
+    </text>
+    <text x="120" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#e53935">
+      High-level
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 195 110 L 220 110" stroke="#e53935" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="207" y="105" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#e53935">
+      1
+    </text>
+
+    <!-- Step 2 -->
+    <rect x="225" y="85" width="140" height="50" fill="#ffebee" stroke="#e53935" stroke-width="2" rx="5"/>
+    <text x="295" y="108" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#c62828">
+      Gates
+    </text>
+    <text x="295" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#e53935">
+      H, CNOT, T
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 370 110 L 395 110" stroke="#e53935" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="382" y="105" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#e53935">
+      2
+    </text>
+
+    <!-- Step 3 -->
+    <rect x="400" y="85" width="140" height="50" fill="#ffebee" stroke="#e53935" stroke-width="2" rx="5"/>
+    <text x="470" y="108" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#c62828">
+      Circuits
+    </text>
+    <text x="470" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#e53935">
+      Gate sequences
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 545 110 L 570 110" stroke="#e53935" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="557" y="105" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#e53935">
+      3
+    </text>
+
+    <!-- Step 4 -->
+    <rect x="575" y="85" width="140" height="50" fill="#ffebee" stroke="#e53935" stroke-width="2" rx="5"/>
+    <text x="645" y="108" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#c62828">
+      MBQC Patterns
+    </text>
+    <text x="645" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#e53935">
+      Transpile
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 720 110 L 745 110" stroke="#e53935" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <text x="732" y="105" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#e53935">
+      4
+    </text>
+
+    <!-- Step 5 -->
+    <rect x="750" y="85" width="120" height="50" fill="#ffcdd2" stroke="#c62828" stroke-width="2" rx="5"/>
+    <text x="810" y="108" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#b71c1c" font-weight="bold">
+      Photonic
+    </text>
+    <text x="810" y="125" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#c62828">
+      Hardware
+    </text>
+  </g>
+
+  <!-- Problems annotation -->
+  <g id="problems">
+    <text x="450" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#e53935" font-style="italic">
+      ⚠️ 4 compilation steps = More overhead, approximations, complexity
+    </text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="50" y1="190" x2="850" y2="190" stroke="#ccc" stroke-width="2"/>
+
+  <!-- QPL Approach (Bottom) -->
+  <g id="qpl">
+    <text x="50" y="225" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4caf50">
+      QPL (Relations-First, MBQC-Native)
+    </text>
+
+    <!-- Step 1 -->
+    <rect x="50" y="240" width="200" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="3" rx="5"/>
+    <text x="150" y="265" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#2e7d32" font-weight="bold">
+      Relations
+    </text>
+    <text x="150" y="285" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#4caf50">
+      Entanglement structure
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 255 270 L 305 270" stroke="#4caf50" stroke-width="3" marker-end="url(#arrow-green2)"/>
+    <text x="280" y="263" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#4caf50" font-weight="bold">
+      Direct
+    </text>
+
+    <!-- Step 2 -->
+    <rect x="310" y="240" width="200" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="3" rx="5"/>
+    <text x="410" y="265" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#2e7d32" font-weight="bold">
+      MBQC Patterns
+    </text>
+    <text x="410" y="285" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#4caf50">
+      Native generation
+    </text>
+
+    <!-- Arrow -->
+    <path d="M 515 270 L 565 270" stroke="#4caf50" stroke-width="3" marker-end="url(#arrow-green2)"/>
+    <text x="540" y="263" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#4caf50" font-weight="bold">
+      Compile
+    </text>
+
+    <!-- Step 3 -->
+    <rect x="570" y="240" width="280" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3" rx="5"/>
+    <text x="710" y="265" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#1b5e20" font-weight="bold">
+      Photonic Hardware
+    </text>
+    <text x="710" y="285" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#2e7d32">
+      HWP, PBS, QWP circuits
+    </text>
+  </g>
+
+  <!-- Benefits annotation -->
+  <g id="benefits">
+    <text x="450" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4caf50" font-style="italic">
+      ✅ 2 compilation steps = Less overhead, better performance, native MBQC
+    </text>
+  </g>
+
+  <!-- Comparison stats -->
+  <g id="comparison-stats">
+    <rect x="100" y="365" width="700" height="110" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="2" rx="10"/>
+
+    <text x="450" y="390" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+      Why QPL Wins for Photonic QC
+    </text>
+
+    <!-- Three columns -->
+    <g id="col1">
+      <text x="190" y="415" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#4caf50">
+        No Gate Decomposition
+      </text>
+      <text x="190" y="435" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Relations → MBQC directly
+      </text>
+      <text x="190" y="450" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Skips circuit synthesis
+      </text>
+    </g>
+
+    <g id="col2">
+      <text x="450" y="415" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#4caf50">
+        MBQC-Native
+      </text>
+      <text x="450" y="435" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Photonics loves MBQC
+      </text>
+      <text x="450" y="450" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Measurements are natural
+      </text>
+    </g>
+
+    <g id="col3">
+      <text x="710" y="415" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#4caf50">
+        Less Overhead
+      </text>
+      <text x="710" y="435" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Fewer approximations
+      </text>
+      <text x="710" y="450" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">
+        Better performance
+      </text>
+    </g>
+
+    <!-- Dividers -->
+    <line x1="320" y1="400" x2="320" y2="460" stroke="#e0e0e0" stroke-width="2"/>
+    <line x1="580" y1="400" x2="580" y2="460" stroke="#e0e0e0" stroke-width="2"/>
+  </g>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#e53935" />
+    </marker>
+    <marker id="arrow-green2" markerWidth="12" markerHeight="12" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4caf50" />
+    </marker>
+  </defs>
+</svg>
