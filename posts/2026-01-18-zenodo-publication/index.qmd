@@ -1,0 +1,179 @@
+---
+title: "Published on Zenodo + Renamed to QRL"
+author: "David Coldeira"
+date: "2026-01-18"
+categories: [quantum computing, QRL, publishing, open science, Zenodo]
+description: "Two major updates: The project is now officially published on Zenodo with DOI 10.5281/zenodo.18292199, and we've renamed from QPL to QRL (Quantum Relational Language) to avoid confusion with existing academic work."
+---
+
+::: {.callout-tip icon=false}
+## Quantum Relational Language (QRL) Repository
+
+QRL is now citable! Use the Zenodo DOI in your research:
+
+**[DOI: 10.5281/zenodo.18292199](https://doi.org/10.5281/zenodo.18292199)**
+
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
+
+Status: ✅ Published | ✅ Teleportation working | ✅ 47 tests passing
+:::
+
+## Two Big Updates
+
+This week brought two important changes to the project:
+
+1. **Published on Zenodo** - Now citable with a permanent DOI
+2. **Renamed to QRL** - From "QPL" to "Quantum Relational Language"
+
+Let me explain both.
+
+---
+
+## Published on Zenodo
+
+**What is Zenodo?**
+
+[Zenodo](https://zenodo.org/) is an open-access repository operated by CERN for research outputs. It provides permanent, citable references (DOIs) for software, datasets, and preprints.
+
+**Why publish now?**
+
+[Stage 3](../2026-01-16-qrl-stage-three/) just completed. QRL now has:
+
+- Complete MBQC compiler (graph extraction + pattern generation)
+- Adaptive Pauli corrections
+- Quantum teleportation with fidelity = 1.0
+- 47 passing tests
+
+This is working, tested code. Time to make it officially citable.
+
+**What the DOI gives us:**
+
+- **Permanent reference** - The code snapshot is archived forever
+- **Citable in papers** - Others can reference this work properly
+- **Timestamp priority** - Establishes when this work was done
+- **Professional credibility** - More than "just a GitHub repo"
+
+**How to cite QRL:**
+
+```bibtex
+@software{coldeira2026qrl,
+  author       = {Coldeira, David},
+  title        = {{Quantum Relational Language (QRL): A 
+                   relations-first compiler for measurement-based 
+                   quantum computing}},
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v0.3.0},
+  doi          = {10.5281/zenodo.18292199},
+  url          = {https://doi.org/10.5281/zenodo.18292199}
+}
+```
+
+---
+
+## Renamed: QPL → QRL
+
+**The Problem:**
+
+"QPL" is already taken. In 2004, Peter Selinger published [*"Towards a quantum programming language"*](https://www.mathstat.dal.ca/~selinger/papers/qpl.pdf), describing a quantum programming language called QPL. It's well-established in academic literature with many citations.
+
+Continuing to call this project "QPL" would create confusion and look like I'm unaware of existing work in the field.
+
+**The Solution:**
+
+Rename to **QRL (Quantum Relational Language)**.
+
+This name:
+- ✅ Accurately describes the approach (relations-first)
+- ✅ Avoids conflict with Selinger's QPL
+- ✅ Is memorable and searchable
+- ✅ Aligns with the core philosophy (quantum relations as primitives)
+
+**What Changed:**
+
+- Package name: `src/qpl/` → `src/qrl/`
+- Main class: `QPLProgram` → `QRLProgram`
+- Repository URL: Same (quantum-relational-language)
+- All imports and tests updated
+- Version bumped: 0.1.0 → 0.2.0
+
+**What Didn't Change:**
+
+- The language design
+- The implementation
+- The API structure
+- The MBQC compiler
+- Test suite (all 47 still passing)
+
+This is purely a naming change for academic clarity.
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/dcoldeira/quantum-relational-language.git
+cd quantum-relational-language
+pip install -e .
+```
+
+**Updated import:**
+
+```python
+from qrl import QRLProgram  # Was: from qpl import QPLProgram
+from qrl.mbqc import extract_graph, generate_pattern_from_relation
+```
+
+---
+
+## Quick Example
+
+```python
+from qrl import QRLProgram
+from qrl.mbqc import simulate_teleportation, verify_teleportation_fidelity
+import numpy as np
+
+# Create arbitrary input state
+input_state = np.array([0.6, 0.8])
+
+# Teleport it
+output_state, outcomes, corrections = simulate_teleportation(input_state)
+
+# Verify fidelity
+fidelity = verify_teleportation_fidelity(input_state, output_state)
+print(f"Fidelity: {fidelity}")  # 1.0
+```
+
+---
+
+## What's Next
+
+**Stage 4: Photonic Integration**
+
+- Connect QRL to graphix (MBQC framework)
+- Test with Perceval simulator
+- Target real photonic hardware (Quandela)
+
+**Formal Publication**
+
+- Write LaTeX preprint documenting the approach
+- Submit to QPL Workshop 2026 (if CFP opens)
+- Aim for IEEE QCE 2026/2027
+
+---
+
+## Summary
+
+**Published:** Zenodo DOI 10.5281/zenodo.18292199 (January 18, 2026)
+
+**Renamed:** QPL → QRL (Quantum Relational Language) to avoid conflict with Selinger's QPL (2004)
+
+**Status:** Stage 0-3 complete, 47 tests passing, teleportation fidelity = 1.0
+
+**Next:** Photonic integration and formal publication
+
+The project is now properly named, properly archived, and ready for the next phase.
+
+---
+
+**Questions or feedback?** Open an issue on [GitHub](https://github.com/dcoldeira/quantum-relational-language).

@@ -1,0 +1,264 @@
+---
+title: "Stage 3 Complete: Quantum Teleportation with Perfect Fidelity"
+author: "David Coldeira"
+date: "2026-01-16"
+categories: [quantum computing, QRL, MBQC, teleportation, adaptive corrections]
+description: "QRL now performs quantum teleportation with fidelity = 1.0. Stage 3 adds adaptive Pauli corrections - the final piece needed for real MBQC protocols."
+---
+
+::: {.callout-tip icon=false}
+## Quantum Relational Language (QRL) Repository
+
+Stage 3 is complete. View the source code and run examples:
+
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
+
+Status: ✅ Stage 0-3 Complete | 47 tests passing | Teleportation fidelity = 1.0
+:::
+
+## The Missing Piece
+
+[Stage 2](../2026-01-12-qpl-stage-two/) gave QRL the ability to compile relations to MBQC patterns. We could generate measurement sequences, extract graph states, and simulate pattern execution.
+
+But there was a problem: **MBQC requires adaptive corrections.**
+
+In measurement-based quantum computing, later operations depend on earlier measurement outcomes. If Alice measures qubit A and gets result 1, Bob might need to apply an X gate to qubit B. This isn't optional - without corrections, teleportation fails.
+
+Stage 3 fixes this. **QRL now tracks measurement outcomes and applies the correct Pauli corrections automatically.**
+
+The proof? Quantum teleportation with fidelity = 1.0.
+
+---
+
+## What Stage 3 Adds
+
+### Adaptive Pauli Corrections
+
+**New module:** `src/qrl/mbqc/adaptive_corrections.py`
+
+The core insight: Pauli corrections (X, Z, or both) can fix any "error" introduced by random measurement outcomes in MBQC. The corrections are deterministic - they depend only on which outcomes occurred.
+
+```python
+from qrl.mbqc import apply_pauli_correction
+
+# Apply X correction to qubit 2 of a 3-qubit state
+corrected = apply_pauli_correction(state, qubit_idx=2, correction_type="X")
+
+# Correction types: "X", "Z", "XZ" (both), "I" (identity)
+```
+
+### Correction Truth Table
+
+For teleportation, Bob's corrections follow a simple rule:
+
+| Alice's Outcome (A) | Alice's Outcome (B) | Bob's Correction |
+|---------------------|---------------------|------------------|
+| 0 | 0 | I (nothing) |
+| 0 | 1 | X |
+| 1 | 0 | Z |
+| 1 | 1 | XZ (both) |
+
+QRL computes this automatically from the measurement pattern.
+
+### Teleportation Protocol
+
+The full teleportation simulation:
+
+```python
+from qrl.mbqc import simulate_teleportation, verify_teleportation_fidelity
+import numpy as np
+
+# Create arbitrary input state: |ψ⟩ = 0.6|0⟩ + 0.8|1⟩
+input_state = np.array([0.6, 0.8])
+
+# Teleport it
+output_state, outcomes, corrections = simulate_teleportation(input_state)
+
+# Check fidelity
+fidelity = verify_teleportation_fidelity(input_state, output_state)
+print(f"Fidelity: {fidelity}")  # 1.0
+```
+
+---
+
+## Why Fidelity = 1.0 Matters
+
+Quantum teleportation is the "hello world" of MBQC. If you can't teleport a qubit perfectly, nothing else will work.
+
+**What fidelity = 1.0 proves:**
+
+1. **State preparation is correct** - Bell pairs are created properly
+2. **Measurements are implemented correctly** - Outcomes follow Born rule
+3. **Corrections are computed correctly** - The truth table logic works
+4. **Corrections are applied correctly** - Pauli operators act on right qubits
+
+This isn't approximate. It's not "good enough for NISQ." It's mathematically perfect teleportation in simulation.
+
+---
+
+## The Implementation
+
+### Step 1: Prepare Initial State
+
+Alice has input state |ψ⟩, and shares a Bell pair |Φ+⟩ with Bob:
+
+```
+|ψ⟩_A ⊗ |Φ+⟩_BC = (α|0⟩ + β|1⟩) ⊗ (|00⟩ + |11⟩)/√2
+```
+
+### Step 2: Alice's Bell Measurement
+
+Alice applies CNOT(A→B) then Hadamard(A), then measures both qubits:
+
+```python
+# CNOT entangles Alice's qubits
+state_after_cnot = cnot_ab @ full_state
+
+# Hadamard creates superposition for measurement
+H_A = np.kron(np.kron(H, I), I)
+state_after_h = H_A @ state_after_cnot
+```
+
+### Step 3: Compute Corrections
+
+Based on Alice's measurement outcomes:
+
+```python
+def correction_truth_table(m_a: int, m_b: int) -> str:
+    """What correction Bob needs based on Alice's outcomes."""
+    if m_a == 0 and m_b == 0:
+        return "I"   # No correction
+    elif m_a == 0 and m_b == 1:
+        return "X"   # Bit flip
+    elif m_a == 1 and m_b == 0:
+        return "Z"   # Phase flip
+    else:  # m_a == 1 and m_b == 1
+        return "XZ"  # Both
+```
+
+### Step 4: Apply Corrections
+
+Bob applies the computed correction:
+
+```python
+output_state = apply_pauli_correction(
+    bob_state,
+    qubit_idx=0,
+    correction_type=correction
+)
+```
+
+### Step 5: Verify
+
+The output state matches the input state (up to global phase):
+
+```python
+fidelity = np.abs(np.vdot(input_state, output_state)) ** 2
+# fidelity = 1.0
+```
+
+---
+
+## Test Coverage
+
+Stage 3 adds 7 new tests:
+
+| Test | What it verifies |
+|------|------------------|
+| `test_identity_correction` | I correction leaves state unchanged |
+| `test_two_qubit_correction` | Corrections work on multi-qubit states |
+| `test_teleportation_pattern_generation` | Pattern structure is correct |
+| `test_teleportation_fidelity` | Fidelity = 1.0 for random inputs |
+| `test_correction_truth_table` | All 4 correction cases work |
+| `test_compute_corrections` | Pattern-based correction lookup |
+| `test_superposition_teleportation` | Works for superposition states |
+
+**Total: 47 tests passing**
+
+```bash
+python -m pytest tests/ -v
+# 47 passed in 0.85s
+```
+
+---
+
+## What This Enables
+
+With adaptive corrections working, QRL can now implement:
+
+- **Quantum teleportation** ✅ (demonstrated)
+- **Gate teleportation** - Teleport gates instead of states
+- **MBQC universal computation** - Any quantum circuit via measurements
+- **Error correction protocols** - Syndrome measurement + correction
+
+The path to photonic hardware is now clear:
+
+```
+QRL Relations → MBQC Patterns → graphix → Perceval → Quandela Hardware
+```
+
+---
+
+## Honest Assessment
+
+### What's Working
+
+- ✅ Teleportation with perfect fidelity
+- ✅ Arbitrary input states (not just basis states)
+- ✅ Correct Pauli correction logic
+- ✅ Clean API matching MBQC theory
+
+### What's Still Simplified
+
+- Single-qubit teleportation only (not multi-qubit)
+- Ideal simulation (no noise model yet)
+- Direct state manipulation (not actual measurements)
+
+### What's Next
+
+**Stage 4: Photonic Integration**
+
+- Implement QRL → graphix converter
+- Test with Perceval simulator
+- Apply for Quandela Cloud access
+
+---
+
+## Try It
+
+```bash
+git clone https://github.com/dcoldeira/quantum-relational-language.git
+cd quantum-relational-language
+pip install -e .
+python -c "
+from qrl.mbqc import simulate_teleportation, verify_teleportation_fidelity
+import numpy as np
+
+# Teleport |+⟩ state
+input_state = np.array([1, 1]) / np.sqrt(2)
+output, outcomes, corrections = simulate_teleportation(input_state)
+fidelity = verify_teleportation_fidelity(input_state, output)
+print(f'Input: {input_state}')
+print(f'Outcomes: {outcomes}')
+print(f'Corrections: {corrections}')
+print(f'Fidelity: {fidelity}')
+"
+```
+
+---
+
+## Summary
+
+Stage 3 completes the MBQC compiler pipeline:
+
+| Stage | Component | Status |
+|-------|-----------|--------|
+| 0 | 2-qubit relations | ✅ |
+| 1 | n-qubit relations | ✅ |
+| 2 | Graph extraction + pattern generation | ✅ |
+| 3 | Adaptive corrections + teleportation | ✅ |
+| 4 | Photonic integration | 🚧 Next |
+
+**Teleportation fidelity = 1.0** validates that all the pieces work together correctly.
+
+Next: connecting QRL to real photonic quantum computers via graphix and Perceval.
