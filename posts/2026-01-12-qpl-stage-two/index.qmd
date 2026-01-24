@@ -1,29 +1,29 @@
 ---
-title: "Stage 2 Complete: QPL Now Compiles to MBQC Patterns"
+title: "Stage 2 Complete: QRL Now Compiles to MBQC Patterns"
 author: "David Coldeira"
 date: "2026-01-12"
-categories: [quantum computing, QPL, MBQC, quantum teleportation, compiler, measurement patterns]
-description: "The MBQC compiler is working! QPL now extracts graph states, generates measurement patterns, and performs quantum teleportation with adaptive corrections. Here's what changed and why it matters."
+categories: [quantum computing, QRL, MBQC, quantum teleportation, compiler, measurement patterns]
+description: "The MBQC compiler is working! QRL now extracts graph states, generates measurement patterns, and performs quantum teleportation with adaptive corrections. Here's what changed and why it matters."
 image: "qpl-stage-two.svg"
 ---
 
 ::: {.callout-tip icon=false}
-## 🔗 Quantum Process Language (QPL) Repository
+## 🔗 Quantum Relational Language (QRL) Repository
 
-This post documents QPL Stage 2 development. View the source code, run examples, and contribute:
+This post documents QRL Stage 2 development. View the source code, run examples, and contribute:
 
-**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
 
 Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | ✅ Stage 2 Complete | 🚀 Photonic Integration Next
 :::
 
 ## From Relations to Measurement Patterns
 
-[Stage 1](https://dcoldeira.github.io/posts/2025-12-31-qpl-stage-one/) gave QPL the ability to work with arbitrary n-qubit quantum relations. You could create GHZ states, W states, measure qubits, and track entanglement entropy across any bipartition.
+[Stage 1](https://dcoldeira.github.io/posts/2025-12-31-qpl-stage-one/) gave QRL the ability to work with arbitrary n-qubit quantum relations. You could create GHZ states, W states, measure qubits, and track entanglement entropy across any bipartition.
 
 But there was a missing piece: **How do you actually *run* these quantum programs on real hardware?**
 
-That's what Stage 2 solves. **QPL now compiles relations-first quantum programs into measurement-based quantum computing (MBQC) patterns.**
+That's what Stage 2 solves. **QRL now compiles relations-first quantum programs into measurement-based quantum computing (MBQC) patterns.**
 
 Not just in theory. The compiler is working, tested, and performing quantum teleportation with >95% fidelity.
 
@@ -38,8 +38,8 @@ Not just in theory. The compiler is working, tested, and performing quantum tele
 Given a `QuantumRelation` object, extract the underlying graph state structure:
 
 ```python
-from qpl.core import QuantumRelation
-from qpl.mbqc import extract_graph
+from qrl.core import QuantumRelation
+from qrl.mbqc import extract_graph
 
 # Create a Bell state
 rel = QuantumRelation(2)
@@ -71,7 +71,7 @@ print(analysis['topology'])  # 'edge' (linear)
 Convert quantum operations into measurement patterns:
 
 ```python
-from qpl.mbqc import (
+from qrl.mbqc import (
     generate_bell_state_pattern,
     generate_ghz_state_pattern,
     generate_single_qubit_gate_pattern,
@@ -121,7 +121,7 @@ print(len(ghz4.measurements))  # 3 (all but output qubit)
 The crown jewel: **quantum teleportation with measurement-dependent corrections**.
 
 ```python
-from qpl.mbqc import (
+from qrl.mbqc import (
     generate_teleportation_pattern,
     simulate_teleportation,
     verify_teleportation_fidelity
@@ -202,8 +202,8 @@ QuantumRelation → Graph State → Measurement Pattern → Executable MBQC
 **Example: Bell state end-to-end**
 
 ```python
-from qpl.core import QuantumRelation
-from qpl.mbqc import (
+from qrl.core import QuantumRelation
+from qrl.mbqc import (
     extract_graph,
     generate_pattern_from_relation,
     analyze_entanglement_structure
@@ -243,9 +243,9 @@ print(f"  Outputs: {pattern.output_qubits}")        # [1]
 
 ### 1. **Relations → Hardware Path is Clear**
 
-Before Stage 2, QPL could *represent* quantum programs using relations. Now it can *compile* them to executable patterns.
+Before Stage 2, QRL could *represent* quantum programs using relations. Now it can *compile* them to executable patterns.
 
-This opens the door to running QPL on real quantum hardware.
+This opens the door to running QRL on real quantum hardware.
 
 ### 2. **MBQC is the Right Abstraction**
 
@@ -254,7 +254,7 @@ Measurement-based quantum computing isn't just theoretical elegance. It's the na
 - **Fault-tolerant QC** - Surface codes use MBQC-style measurements
 - **Distributed quantum computing** - Measurement-based protocols
 
-QPL targets MBQC from the start, not as an afterthought.
+QRL targets MBQC from the start, not as an afterthought.
 
 ### 3. **Quantum Teleportation is Symbolic**
 
@@ -289,7 +289,7 @@ $ pytest tests/
 
 ## What's Next
 
-Stage 2 proves QPL can compile to MBQC patterns. But patterns are still abstract.
+Stage 2 proves QRL can compile to MBQC patterns. But patterns are still abstract.
 
 **Stage 3: Hardware Compilation**
 
@@ -300,7 +300,7 @@ The next challenge is compiling patterns to *specific hardware backends*:
 3. **graphix compatibility** - Leverage existing MBQC ecosystem
 4. **Pattern optimization** - Reduce measurement depth, gate count
 
-**Stay tuned for the next post:** "QPL Meets Photonics: The Path to Real Quantum Hardware"
+**Stay tuned for the next post:** "QRL Meets Photonics: The Path to Real Quantum Hardware"
 
 ---
 
@@ -330,8 +330,8 @@ All Stage 2 code is open source and on GitHub:
 
 ```bash
 # Clone the repo
-git clone https://github.com/dcoldeira/quantum-process-language
-cd quantum-process-language
+git clone https://github.com/dcoldeira/quantum-relational-language
+cd quantum-relational-language
 
 # Install
 pip install -e .
@@ -376,7 +376,7 @@ class Correction:
 
 ### Graph State Topologies
 
-QPL automatically detects:
+QRL automatically detects:
 
 **Edge graph** (Bell state):
 ```
@@ -442,7 +442,7 @@ Corrections depend on measurement outcomes (adaptive).
 
 Which measurements affect which corrections? Which qubits must be measured before others? The graph structure encodes all of this.
 
-Relations-first programming naturally captures these dependencies. That's why QPL → MBQC compilation feels natural.
+Relations-first programming naturally captures these dependencies. That's why QRL → MBQC compilation feels natural.
 
 ---
 
@@ -460,7 +460,7 @@ And modern MBQC tools:
 
 ---
 
-## What This Means for QPL
+## What This Means for QRL
 
 Stage 0 proved relations-first programming works.
 Stage 1 proved it scales to n qubits.
@@ -482,16 +482,16 @@ We're building something that could actually run on Quandela's photonic processo
 ::: {.callout-note}
 ## 📰 Coming Next
 
-**"QPL Meets Photonics: The Path to Real Quantum Hardware"**
+**"QRL Meets Photonics: The Path to Real Quantum Hardware"**
 
-How QPL patterns compile to photonic circuits using graphix and Perceval. Why photonic quantum computers are MBQC-native. And how QPL could be the first relations-based compiler for photonic QC.
+How QRL patterns compile to photonic circuits using graphix and Perceval. Why photonic quantum computers are MBQC-native. And how QRL could be the first relations-based compiler for photonic QC.
 
 Stay tuned.
 :::
 
 ---
 
-**Want to contribute?** QPL is open source! Check out the [GitHub repo](https://github.com/dcoldeira/quantum-process-language) and the [issues page](https://github.com/dcoldeira/quantum-process-language/issues).
+**Want to contribute?** QRL is open source! Check out the [GitHub repo](https://github.com/dcoldeira/quantum-relational-language) and the [issues page](https://github.com/dcoldeira/quantum-relational-language/issues).
 
 **Questions?** Reach out on [LinkedIn](https://linkedin.com/in/dcoldeira) or open a GitHub discussion.
 

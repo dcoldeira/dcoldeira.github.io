@@ -6,8 +6,8 @@ page-layout: article
 
 ## Research & Open Source
 
-### Quantum Process Language (QPL)
-**[GitHub Repository](https://github.com/dcoldeira/quantum-process-language) | [Documentation](https://github.com/dcoldeira/quantum-process-language#readme) | 2025 | Active Development**
+### Quantum Relational Language (QRL)
+**[GitHub Repository](https://github.com/dcoldeira/quantum-relational-language) | [Documentation](https://github.com/dcoldeira/quantum-relational-language#readme) | 2025 | Active Development**
 
 A quantum programming language built from first principles where entanglement is a first-class citizen. Not another gate-based framework—this is **relations-first quantum programming**.
 
@@ -27,7 +27,7 @@ A quantum programming language built from first principles where entanglement is
 **Example:**
 ```python
 # Create 3-qubit GHZ state: (|000⟩ + |111⟩)/√2
-program = QPLProgram("GHZ Demo")
+program = QRLProgram("GHZ Demo")
 q0, q1, q2 = program.create_system(), program.create_system(), program.create_system()
 ghz3 = program.entangle(q0, q1, q2)
 
@@ -44,7 +44,7 @@ print(f"Entanglement entropy: {ghz3.entanglement_entropy:.3f}")
 ---
 
 ### Quantum Advisor
-**[GitHub](https://github.com/dcoldeira/quantum-process-language/tree/main/quantum_advisor) | 2025**
+**[GitHub](https://github.com/dcoldeira/quantum-relational-language/tree/main/quantum_advisor) | 2025**
 
 The honest quantum computing consultant—tells you whether your problem actually has proven quantum advantage before you waste months implementing it.
 
@@ -111,7 +111,7 @@ Cross-domain patterns for building software in complex scientific environments.
 
 **Physics-Informed Design**
 
-Domain knowledge drives architecture. Understanding quantum mechanics shapes how QPL handles entanglement. Understanding physics is not optional—it's the foundation.
+Domain knowledge drives architecture. Understanding quantum mechanics shapes how QRL handles entanglement. Understanding physics is not optional—it's the foundation.
 
 **Honest Evaluation**
 
@@ -119,11 +119,11 @@ Both geotechnical predictions and quantum algorithms face hype. Rigorous validat
 
 **Production-Ready Research Code**
 
-Research code shouldn't be throwaway. Build with testing, documentation, and maintainability from day one. QPL has 100% test pass rate because correctness matters.
+Research code shouldn't be throwaway. Build with testing, documentation, and maintainability from day one. QRL has 100% test pass rate because correctness matters.
 
 **Rigorous Physics**
 
-Get the math right. QPL's cross-basis bug fix (Stage 0) demonstrated: assumptions must be tested, quantum mechanics is unforgiving, and correct physics is non-negotiable.
+Get the math right. QRL's cross-basis bug fix (Stage 0) demonstrated: assumptions must be tested, quantum mechanics is unforgiving, and correct physics is non-negotiable.
 
 ---
 
@@ -136,8 +136,8 @@ Expert-level insights on quantum computing, physics-informed software engineerin
 
 **Recent Posts:**
 
-- "Quantum Computing Foundations: The Theory Behind QPL" - Complete quantum mechanics primer
-- "Stage Zero: Programming Quantum Reality Through Relations, Not Gates" - QPL philosophy and implementation
+- "Quantum Computing Foundations: The Theory Behind QRL" - Complete quantum mechanics primer
+- "Stage Zero: Programming Quantum Reality Through Relations, Not Gates" - QRL philosophy and implementation
 - Coming: "Stage 1: n-Qubit Entanglement and GHZ States"
 
 **Focus:**

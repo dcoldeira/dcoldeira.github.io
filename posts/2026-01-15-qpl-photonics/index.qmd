@@ -1,18 +1,18 @@
 ---
-title: "QPL Meets Photonics: The First Relations-Based Compiler for Photonic Quantum Computers"
+title: "QRL Meets Photonics: The First Relations-Based Compiler for Photonic Quantum Computers"
 author: "David Coldeira"
 date: "2026-01-15"
-categories: [quantum computing, QPL, photonic QC, MBQC, Quandela, Perceval, graphix, hardware]
-description: "Photonic quantum computers are MBQC-native. QPL's relations-first approach compiles directly to photonic circuits, bypassing gate decomposition entirely. This changes everything."
+categories: [quantum computing, QRL, photonic QC, MBQC, Quandela, Perceval, graphix, hardware]
+description: "Photonic quantum computers are MBQC-native. QRL's relations-first approach compiles directly to photonic circuits, bypassing gate decomposition entirely. This changes everything."
 image: "qpl-photonics.svg"
 ---
 
 ::: {.callout-tip icon=false}
-## 🔗 Quantum Process Language (QPL) Repository
+## 🔗 Quantum Relational Language (QRL) Repository
 
-This post explores QPL's path to real quantum hardware. View the source code and contribute:
+This post explores QRL's path to real quantum hardware. View the source code and contribute:
 
-**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
 
 Latest Status: ✅ Stage 2 Complete | 🚀 Photonic Integration In Progress
 :::
@@ -25,7 +25,7 @@ You've built a quantum programming language. It can represent entanglement, comp
 
 That's the question that matters. Because without hardware, quantum programming languages are just elegant mathematics.
 
-For QPL, the answer isn't just "yes." It's **"photonic quantum computers were designed for this."**
+For QRL, the answer isn't just "yes." It's **"photonic quantum computers were designed for this."**
 
 Here's why.
 
@@ -127,9 +127,9 @@ High-Level Code → Gates → Circuit → Decompose to MBQC → Resource graphs 
 
 ---
 
-## The QPL Approach
+## The QRL Approach
 
-QPL doesn't compile *to* MBQC. **QPL *is* MBQC.**
+QRL doesn't compile *to* MBQC. **QRL *is* MBQC.**
 
 ```
 Relations → Graph States → Measurement Patterns → Photonic Circuits
@@ -153,9 +153,9 @@ qc.measure_all()
 # Then compile to photonics...
 ```
 
-**QPL approach:**
+**QRL approach:**
 ```python
-# QPL (relations-first)
+# QRL (relations-first)
 rel = QuantumRelation(2)
 rel.entangle(0, 1)  # Express the relationship directly
 
@@ -215,11 +215,11 @@ N(0) N(1) E(0,1) M(0) X(1,{0})
 
 ---
 
-## QPL ↔ graphix Compatibility
+## QRL ↔ graphix Compatibility
 
 I analyzed the data structures:
 
-**QPL MeasurementPattern:**
+**QRL MeasurementPattern:**
 ```python
 class MeasurementPattern:
     preparation: List[int]              # Qubits to prepare
@@ -242,10 +242,10 @@ class Pattern:
 
 **Mapping:**
 ```
-QPL preparation[i]         → graphix N(node=i)
-QPL entanglement[(i,j)]    → graphix E(nodes=[i,j])
-QPL measurements[k]        → graphix M(node=k, plane, angle, ...)
-QPL corrections[c]         → graphix X/Z(node, domain)
+QRL preparation[i]         → graphix N(node=i)
+QRL entanglement[(i,j)]    → graphix E(nodes=[i,j])
+QRL measurements[k]        → graphix M(node=k, plane, angle, ...)
+QRL corrections[c]         → graphix X/Z(node, domain)
 ```
 
 **This is implementable.** We can write a converter: `qpl_to_graphix()`.
@@ -366,10 +366,10 @@ n qubits = 2n photonic modes
 
 ## The Full Compilation Pipeline
 
-**QPL → Quandela Hardware (proposed):**
+**QRL → Quandela Hardware (proposed):**
 
 ```python
-# 1. Create relation (QPL)
+# 1. Create relation (QRL)
 rel = QuantumRelation(2)
 rel.entangle(0, 1)
 
@@ -409,7 +409,7 @@ No other quantum language compiles from relations → MBQC → photonics.
 **Qiskit?** Gates → circuits → MBQC transpiler (if you write it)
 **Cirq?** Gates → circuits (no MBQC)
 **Strawberry Fields?** Continuous variables (different model)
-**QPL?** Relations → MBQC natively
+**QRL?** Relations → MBQC natively
 
 **This is the differentiator.**
 
@@ -422,7 +422,7 @@ Photonic quantum computing is heating up:
 **Xanadu** - Borealis (216 squeezed modes), PennyLane ecosystem
 **ORCA Computing** - Photonic QC in London
 
-**These companies need MBQC tools.** QPL targets their hardware natively.
+**These companies need MBQC tools.** QRL targets their hardware natively.
 
 ### 3. **Competitive Advantage Over Gate-Based Languages**
 
@@ -435,7 +435,7 @@ Gate-based languages must:
 4. Generate photonic circuits
 5. Handle approximation errors at each step
 
-QPL must:
+QRL must:
 1. Extract graph states from relations
 2. Generate photonic circuits
 
@@ -447,7 +447,7 @@ QPL must:
 - ✅ graphix-perceval exists (MBQC → Perceval bridge)
 - ✅ Perceval exists (Quandela's simulator/hardware interface)
 - ✅ Quandela hardware exists (12-qubit Belenos accessible)
-- ✅ QPL → graphix mapping is ~80% compatible
+- ✅ QRL → graphix mapping is ~80% compatible
 
 **All the pieces exist.** We're connecting them, not inventing them.
 
@@ -511,16 +511,16 @@ That's why graphix-perceval uses this approach.
 
 **Immediate (Next 2 weeks):**
 
-1. **Implement QPL → graphix converter**
+1. **Implement QRL → graphix converter**
    - Create `qpl/backends/graphix_adapter.py`
-   - Map QPL MeasurementPattern → graphix Pattern
+   - Map QRL MeasurementPattern → graphix Pattern
    - Handle basis conversions
    - Write tests
 
 2. **Validate on known patterns**
-   - Bell state: QPL → graphix → simulate
-   - GHZ states: QPL → graphix → simulate
-   - Teleportation: QPL → graphix → simulate
+   - Bell state: QRL → graphix → simulate
+   - GHZ states: QRL → graphix → simulate
+   - Teleportation: QRL → graphix → simulate
    - Verify fidelity matches
 
 3. **Study resource graph extraction**
@@ -533,22 +533,22 @@ That's why graphix-perceval uses this approach.
 4. **Perceval integration (Python 3.11 venv)**
    - graphix-perceval requires Python <3.12
    - Create separate venv with Python 3.11
-   - Test full pipeline: QPL → graphix → Perceval
+   - Test full pipeline: QRL → graphix → Perceval
    - Run on Perceval simulator
 
 5. **First photonic simulation**
-   - Bell state: QPL → graphix → Perceval → simulate
+   - Bell state: QRL → graphix → Perceval → simulate
    - Validate fidelity
-   - **Milestone:** First QPL program on photonic backend!
+   - **Milestone:** First QRL program on photonic backend!
 
 6. **Apply for Quandela Cloud access**
-   - Show QPL → Perceval working
+   - Show QRL → Perceval working
    - Request access to Belenos (12 qubits)
    - Prepare for real hardware run
 
 **Medium term (3-6 months):**
 
-7. **First QPL program on real photonic QPU**
+7. **First QRL program on real photonic QPU**
    - Run on Quandela Cloud
    - Bell state on real photonic quantum computer
    - Benchmark results
@@ -563,14 +563,14 @@ That's why graphix-perceval uses this approach.
 9. **Industry outreach**
    - Contact Quandela about collaboration
    - Reach out to PsiQuantum research team
-   - Explore QPL as research tool for photonic QC
+   - Explore QRL as research tool for photonic QC
    - Apply to quantum software engineering positions
 
 ---
 
-## Comparison: QPL vs Existing Tools
+## Comparison: QRL vs Existing Tools
 
-| Feature | QPL | Qiskit | Cirq | Strawberry Fields | graphix |
+| Feature | QRL | Qiskit | Cirq | Strawberry Fields | graphix |
 |---------|-----|--------|------|-------------------|---------|
 | **MBQC native** | ✅ Yes | ❌ No | ❌ No | ⚠️ CV only | ✅ Yes |
 | **Relations-first** | ✅ Yes | ❌ Gates | ❌ Gates | ❌ Gates | ❌ Graphs |
@@ -584,13 +584,13 @@ That's why graphix-perceval uses this approach.
 - **Qiskit/Cirq** - Excellent for superconducting, not MBQC-native
 - **Strawberry Fields** - Photonic but continuous-variable (different model)
 - **graphix** - MBQC-native but graph-first (not relations-first)
-- **QPL** - Only relations-first + MBQC-native + photonic-targeting language
+- **QRL** - Only relations-first + MBQC-native + photonic-targeting language
 
 ---
 
 ## Industry Positioning
 
-**What QPL offers to photonic QC companies:**
+**What QRL offers to photonic QC companies:**
 
 1. **Higher-level abstraction than gates**
    Express quantum programs as relationships, not circuits
@@ -625,7 +625,7 @@ Most quantum languages are **gate-centric**:
 - Optimize circuits
 - Compile to hardware
 
-**QPL is relation-centric:**
+**QRL is relation-centric:**
 - Start with relationships (entangle, measure)
 - Extract graph structure
 - Generate measurement patterns
@@ -652,7 +652,7 @@ Most quantum languages are **gate-centric**:
 
 ### What's Still Needed
 
-- ⏳ QPL → graphix converter (next to implement)
+- ⏳ QRL → graphix converter (next to implement)
 - ⏳ Perceval integration testing
 - ⏳ Python 3.11 environment (graphix-perceval requirement)
 - ⏳ Quandela Cloud access
@@ -685,7 +685,7 @@ Most quantum languages are **gate-centric**:
 pip install graphix[extra]
 
 # Run the exploration script
-cd quantum-process-language
+cd quantum-relational-language
 python examples/graphix_exploration.py
 ```
 
@@ -710,13 +710,13 @@ Pattern summary:
 
 ## The Vision
 
-**Short term:** QPL programs compile to graphix patterns
+**Short term:** QRL programs compile to graphix patterns
 **Medium term:** graphix patterns compile to Perceval circuits
 **Long term:** Perceval circuits run on Quandela hardware
 
 **The full stack:**
 ```
-QPL Code
+QRL Code
    ↓
 Relations
    ↓
@@ -743,10 +743,10 @@ We're building the glue.
 - Quantum programming languages
 - Quantum compiler optimization
 
-**QPL might be relevant to your work.**
+**QRL might be relevant to your work.**
 
 **Collaboration opportunities:**
-- Benchmark QPL vs gate-based compilation
+- Benchmark QRL vs gate-based compilation
 - Optimize patterns for photonic hardware
 - Extend to continuous-variable systems
 - Fault-tolerant MBQC compilation
@@ -764,7 +764,7 @@ We're building the glue.
 - Quantum software tools
 - Quantum compilers
 
-**QPL demonstrates an alternative approach.**
+**QRL demonstrates an alternative approach.**
 
 **Not production-ready yet.** But the path is clear:
 1. Relations-first programming model
@@ -780,7 +780,7 @@ We're building the glue.
 
 **The next post will show the implementation:**
 
-"Building the QPL → graphix Converter: Connecting Relations to Photonics"
+"Building the QRL → graphix Converter: Connecting Relations to Photonics"
 
 - Implementation details
 - Code walkthrough
@@ -798,10 +798,10 @@ That's not a dream. That's a roadmap.
 ::: {.callout-important}
 ## 🚀 Join the Journey
 
-QPL is open source and actively developed:
+QRL is open source and actively developed:
 
-- **Contribute:** [GitHub Issues](https://github.com/dcoldeira/quantum-process-language/issues)
-- **Discuss:** [GitHub Discussions](https://github.com/dcoldeira/quantum-process-language/discussions)
+- **Contribute:** [GitHub Issues](https://github.com/dcoldeira/quantum-relational-language/issues)
+- **Discuss:** [GitHub Discussions](https://github.com/dcoldeira/quantum-relational-language/discussions)
 - **Connect:** [LinkedIn](https://linkedin.com/in/dcoldeira)
 - **Follow:** New blog posts every 1-2 weeks
 
