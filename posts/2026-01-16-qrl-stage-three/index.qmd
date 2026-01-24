@@ -4,6 +4,7 @@ author: "David Coldeira"
 date: "2026-01-16"
 categories: [quantum computing, QRL, MBQC, teleportation, adaptive corrections]
 description: "QRL now performs quantum teleportation with fidelity = 1.0. Stage 3 adds adaptive Pauli corrections - the final piece needed for real MBQC protocols."
+image: "qrl-stage-three.svg"
 ---
 
 ::: {.callout-tip icon=false}
