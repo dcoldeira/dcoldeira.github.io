@@ -2,24 +2,24 @@
 title: "Stage 1: Scaling Relations-First Quantum Programming to n Qubits"
 author: "David Coldeira"
 date: "2025-12-31"
-categories: [quantum computing, QPL, physics, GHZ states, entanglement, tensor networks]
+categories: [quantum computing, QRL, physics, GHZ states, entanglement, tensor networks]
 description: "Stage Zero proved relations-first quantum programming works for 2 qubits. Stage 1 scales to arbitrary n-qubit systems with GHZ states, W states, and proper tensor algebra. Here's what changed and why it matters."
 image: "qpl-stage-one.svg"
 ---
 
 ::: {.callout-tip icon=false}
-## 🔗 Quantum Process Language (QPL) Repository
+## 🔗 Quantum Relational Language (QRL) Repository
 
-This post documents QPL Stage 1 development. View the source code, run examples, and contribute:
+This post documents QRL Stage 1 development. View the source code, run examples, and contribute:
 
-**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
 
 Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
 :::
 
 ## The 2-Qubit Wall
 
-[Stage Zero](https://dcoldeira.github.io/posts/2025-12-29-qpl-stage-zero/) of QPL proved something critical: **relations-first quantum programming works**. You can build a quantum language where entanglement is a first-class citizen, measurements are contextual questions, and the physics is textbook-correct.
+[Stage Zero](https://dcoldeira.github.io/posts/2025-12-29-qpl-stage-zero/) of QRL proved something critical: **relations-first quantum programming works**. You can build a quantum language where entanglement is a first-class citizen, measurements are contextual questions, and the physics is textbook-correct.
 
 But Stage Zero had a glaring limitation: **it only worked for 2 qubits.**
 
@@ -30,7 +30,7 @@ You could create Bell states `(|00⟩ + |11⟩)/√2`, measure in different base
 - W states: `(|100⟩ + |010⟩ + |001⟩)/√3`
 - Anything resembling a real quantum algorithm
 
-**Stage 1 removes that wall.** QPL now supports arbitrary n-qubit quantum relations.
+**Stage 1 removes that wall.** QRL now supports arbitrary n-qubit quantum relations.
 
 ---
 
@@ -43,7 +43,7 @@ You could create Bell states `(|00⟩ + |11⟩)/√2`, measure in different base
 The mathematical foundation for n-qubit operations:
 
 ```python
-from qpl.tensor_utils import (
+from qrl.tensor_utils import (
     create_ghz_state,
     create_w_state,
     compute_entanglement_entropy,
@@ -142,7 +142,7 @@ Seven comprehensive tests verifying n-qubit physics:
 python3 tests/test_stage1_nqubit.py
 
 ============================================================
-  QPL STAGE 1: N-QUBIT RELATIONS - TEST SUITE
+  QRL STAGE 1: N-QUBIT RELATIONS - TEST SUITE
 ============================================================
 
 ✓ test_backward_compatibility_bell
@@ -236,7 +236,7 @@ GHZ and W states represent **different classes** of multipartite entanglement:
 - **W:** Robust (measuring one qubit leaves others entangled)
 - Under local operations and classical communication (LOCC), you **cannot convert** GHZ ↔ W
 
-QPL now supports both.
+QRL now supports both.
 
 ### Stage 1: Partial Measurements
 
@@ -292,7 +292,7 @@ ghz3.state = [0.707, 0, 0, 0, 0, 0, 0, 0.707]
 3. **Fragile:** Measuring destroys multipartite entanglement (but preserves bipartite)
 4. **Requires genuine n-way correlation:** Cannot be created with pairwise entanglement alone
 
-**QPL Implementation:**
+**QRL Implementation:**
 
 ```python
 def create_ghz_state(num_qubits: int) -> np.ndarray:
@@ -329,7 +329,7 @@ w3.state = [0, 0.577, 0.577, 0, 0.577, 0, 0, 0]
 3. **Different LOCC equivalence class:** Cannot convert W ↔ GHZ with local operations
 4. **Equal single-excitation superposition:** Symmetric under qubit permutation
 
-**Why this matters for QPL:**
+**Why this matters for QRL:**
 
 GHZ and W are **inequivalent quantum resources**. A language that only supports one can't express algorithms that need the other. Stage 1 supports both.
 
@@ -345,7 +345,7 @@ where $\rho_A = \text{Tr}_B(\rho_{AB})$ is the reduced density matrix.
 
 **For W states:** S depends on partition size (less than maximal)
 
-**QPL computes this automatically:**
+**QRL computes this automatically:**
 
 ```python
 ghz4 = program.entangle(q0, q1, q2, q3)
@@ -378,7 +378,7 @@ def compute_entanglement_entropy(state, partition, num_qubits):
     return entropy
 ```
 
-This is **textbook quantum mechanics** ([Nielsen & Chuang, Chapter 11](https://en.wikipedia.org/wiki/Quantum_Computation_and_Quantum_Information)). But in QPL, it's **built into the language**—not something you calculate in user code.
+This is **textbook quantum mechanics** ([Nielsen & Chuang, Chapter 11](https://en.wikipedia.org/wiki/Quantum_Computation_and_Quantum_Information)). But in QRL, it's **built into the language**—not something you calculate in user code.
 
 ---
 
@@ -390,7 +390,7 @@ This is **textbook quantum mechanics** ([Nielsen & Chuang, Chapter 11](https://e
 
 ```python
 # This code was written for Stage 0
-program = QPLProgram("Bell Test")
+program = QRLProgram("Bell Test")
 alice = program.create_system()
 bob = program.create_system()
 bell = program.entangle(alice, bob)
@@ -579,7 +579,7 @@ Stage 3+ will implement tensor networks for larger systems.
 ```python
 def test_ghz_3qubit_creation():
     """Verify 3-qubit GHZ state: (|000⟩ + |111⟩)/√2"""
-    program = QPLProgram("GHZ3 Test")
+    program = QRLProgram("GHZ3 Test")
     q0, q1, q2 = program.create_system(), program.create_system(), program.create_system()
 
     ghz3 = program.entangle(q0, q1, q2)
@@ -614,7 +614,7 @@ def test_3qubit_measurement_same_basis():
     matches = 0
 
     for _ in range(num_trials):
-        program = QPLProgram("GHZ Correlation Test")
+        program = QRLProgram("GHZ Correlation Test")
         q0, q1, q2 = program.create_system(), program.create_system(), program.create_system()
         ghz3 = program.entangle(q0, q1, q2)
 
@@ -645,7 +645,7 @@ Same-basis correlation: 99.8% (expected: 100%)
 ```python
 def test_partial_measurement_3qubit():
     """Measure one qubit, verify others stay entangled."""
-    program = QPLProgram("Partial Measurement")
+    program = QRLProgram("Partial Measurement")
     q0, q1, q2 = program.create_system(), program.create_system(), program.create_system()
 
     ghz3 = program.entangle(q0, q1, q2)
@@ -756,7 +756,7 @@ Relations-first programming doesn't break at 3 qubits. The abstractions generali
 
 ### 2. Real Physics, Real Algorithms
 
-With n-qubit support, QPL can now express:
+With n-qubit support, QRL can now express:
 - GHZ states (quantum metrology, multi-party cryptography)
 - W states (robust quantum communication)
 - Quantum error correction codes
@@ -766,11 +766,11 @@ These aren't toy examples. They're the building blocks of quantum computing.
 
 ### 3. Educational Power
 
-QPL is designed for **teaching quantum thinking**. With Stage 1:
+QRL is designed for **teaching quantum thinking**. With Stage 1:
 
 **Concept:** "GHZ states are fundamentally different from pairwise entanglement"
 
-**QPL Code:**
+**QRL Code:**
 ```python
 # Pairwise entanglement: Bell + Bell
 ab = program.entangle(a, b)
@@ -811,7 +811,7 @@ program.apply_gate(gate_matrix, qubit_idx=i)
 program.apply_gate(CNOT, qubits=[0, 1])
 
 # Automatic entanglement tracking
-# If gates create entanglement, QPL detects it
+# If gates create entanglement, QRL detects it
 ```
 
 2. **Process Algebra**
@@ -848,11 +848,11 @@ def bell_test(qubit: Qubit) -> Qubit:
 Formal mathematical foundation:
 - Quantum processes as morphisms
 - Composition via category theory
-- Denotational semantics for QPL programs
+- Denotational semantics for QRL programs
 
 5. **Real Quantum Algorithms**
 
-Implement in QPL:
+Implement in QRL:
 - Quantum Fourier Transform
 - Grover's search
 - Shor's factoring (simplified)
@@ -862,13 +862,13 @@ Implement in QPL:
 
 ## Try It Yourself
 
-QPL Stage 1 is ready: [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+QRL Stage 1 is ready: [github.com/dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
 
 ### Installation
 
 ```bash
-git clone https://github.com/dcoldeira/quantum-process-language
-cd quantum-process-language
+git clone https://github.com/dcoldeira/quantum-relational-language
+cd quantum-relational-language
 pip install numpy networkx
 pip install -e .
 ```
@@ -876,10 +876,10 @@ pip install -e .
 ### Run Stage 1 Examples
 
 ```python
-from qpl import QPLProgram, create_question, QuestionType
+from qrl import QRLProgram, create_question, QuestionType
 
 # Create 4-qubit GHZ state
-program = QPLProgram("GHZ Demo")
+program = QRLProgram("GHZ Demo")
 qubits = [program.create_system() for _ in range(4)]
 ghz4 = program.entangle(*qubits)
 
@@ -931,8 +931,8 @@ Stage 1 is complete. Stage 2 begins.
 
 **Status:** ✅ Stage 1 Complete | Physics Verified | Process Algebra Next
 
-**Code:** [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+**Code:** [github.com/dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
 
 **Tests:** 7/7 passing | n-qubit operations verified | Backward compatible
 
-*Next post: Stage 2 implementation—quantum type systems and process algebra for QPL.*
+*Next post: Stage 2 implementation—quantum type systems and process algebra for QRL.*

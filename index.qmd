@@ -1,7 +1,7 @@
 ---
 title: "Entangled Code"
 subtitle: "Rigorous Quantum Computing • Physics-Informed Software Engineering"
-description: "Expert-level quantum computing insights by David Coldeira. Rigorous physics, production-quality code, and deep technical analysis of quantum mechanics, QPL (Quantum Process Language), entanglement, and building real quantum computing tools."
+description: "Expert-level quantum computing insights by David Coldeira. Rigorous physics, production-quality code, and deep technical analysis of quantum mechanics, QRL (Quantum Relational Language), entanglement, and building real quantum computing tools."
 listing:
   contents: posts
   sort: "date desc"
@@ -19,13 +19,13 @@ title-block-banner: true
 Building quantum computing tools and scientific software with **honest evaluation**, **rigorous physics**, and **production-quality engineering**.
 
 ::: {.callout-note icon=false appearance="simple"}
-## 🔬 Featured Project: Quantum Process Language (QPL)
+## 🔬 Featured Project: Quantum Relational Language (QRL)
 
 **Relations-first quantum programming** where entanglement is a first-class citizen.
 
 - ✅ Stage 0 & 1 Complete: n-qubit entanglement, GHZ states, proper physics
 - 🔜 Stage 2 Next: Process algebra & quantum type system
-- **[View on GitHub →](https://github.com/dcoldeira/quantum-process-language)** | **[Read the Docs →](https://github.com/dcoldeira/quantum-process-language#readme)**
+- **[View on GitHub →](https://github.com/dcoldeira/quantum-relational-language)** | **[Read the Docs →](https://github.com/dcoldeira/quantum-relational-language#readme)**
 
 *Not another gate-based framework—this is quantum computing built from first principles.*
 :::

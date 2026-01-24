@@ -2,17 +2,17 @@
 title: "Stage Zero: Programming Quantum Reality Through Relations, Not Gates"
 author: "David Coldeira"
 date: "2025-12-29"
-categories: [quantum computing, QPL, physics, programming languages, research]
-description: "Most quantum frameworks force you to think in gates. QPL Stage Zero proves you can build from entanglement instead. Here's why relations-first quantum programming might unlock something bigger."
+categories: [quantum computing, QRL, physics, programming languages, research]
+description: "Most quantum frameworks force you to think in gates. QRL Stage Zero proves you can build from entanglement instead. Here's why relations-first quantum programming might unlock something bigger."
 image: "qpl-stage-zero.svg"
 ---
 
 ::: {.callout-tip icon=false}
-## 🔗 Quantum Process Language (QPL) Repository
+## 🔗 Quantum Relational Language (QRL) Repository
 
-This post documents QPL Stage Zero development. View the source code, run examples, and contribute:
+This post documents QRL Stage Zero development. View the source code, run examples, and contribute:
 
-**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
 
 Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
 :::
@@ -41,7 +41,7 @@ At the foundational level, quantum physics is about:
 
 What if we built a programming language from *these* primitives instead?
 
-That's **Quantum Process Language (QPL)**, and **Stage Zero** is the proof of concept: a working implementation where entanglement, not gates, is the foundation.
+That's **Quantum Relational Language (QRL)**, and **Stage Zero** is the proof of concept: a working implementation where entanglement, not gates, is the foundation.
 
 ---
 
@@ -66,7 +66,7 @@ Build the minimal viable quantum programming system where:
 ### What Stage Zero Includes
 
 **Core Abstractions (src/qpl/core.py):**
-- `QPLProgram` - Container for quantum systems and their relations
+- `QRLProgram` - Container for quantum systems and their relations
 - `QuantumRelation` - An entangled system as the fundamental unit
 - `QuantumQuestion` - A measurement with explicit basis
 - `Perspective` - An observer context
@@ -125,11 +125,11 @@ This works, but it hides the **relational nature** of what you've created. The B
 
 ### Relations-First: Entanglement as Primitive
 
-QPL Stage Zero inverts this:
+QRL Stage Zero inverts this:
 
 ```python
-# QPL: Relations-first quantum programming
-program = QPLProgram("Bell Experiment")
+# QRL: Relations-first quantum programming
+program = QRLProgram("Bell Experiment")
 
 # Create quantum systems
 alice = program.create_system()
@@ -168,7 +168,7 @@ For a Bell state $|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$:
 **Information-theoretic view:**
 "A maximally entangled relation between two systems where measurement of one instantly determines the other, regardless of basis—though correlations depend on basis choice."
 
-In QPL, we encode the second view directly:
+In QRL, we encode the second view directly:
 
 ```python
 # The QuantumRelation object
@@ -195,9 +195,9 @@ For a separable state, $S = 0.0$ (no entanglement).
 
 Traditional quantum computing: `measure(qubit) → 0 or 1`
 
-QPL: `ask(relation, question, perspective) → answer`
+QRL: `ask(relation, question, perspective) → answer`
 
-The difference is **context**. In QPL, measurement has:
+The difference is **context**. In QRL, measurement has:
 
 1. **A basis** (Z, X, Y, or custom)
 2. **A target** (which subsystem in the relation)
@@ -205,7 +205,7 @@ The difference is **context**. In QPL, measurement has:
 
 **Why this matters:**
 
-Quantum mechanics is contextual. The question "what is the spin?" has no answer without specifying *which direction* (Z, X, Y, etc.). In traditional frameworks, this is implicit (default to Z). In QPL, it's explicit:
+Quantum mechanics is contextual. The question "what is the spin?" has no answer without specifying *which direction* (Z, X, Y, etc.). In traditional frameworks, this is implicit (default to Z). In QRL, it's explicit:
 
 ```python
 # Measure Alice's qubit in Z basis
@@ -221,7 +221,7 @@ result_x = program.ask(bell_pair, question_x, perspective="bob")
 # Z-X correlations: ~50% (random, uncorrelated)
 ```
 
-Under the hood, QPL implements **basis transformation** correctly:
+Under the hood, QRL implements **basis transformation** correctly:
 
 ```python
 def compute_subsystem_probabilities(state, basis, subsystem_idx, num_qubits):
@@ -239,7 +239,7 @@ def compute_subsystem_probabilities(state, basis, subsystem_idx, num_qubits):
     # ... (probability calculation)
 ```
 
-This is **textbook quantum mechanics** ([Nielsen & Chuang](https://en.wikipedia.org/wiki/Quantum_Computation_and_Quantum_Information), Chapter 2). But in QPL, it's built into the language semantics, not user-space code.
+This is **textbook quantum mechanics** ([Nielsen & Chuang](https://en.wikipedia.org/wiki/Quantum_Computation_and_Quantum_Information), Chapter 2). But in QRL, it's built into the language semantics, not user-space code.
 
 ### Correct Physics: The Litmus Test
 
@@ -252,7 +252,7 @@ alice_z = ask(bell_pair, SPIN_Z, subsystem=0)
 bob_z = ask(remaining_relation, SPIN_Z, subsystem=1)
 
 # Expected: 100% correlation (always get same result)
-# QPL Result: 100.0% ✓
+# QRL Result: 100.0% ✓
 ```
 
 **Test 2: Cross-Basis Decorrelation**
@@ -262,7 +262,7 @@ alice_z = ask(bell_pair, SPIN_Z, subsystem=0)
 bob_x = ask(remaining_relation, SPIN_X, subsystem=1)
 
 # Expected: ~50% correlation (random, uncorrelated)
-# QPL Result: 48.6% ✓ (statistical variation across 1000 trials)
+# QRL Result: 48.6% ✓ (statistical variation across 1000 trials)
 ```
 
 **Test 3: X-Basis Eigenstate Measurement**
@@ -271,7 +271,7 @@ plus_state = |+⟩ = (|0⟩ + |1⟩)/√2  # Eigenstate of X with eigenvalue +1
 result = ask(system, SPIN_X)
 
 # Expected: 100% chance of outcome 0 (the +1 eigenvalue)
-# QPL Result: 100.0% ✓
+# QRL Result: 100.0% ✓
 ```
 
 **Test 4: Entanglement Entropy**
@@ -280,7 +280,7 @@ bell_pair = entangle(alice, bob)
 S = bell_pair.entanglement_entropy
 
 # Expected: S = 1.0 (maximal entanglement for 2 qubits)
-# QPL Result: 1.0 ✓
+# QRL Result: 1.0 ✓
 ```
 
 These aren't toy examples—this is **real quantum mechanics**, correctly implemented in a relations-first paradigm.
@@ -300,7 +300,7 @@ circuit.cx(0, 1)
 # Wait, what did I just create? A Bell state? Which one?
 ```
 
-QPL:
+QRL:
 ```python
 bell_pair = program.entangle(alice, bob)
 # This IS a Bell state. The object itself is the entanglement.
@@ -312,7 +312,7 @@ No translation from gates to what you're actually doing. **The abstraction match
 
 In gate-based frameworks, entanglement is invisible. You have to manually compute entropy or run expensive state tomography.
 
-In QPL:
+In QRL:
 ```python
 print(bell_pair.entanglement_entropy)  # Always available, always correct
 ```
@@ -328,7 +328,7 @@ Stage Zero only hints at this, but it's where things get wild.
 
 In relational quantum mechanics (Rovelli, 1996), different observers can have different accounts of the same quantum system—and both are correct. This is impossible to express in gate-based frameworks where there's one "God's eye view" of the state.
 
-QPL's `Perspective` system sets up for **observer-dependent quantum states**:
+QRL's `Perspective` system sets up for **observer-dependent quantum states**:
 
 ```python
 # Alice's perspective
@@ -349,7 +349,7 @@ Gate-based quantum computing is classical programming with quantum gates. You st
 - Unitary transformations
 - Measurement at the end
 
-QPL forces you to think in:
+QRL forces you to think in:
 - Relations between systems
 - Questions asked contextually
 - Perspectives from which observations are made
@@ -402,10 +402,10 @@ This is hard, but it's **engineering**, not **research**. We're not inventing ne
 Let's see Stage Zero in action with quantum teleportation—the protocol where Alice sends a quantum state to Bob using entanglement and classical communication:
 
 ```python
-from qpl import QPLProgram, entangle, ask, create_question, QuestionType
+from qrl import QRLProgram, entangle, ask, create_question, QuestionType
 
 # Initialize
-program = QPLProgram("Quantum Teleportation")
+program = QRLProgram("Quantum Teleportation")
 program.add_perspective("alice", {"role": "sender"})
 program.add_perspective("bob", {"role": "receiver"})
 
@@ -516,7 +516,7 @@ State vectors grow exponentially: $2^{100}$ amplitudes for 100 qubits (impossibl
 - Hybrid classical-quantum state management
 - Intelligent caching of entanglement structure
 
-This is **known hard**, but it's the same problem every quantum simulator faces. The difference: QPL's relations-first design might let us **optimize for entanglement structure** in ways gate-based frameworks can't.
+This is **known hard**, but it's the same problem every quantum simulator faces. The difference: QRL's relations-first design might let us **optimize for entanglement structure** in ways gate-based frameworks can't.
 
 ---
 
@@ -524,7 +524,7 @@ This is **known hard**, but it's the same problem every quantum simulator faces.
 
 Most research projects fail at Stage Zero. You build a prototype, discover the abstraction doesn't actually work, and abandon it.
 
-**Stage Zero QPL works.** The physics is correct. The abstractions scale. The code is clean.
+**Stage Zero QRL works.** The physics is correct. The abstractions scale. The code is clean.
 
 That 8% completion isn't "almost nothing"—it's **proof of concept**.
 
@@ -566,11 +566,11 @@ Observer-dependent reality, decoherence modeling, "programming reality itself"
 
 ## Try It Yourself
 
-QPL Stage Zero is open source: [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+QRL Stage Zero is open source: [github.com/dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
 
 ```bash
-git clone https://github.com/dcoldeira/quantum-process-language
-cd quantum-process-language
+git clone https://github.com/dcoldeira/quantum-relational-language
+cd quantum-relational-language
 pip install -e .
 
 # Run examples
@@ -611,8 +611,8 @@ Stage Zero works. Stage 1 is next. The journey continues.
 
 **Status:** ✅ Stage Zero Complete | Physics Verified | n-Qubits Next
 
-**Code:** [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+**Code:** [github.com/dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
 
-**Roadmap:** [ROADMAP.md](https://github.com/dcoldeira/quantum-process-language/blob/main/ROADMAP.md)
+**Roadmap:** [ROADMAP.md](https://github.com/dcoldeira/quantum-relational-language/blob/main/ROADMAP.md)
 
 *Next post: Stage 1 implementation begins—scaling to n-qubit quantum relations.*

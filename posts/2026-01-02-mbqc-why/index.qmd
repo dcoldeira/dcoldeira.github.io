@@ -1,18 +1,18 @@
 ---
-title: "Why QPL is Adopting Measurement-Based Quantum Computing"
+title: "Why QRL is Adopting Measurement-Based Quantum Computing"
 author: "David Coldeira"
 date: "2026-01-02"
-categories: [quantum computing, QPL, MBQC, research, quantum foundations]
-description: "Gates are not how quantum mechanics works. QPL is adopting Measurement-Based Quantum Computing (MBQC) as its compilation target—not because it's easier, but because it's what the physics actually says. Here's the theory, the motivation, and the research program ahead."
+categories: [quantum computing, QRL, MBQC, research, quantum foundations]
+description: "Gates are not how quantum mechanics works. QRL is adopting Measurement-Based Quantum Computing (MBQC) as its compilation target—not because it's easier, but because it's what the physics actually says. Here's the theory, the motivation, and the research program ahead."
 image: "mbqc-paradigm.svg"
 ---
 
 ::: {.callout-tip icon=false}
-## 🔗 Quantum Process Language (QPL) Repository
+## 🔗 Quantum Relational Language (QRL) Repository
 
-This post outlines QPL's research direction toward MBQC compilation.
+This post outlines QRL's research direction toward MBQC compilation.
 
-**[GitHub: dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)**
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
 
 Status: ✅ Stage 1 Complete | 🔜 Stage 2: MBQC Compilation
 :::
@@ -20,7 +20,7 @@ Status: ✅ Stage 1 Complete | 🔜 Stage 2: MBQC Compilation
 ::: {.callout-note icon=false appearance="simple"}
 ## Research Program Announcement
 
-This post marks a significant pivot for QPL: from educational quantum language to **research-grade quantum compiler targeting measurement-based quantum computing**.
+This post marks a significant pivot for QRL: from educational quantum language to **research-grade quantum compiler targeting measurement-based quantum computing**.
 
 If you're a researcher, PhD supervisor, or funding body working on quantum computing, photonic quantum systems, or quantum compilers—this might interest you.
 :::
@@ -125,9 +125,9 @@ q0 --- a1 --- a2 --- q3
 
 ---
 
-## Why MBQC Fits QPL Perfectly
+## Why MBQC Fits QRL Perfectly
 
-Look at QPL's core abstractions from Stage 1:
+Look at QRL's core abstractions from Stage 1:
 
 ```python
 # Create entangled relation
@@ -143,11 +143,11 @@ result = program.ask(ghz5, question_z, perspective="alice")
 - **`ask()`** → Adaptive measurement
 - **`QuantumRelation`** → Graph state representation
 
-QPL didn't **choose** MBQC—the relations-first model **naturally expresses** MBQC.
+QRL didn't **choose** MBQC—the relations-first model **naturally expresses** MBQC.
 
 ### The Conceptual Alignment
 
-| MBQC Concept | QPL Abstraction |
+| MBQC Concept | QRL Abstraction |
 |--------------|-----------------|
 | Cluster state preparation | `program.entangle(*systems)` |
 | Graph topology | `QuantumRelation.systems` graph |
@@ -156,7 +156,7 @@ QPL didn't **choose** MBQC—the relations-first model **naturally expresses** M
 | Measurement basis | `QuestionType.SPIN_X`, `SPIN_Z`, custom |
 | Pauli corrections | Tracked in `QuantumRelation.history` |
 
-**We're not forcing MBQC onto QPL. QPL naturally expresses MBQC semantics.**
+**We're not forcing MBQC onto QRL. QRL naturally expresses MBQC semantics.**
 
 ---
 
@@ -202,7 +202,7 @@ MBQC is **quantum teleportation** iterated.
 
 ### 3. Measurement is Contextual Projection
 
-In QPL, `ask(relation, question, perspective)` captures quantum **contextuality**:
+In QRL, `ask(relation, question, perspective)` captures quantum **contextuality**:
 
 - **Question:** What basis am I measuring in? (Z, X, custom $\theta$)
 - **Perspective:** Who is observing? (Alice, Bob, experimenter)
@@ -307,12 +307,12 @@ Photonic hardware / Surface code
 
 ---
 
-## QPL's Compilation Path: Direct to MBQC
+## QRL's Compilation Path: Direct to MBQC
 
-QPL can **skip the gate layer entirely**:
+QRL can **skip the gate layer entirely**:
 
 ```
-QPL Program (relations + measurements)
+QRL Program (relations + measurements)
     ↓
 Extract entanglement graph
     ↓
@@ -334,14 +334,14 @@ qc.h(0)       # Gate 1
 qc.cx(0, 1)   # Gate 2
 ```
 
-**QPL (relations):**
+**QRL (relations):**
 ```python
 bell = program.entangle(q0, q1)
 ```
 
 **Compilation to MBQC:**
 
-QPL:
+QRL:
 ```
 entangle(q0, q1)
     ↓
@@ -363,20 +363,20 @@ Decompose CNOT → 4-qubit cluster + 2 measurements
 More complex cluster state needed
 ```
 
-**QPL's representation is more direct.**
+**QRL's representation is more direct.**
 
 ---
 
 ## The Research Program: Stages 2-4
 
-QPL's path forward is now clear:
+QRL's path forward is now clear:
 
 ### Stage 2: MBQC Compiler (Target: 2025 Q2)
 
 **Goals:**
 
 1. **Graph state extraction**
-   - Every QPL `entangle()` operation defines a graph
+   - Every QRL `entangle()` operation defines a graph
    - Build graph representation from `QuantumRelation`
    - Visualize entanglement topology
 
@@ -391,16 +391,16 @@ QPL's path forward is now clear:
 
 4. **Photonic backend**
    - Interface with **Strawberry Fields** (Xanadu's photonic framework)
-   - QPL → Strawberry Fields compilation
+   - QRL → Strawberry Fields compilation
    - Run on photonic simulators / hardware
 
 **Deliverables:**
 - `qpl_program.compile(target="mbqc")` → measurement pattern
 - Integration with Strawberry Fields
-- Example: Compile QPL teleportation to photonic MBQC
+- Example: Compile QRL teleportation to photonic MBQC
 
 **Success criteria:**
-- QPL programs run on photonic quantum computers without gate layer
+- QRL programs run on photonic quantum computers without gate layer
 - Measurement patterns verified against MBQC theory
 
 ---
@@ -427,7 +427,7 @@ QPL's path forward is now clear:
    - Automatic contraction order optimization
 
 **Deliverables:**
-- QPL simulates 50+ qubit MBQC programs efficiently
+- QRL simulates 50+ qubit MBQC programs efficiently
 - Tensor network visualizations of entanglement structure
 - Paper: "Efficient Simulation of MBQC via Relations-First Tensor Networks"
 
@@ -442,20 +442,20 @@ QPL's path forward is now clear:
 **Goals:**
 
 1. **Surface code compilation**
-   - QPL relations → surface code stabilizer measurements
+   - QRL relations → surface code stabilizer measurements
    - Logical gates as measurement patterns
    - Error correction via syndrome extraction
 
 2. **Topological error correction**
    - Integrate with surface code simulators (Stim, PyMatching)
-   - QPL programs compiled to fault-tolerant MBQC
+   - QRL programs compiled to fault-tolerant MBQC
 
 3. **Real quantum hardware**
    - Run on IBM / Google quantum computers via surface codes
    - Run on PsiQuantum photonic systems (when available)
 
 **Long-term vision:**
-- QPL becomes a **high-level language for fault-tolerant quantum computing**
+- QRL becomes a **high-level language for fault-tolerant quantum computing**
 - Compiles directly to surface code MBQC patterns
 - Abstracts away error correction (handled by compiler)
 
@@ -473,11 +473,11 @@ If executed, this is a **legitimate PhD thesis**:
 
 1. **Programming Language Design**
    - Relations-first semantics for quantum computing
-   - Formal operational semantics of MBQC in QPL
+   - Formal operational semantics of MBQC in QRL
    - Type system preventing quantum no-cloning at compile time
 
 2. **Compiler Design**
-   - QPL → MBQC measurement pattern compilation
+   - QRL → MBQC measurement pattern compilation
    - Graph state extraction and optimization
    - Adaptive measurement handling
 
@@ -495,12 +495,12 @@ If executed, this is a **legitimate PhD thesis**:
 
 1. **RQ1:** Can relations-first programming simplify MBQC compilation?
 2. **RQ2:** Do tensor networks enable efficient simulation of MBQC programs?
-3. **RQ3:** Does QPL → MBQC produce more efficient patterns than gate-based → MBQC?
-4. **RQ4:** Can QPL abstract fault-tolerant quantum computing via MBQC?
+3. **RQ3:** Does QRL → MBQC produce more efficient patterns than gate-based → MBQC?
+4. **RQ4:** Can QRL abstract fault-tolerant quantum computing via MBQC?
 
 ### Publications (Target Venues)
 
-- **QPL Workshop** (Quantum Physics and Logic) - programming language semantics
+- **QRL Workshop** (Quantum Physics and Logic) - programming language semantics
 - **QCE** (Quantum Computing and Engineering) - compiler design
 - **PLDI / POPL** (Programming Language conferences) - type systems
 - **PRL / PRX Quantum** (Physics journals) - MBQC theory contributions
@@ -518,7 +518,7 @@ If executed, this is a **legitimate PhD thesis**:
 - Photonic systems create entangled photons natively (no gates)
 - Future: Direct cluster state generation via Rydberg atoms
 
-**Research question:** Can QPL optimize cluster state reuse?
+**Research question:** Can QRL optimize cluster state reuse?
 
 ### 2. Measurement Error Handling
 
@@ -528,7 +528,7 @@ If executed, this is a **legitimate PhD thesis**:
 - Surface codes provide fault-tolerance via redundant measurements
 - Error correction = part of MBQC pattern
 
-**Research question:** How do QPL's perspectives model error correction?
+**Research question:** How do QRL's perspectives model error correction?
 
 ### 3. Classical Processing Overhead
 
@@ -538,7 +538,7 @@ If executed, this is a **legitimate PhD thesis**:
 - Modern quantum computers have FPGA-based fast feedback
 - Google's surface code uses real-time syndrome processing
 
-**Research question:** Can QPL's compiler optimize classical control flow?
+**Research question:** Can QRL's compiler optimize classical control flow?
 
 ### 4. Hardware Availability
 
@@ -551,7 +551,7 @@ If executed, this is a **legitimate PhD thesis**:
 
 ---
 
-## Comparison: QPL vs. Existing MBQC Tools
+## Comparison: QRL vs. Existing MBQC Tools
 
 | Tool | Approach | Target | Limitations |
 |------|----------|--------|-------------|
@@ -559,9 +559,9 @@ If executed, this is a **legitimate PhD thesis**:
 | **Strawberry Fields** | Photonic gates + MBQC | Photonic simulators | Low-level, gate-centric |
 | **Perceval** | Photonic circuits | Photonic simulators | Circuit model |
 | **Stim** | Surface code simulator | Error correction | No high-level language |
-| **QPL** | **Relations-first → MBQC** | Photonic, surface codes | Early stage (Stage 1) |
+| **QRL** | **Relations-first → MBQC** | Photonic, surface codes | Early stage (Stage 1) |
 
-**QPL's unique position:**
+**QRL's unique position:**
 - Only language designed **natively** for MBQC
 - Relations = cluster states (direct mapping)
 - Targets photonic + surface code systems
@@ -600,7 +600,7 @@ If executed, this is a **legitimate PhD thesis**:
 
 2. **Xanadu** - Photonic quantum computing
    - Strawberry Fields = MBQC framework
-   - Potential collaboration on QPL integration
+   - Potential collaboration on QRL integration
 
 3. **QuEra** - Neutral atom quantum computing
    - Graph state preparation natively supported
@@ -614,7 +614,7 @@ If executed, this is a **legitimate PhD thesis**:
 
 ## Call for Collaboration
 
-QPL is transitioning from educational project to **research-grade quantum compiler**.
+QRL is transitioning from educational project to **research-grade quantum compiler**.
 
 **We're looking for:**
 
@@ -641,7 +641,7 @@ Gate-based quantum computing says: **"Computation is applying transformations."*
 
 MBQC says: **"Computation is asking questions of an entangled system."**
 
-QPL has always said: **"Quantum mechanics is about relations and questions, not objects and gates."**
+QRL has always said: **"Quantum mechanics is about relations and questions, not objects and gates."**
 
 MBQC vindicates this. It's not just a philosophical stance—it's **how photonic quantum computers work**, it's **how fault-tolerant quantum computing works**, and it's **what the physics actually says**.
 
@@ -655,7 +655,7 @@ Let's see how far this goes.
 
 **Status:** ✅ Stage 1 Complete | 🚧 Stage 2 Starting | Research Program Defined
 
-**Code:** [github.com/dcoldeira/quantum-process-language](https://github.com/dcoldeira/quantum-process-language)
+**Code:** [github.com/dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
 
 **Theoretical Foundation:** Raussendorf & Briegel (2001), Quantum Computation via MBQC
 

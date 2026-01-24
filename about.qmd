@@ -18,7 +18,7 @@ I build production-quality tools for complex physical systems—combining deep p
 Building educational tools and frameworks that make quantum mechanics accessible while maintaining physical rigor.
 
 **Current Projects:**
-- **Quantum Process Language (QPL)**: Relations-first quantum programming where entanglement is first-class
+- **Quantum Relational Language (QRL)**: Relations-first quantum programming where entanglement is first-class
 - **Quantum Advisor**: Honest evaluation tool for quantum computational advantage
 - **Photon Duality Simulator**: Novel theoretical framework for quantum interference
 
@@ -32,7 +32,7 @@ Production systems for complex scientific domains, applying rigorous engineering
 - Full-stack: Python, Flutter, Docker, PostgreSQL
 
 **Night Job - Quantum Computing Research:**
-- QPL: Relations-first quantum programming language
+- QRL: Relations-first quantum programming language
 - Quantum Advisor: Honest evaluation of quantum advantage
 - Educational tools with production-quality standards
 
@@ -50,14 +50,14 @@ If something doesn't work, I say so. If classical methods are better, I recommen
 
 ### Physics-Informed Design
 
-Domain knowledge drives architecture. Understanding quantum mechanics shapes how QPL handles entanglement. Understanding soil mechanics influences geotechnical data pipelines.
+Domain knowledge drives architecture. Understanding quantum mechanics shapes how QRL handles entanglement. Understanding soil mechanics influences geotechnical data pipelines.
 
 **The best software for physical systems comes from understanding both the physics and the engineering.**
 
 ### Production-Ready Research Code
 
 Research code shouldn't be throwaway. Build with:
-- Comprehensive testing (QPL: 100% test pass rate)
+- Comprehensive testing (QRL: 100% test pass rate)
 - Clear documentation
 - Maintainability from day one
 - Real-world applicability
@@ -67,7 +67,7 @@ Research code shouldn't be throwaway. Build with:
 Get the math right. Quantum mechanics is unforgiving:
 - Test assumptions
 - Verify against known physics
-- Fix bugs thoroughly (see: QPL cross-basis measurement bug fix)
+- Fix bugs thoroughly (see: QRL cross-basis measurement bug fix)
 
 ---
 
@@ -106,7 +106,7 @@ Lessons from building production scientific software. What actually works? What 
 
 ### Stage 1: n-Qubit Relations (Completed)
 
-QPL now supports arbitrary n-qubit entanglement:
+QRL now supports arbitrary n-qubit entanglement:
 - GHZ states up to 5 qubits tested
 - General tensor product operations
 - Proper measurement and state collapse
@@ -114,7 +114,7 @@ QPL now supports arbitrary n-qubit entanglement:
 
 ### Stage 2: Process Algebra (Next)
 
-Building quantum type system and process composition for QPL.
+Building quantum type system and process composition for QRL.
 
 ### Quantum Advisor Expansion
 
