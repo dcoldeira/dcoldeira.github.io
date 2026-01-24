@@ -4,6 +4,7 @@ author: "David Coldeira"
 date: "2026-01-18"
 categories: [quantum computing, QRL, publishing, open science, Zenodo]
 description: "Two major updates: The project is now officially published on Zenodo with DOI 10.5281/zenodo.18292199, and we've renamed from QPL to QRL (Quantum Relational Language) to avoid confusion with existing academic work."
+image: "zenodo-publication.svg"
 ---
 
 ::: {.callout-tip icon=false}
