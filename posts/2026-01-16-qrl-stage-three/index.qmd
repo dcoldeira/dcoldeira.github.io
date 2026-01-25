@@ -19,7 +19,7 @@ Status: ✅ Stage 0-3 Complete | 47 tests passing | Teleportation fidelity = 1.0
 
 ## The Missing Piece
 
-[Stage 2](../2026-01-12-qpl-stage-two/) gave QRL the ability to compile relations to MBQC patterns. We could generate measurement sequences, extract graph states, and simulate pattern execution.
+[Stage 2](../2026-01-12-qrl-stage-two/) gave QRL the ability to compile relations to MBQC patterns. We could generate measurement sequences, extract graph states, and simulate pattern execution.
 
 But there was a problem: **MBQC requires adaptive corrections.**
 

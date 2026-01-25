@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-12"
 categories: [quantum computing, QRL, MBQC, quantum teleportation, compiler, measurement patterns]
 description: "The MBQC compiler is working! QRL now extracts graph states, generates measurement patterns, and performs quantum teleportation with adaptive corrections. Here's what changed and why it matters."
-image: "qpl-stage-two.svg"
+image: "qrl-stage-two.svg"
 ---
 
 ::: {.callout-tip icon=false}
@@ -19,7 +19,7 @@ Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | ✅ Stage 2 Complet
 
 ## From Relations to Measurement Patterns
 
-[Stage 1](https://dcoldeira.github.io/posts/2025-12-31-qpl-stage-one/) gave QRL the ability to work with arbitrary n-qubit quantum relations. You could create GHZ states, W states, measure qubits, and track entanglement entropy across any bipartition.
+[Stage 1](https://dcoldeira.github.io/posts/2025-12-31-qrl-stage-one/) gave QRL the ability to work with arbitrary n-qubit quantum relations. You could create GHZ states, W states, measure qubits, and track entanglement entropy across any bipartition.
 
 But there was a missing piece: **How do you actually *run* these quantum programs on real hardware?**
 
@@ -33,7 +33,7 @@ Not just in theory. The compiler is working, tested, and performing quantum tele
 
 ### Phase 1: Graph Extraction ✅
 
-**New module:** `src/qpl/mbqc/graph_extraction.py` (204 lines)
+**New module:** `src/qrl/mbqc/graph_extraction.py` (204 lines)
 
 Given a `QuantumRelation` object, extract the underlying graph state structure:
 
@@ -66,7 +66,7 @@ print(analysis['topology'])  # 'edge' (linear)
 
 ### Phase 2: Pattern Generation ✅
 
-**New module:** `src/qpl/mbqc/pattern_generation.py` (300 lines)
+**New module:** `src/qrl/mbqc/pattern_generation.py` (300 lines)
 
 Convert quantum operations into measurement patterns:
 
@@ -116,7 +116,7 @@ print(len(ghz4.measurements))  # 3 (all but output qubit)
 
 ### Phase 3: Adaptive Corrections ✅
 
-**New module:** `src/qpl/mbqc/adaptive_corrections.py` (280 lines)
+**New module:** `src/qrl/mbqc/adaptive_corrections.py` (280 lines)
 
 The crown jewel: **quantum teleportation with measurement-dependent corrections**.
 
@@ -309,10 +309,10 @@ The next challenge is compiling patterns to *specific hardware backends*:
 All Stage 2 code is open source and on GitHub:
 
 **Core modules:**
-- `src/qpl/mbqc/measurement_pattern.py` - Data structures
-- `src/qpl/mbqc/graph_extraction.py` - Graph state extraction
-- `src/qpl/mbqc/pattern_generation.py` - Pattern compilation
-- `src/qpl/mbqc/adaptive_corrections.py` - Quantum teleportation
+- `src/qrl/mbqc/measurement_pattern.py` - Data structures
+- `src/qrl/mbqc/graph_extraction.py` - Graph state extraction
+- `src/qrl/mbqc/pattern_generation.py` - Pattern compilation
+- `src/qrl/mbqc/adaptive_corrections.py` - Quantum teleportation
 
 **Tests:**
 - `tests/test_graph_extraction.py` - 5 tests

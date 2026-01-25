@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2025-12-29"
 categories: [quantum computing, QRL, physics, programming languages, research]
 description: "Most quantum frameworks force you to think in gates. QRL Stage Zero proves you can build from entanglement instead. Here's why relations-first quantum programming might unlock something bigger."
-image: "qpl-stage-zero.svg"
+image: "qrl-stage-zero.svg"
 ---
 
 ::: {.callout-tip icon=false}
@@ -65,7 +65,7 @@ Build the minimal viable quantum programming system where:
 
 ### What Stage Zero Includes
 
-**Core Abstractions (src/qpl/core.py):**
+**Core Abstractions (src/qrl/core.py):**
 - `QRLProgram` - Container for quantum systems and their relations
 - `QuantumRelation` - An entangled system as the fundamental unit
 - `QuantumQuestion` - A measurement with explicit basis

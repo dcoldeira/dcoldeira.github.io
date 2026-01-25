@@ -1,7 +1,7 @@
 ---
 title: "Entangled Code"
 subtitle: "Rigorous Quantum Computing • Physics-Informed Software Engineering"
-description: "Expert-level quantum computing insights by David Coldeira. Rigorous physics, production-quality code, and deep technical analysis of quantum mechanics, QRL (Quantum Relational Language), entanglement, and building real quantum computing tools."
+description: "David Coldeira's quantum computing research. Developing QRL (Quantum Relational Language)—where entanglement is a first-class citizen."
 listing:
   contents: posts
   sort: "date desc"
