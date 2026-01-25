@@ -6,7 +6,7 @@ project:
 
 website:
   title: "Entangled Code"
-  description: "Rigorous quantum computing and physics-informed software engineering. Expert-level insights on quantum mechanics, QPL (Quantum Process Language), and building production-quality quantum computing tools."
+  description: "Rigorous quantum computing and physics-informed software engineering. Expert-level insights on quantum mechanics, QRL (Quantum Relational Language), and building production-quality quantum computing tools."
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
   favicon: favicon.ico
@@ -18,25 +18,19 @@ website:
   navbar:
     background: white
     left:
-      - text: "Home"
-        href: index.qmd
-      - text: "Projects"
-        href: projects.qmd
-      - text: "QPL Book"
+      - text: "QRL Book"
         icon: book
-        href: https://dcoldeira.github.io/qpl-book/
+        href: https://dcoldeira.github.io/qrl-book/
       - text: "About"
         href: about.qmd
     right:
-      - text: "QPL"
+      - text: "QRL"
         icon: code-square
-        href: https://github.com/dcoldeira/quantum-process-language
+        href: https://github.com/dcoldeira/quantum-relational-language
       - icon: github
         href: https://github.com/dcoldeira
       - icon: linkedin
         href: https://uk.linkedin.com/in/dcoldeira
-      - icon: rss
-        href: index.xml
 
   page-footer:
     background: "#fafafa"

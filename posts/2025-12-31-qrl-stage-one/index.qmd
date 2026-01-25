@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2025-12-31"
 categories: [quantum computing, QRL, physics, GHZ states, entanglement, tensor networks]
 description: "Stage Zero proved relations-first quantum programming works for 2 qubits. Stage 1 scales to arbitrary n-qubit systems with GHZ states, W states, and proper tensor algebra. Here's what changed and why it matters."
-image: "qpl-stage-one.svg"
+image: "qrl-stage-one.svg"
 ---
 
 ::: {.callout-tip icon=false}
@@ -19,7 +19,7 @@ Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
 
 ## The 2-Qubit Wall
 
-[Stage Zero](https://dcoldeira.github.io/posts/2025-12-29-qpl-stage-zero/) of QRL proved something critical: **relations-first quantum programming works**. You can build a quantum language where entanglement is a first-class citizen, measurements are contextual questions, and the physics is textbook-correct.
+[Stage Zero](https://dcoldeira.github.io/posts/2025-12-29-qrl-stage-zero/) of QRL proved something critical: **relations-first quantum programming works**. You can build a quantum language where entanglement is a first-class citizen, measurements are contextual questions, and the physics is textbook-correct.
 
 But Stage Zero had a glaring limitation: **it only worked for 2 qubits.**
 
@@ -38,7 +38,7 @@ You could create Bell states `(|00⟩ + |11⟩)/√2`, measure in different base
 
 ### 1. Tensor Product Utilities
 
-**New module:** `src/qpl/tensor_utils.py` (388 lines)
+**New module:** `src/qrl/tensor_utils.py` (388 lines)
 
 The mathematical foundation for n-qubit operations:
 
@@ -102,7 +102,7 @@ bell = program.entangle(q0, q1)  # Works exactly as before
 
 ### 3. Extended Measurement Operations
 
-**Upgraded measurement functions in `src/qpl/measurement.py`:**
+**Upgraded measurement functions in `src/qrl/measurement.py`:**
 
 ```python
 # Create 3-qubit GHZ state

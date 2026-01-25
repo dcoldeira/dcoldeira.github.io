@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-15"
 categories: [quantum computing, QRL, photonic QC, MBQC, Quandela, Perceval, graphix, hardware]
 description: "Photonic quantum computers are MBQC-native. QRL's relations-first approach compiles directly to photonic circuits, bypassing gate decomposition entirely. This changes everything."
-image: "qpl-photonics.svg"
+image: "qrl-photonics.svg"
 ---
 
 ::: {.callout-tip icon=false}
@@ -248,7 +248,7 @@ QRL measurements[k]        → graphix M(node=k, plane, angle, ...)
 QRL corrections[c]         → graphix X/Z(node, domain)
 ```
 
-**This is implementable.** We can write a converter: `qpl_to_graphix()`.
+**This is implementable.** We can write a converter: `qrl_to_graphix()`.
 
 ---
 
@@ -374,10 +374,10 @@ rel = QuantumRelation(2)
 rel.entangle(0, 1)
 
 # 2. Compile to MBQC pattern (Stage 2 ✅)
-qpl_pattern = generate_pattern_from_relation(rel)
+qrl_pattern = generate_pattern_from_relation(rel)
 
 # 3. Convert to graphix pattern (Next: implement converter)
-graphix_pattern = qpl_to_graphix(qpl_pattern)
+graphix_pattern = qrl_to_graphix(qrl_pattern)
 
 # 4. Compile to Perceval circuit (graphix-perceval)
 perceval_circuit = graphix_perceval.to_perceval(graphix_pattern)
@@ -512,7 +512,7 @@ That's why graphix-perceval uses this approach.
 **Immediate (Next 2 weeks):**
 
 1. **Implement QRL → graphix converter**
-   - Create `qpl/backends/graphix_adapter.py`
+   - Create `qrl/backends/graphix_adapter.py`
    - Map QRL MeasurementPattern → graphix Pattern
    - Handle basis conversions
    - Write tests

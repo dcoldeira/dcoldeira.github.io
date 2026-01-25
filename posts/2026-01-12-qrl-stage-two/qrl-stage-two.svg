@@ -11,7 +11,7 @@
 
   <!-- Text -->
   <text x="300" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#2c3e50">
-    QPL Stage 2
+    QRL Stage 2
   </text>
   <text x="300" y="75" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#666">
     MBQC Compiler Complete

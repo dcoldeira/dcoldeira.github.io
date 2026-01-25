@@ -27,7 +27,7 @@
   <!-- Arrow -->
   <g transform="translate(400, 250)">
     <line x1="-150" y1="0" x2="150" y2="0" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrowhead2)"/>
-    <text x="0" y="-10" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e74c3c" text-anchor="middle">QPL</text>
+    <text x="0" y="-10" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e74c3c" text-anchor="middle">QRL</text>
   </g>
 
   <!-- Relations-first approach (right side) -->

@@ -100,6 +100,6 @@
 
   <!-- Subtitle -->
   <text x="400" y="380" font-family="Arial, sans-serif" font-size="13" fill="#7f8c8d" text-anchor="middle">
-    QPL compiles to MBQC, not gates
+    QRL compiles to MBQC, not gates
   </text>
 </svg>
