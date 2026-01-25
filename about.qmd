@@ -1,152 +1,44 @@
 ---
 title: "About"
-subtitle: "Building software at the intersection of quantum mechanics and engineering"
+subtitle: "David Coldeira"
 page-layout: article
 ---
 
-## David Coldeira
-
-**Scientific Software Engineer** specializing in quantum computing and physics-informed software design.
-
-I build production-quality tools for complex physical systems—combining deep physics knowledge with rigorous software engineering to create solutions that actually work.
+Scientific software engineer with a physics background. I build tools for complex physical systems—combining domain knowledge with rigorous engineering.
 
 ---
 
-## What I Do
+## Current Work
 
-### Quantum Computing Research
-Building educational tools and frameworks that make quantum mechanics accessible while maintaining physical rigor.
+### Quantum Relational Language (QRL)
 
-**Current Projects:**
-- **Quantum Relational Language (QRL)**: Relations-first quantum programming where entanglement is first-class
-- **Quantum Advisor**: Honest evaluation tool for quantum computational advantage
-- **Photon Duality Simulator**: Novel theoretical framework for quantum interference
+A quantum programming language where entanglement is a first-class citizen. Relations-first approach that compiles directly to measurement-based quantum computing (MBQC).
 
-### Scientific Software Engineering
-Production systems for complex scientific domains, applying rigorous engineering principles to real-world physics problems.
+**Status:** Stage 0-3 complete | 47 tests | MBQC compiler working
 
-**Day Job - Laboratory Software Engineering:**
-- Lead developer for GQMLab LIMS at Geoquip Marine
-- Processing offshore seabed instrument data (GDS, JVtech)
-- ML pipelines predicting soil mechanics from field measurements
-- Full-stack: Python, Flutter, Docker, PostgreSQL
+**Next:** Photonic integration via graphix and Perceval
 
-**Night Job - Quantum Computing Research:**
-- QRL: Relations-first quantum programming language
-- Quantum Advisor: Honest evaluation of quantum advantage
-- Educational tools with production-quality standards
+- [GitHub](https://github.com/dcoldeira/quantum-relational-language)
+- [Zenodo (DOI: 10.5281/zenodo.18292199)](https://doi.org/10.5281/zenodo.18292199)
 
-**Cross-Domain Insight:** Both domains require physics-informed design, rigorous correctness, and honest evaluation over hype. The same principles that make geotechnical predictions reliable apply to quantum software.
+### Day Job
 
----
-
-## Philosophy
-
-### Honest Evaluation Over Hype
-
-Most quantum computing content is hype. I provide **critical, evidence-based analysis** of when quantum computing actually helps (and when it doesn't).
-
-If something doesn't work, I say so. If classical methods are better, I recommend them. Honesty matters more than excitement.
-
-### Physics-Informed Design
-
-Domain knowledge drives architecture. Understanding quantum mechanics shapes how QRL handles entanglement. Understanding soil mechanics influences geotechnical data pipelines.
-
-**The best software for physical systems comes from understanding both the physics and the engineering.**
-
-### Production-Ready Research Code
-
-Research code shouldn't be throwaway. Build with:
-- Comprehensive testing (QRL: 100% test pass rate)
-- Clear documentation
-- Maintainability from day one
-- Real-world applicability
-
-### Rigorous Correctness
-
-Get the math right. Quantum mechanics is unforgiving:
-- Test assumptions
-- Verify against known physics
-- Fix bugs thoroughly (see: QRL cross-basis measurement bug fix)
+Lead developer for laboratory software at Geoquip Marine—processing offshore geotechnical data, ML pipelines for soil mechanics prediction, full-stack development (Python, Flutter, PostgreSQL, Docker).
 
 ---
 
 ## Background
 
-**Education:** Physics BSc → Self-taught software engineering → Production systems
+**Education:** Physics BSc, currently applying to Bristol QIST CDT for PhD
 
-**Technical Domains:**
-- **Quantum Computing**: Python, NumPy, Qiskit, quantum state simulation, tensor networks
-- **Scientific Software**: Python (FastAPI, Pandas, Scikit-learn), PostgreSQL, Docker, Kubernetes
-- **Full-Stack**: Flutter, modern web frameworks, REST APIs, ML pipelines
+**Technical:** Python, NumPy, quantum simulation, FastAPI, Flutter, PostgreSQL, Docker
 
 ---
 
-## What This Blog Offers
+## Contact
 
-**Deep Technical Analysis**
+- **Email:** dcoldeira@gmail.com
+- **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
+- **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
 
-Expert-level quantum computing and scientific software insights. Not tutorials—assumes you know programming fundamentals and focuses on the "why" behind architectural decisions.
-
-**Honest Quantum Evaluation**
-
-Critical assessment of quantum computing claims. When does quantum actually help? When are classical methods better? Evidence-based answers with peer-reviewed citations.
-
-**Physics-Informed Design Patterns**
-
-How domain knowledge shapes software architecture. Patterns that work across domains—from quantum computing to geotechnical engineering.
-
-**Real-World Experience**
-
-Lessons from building production scientific software. What actually works? What doesn't? What matters?
-
----
-
-## Current Focus
-
-### Stage 1: n-Qubit Relations (Completed)
-
-QRL now supports arbitrary n-qubit entanglement:
-- GHZ states up to 5 qubits tested
-- General tensor product operations
-- Proper measurement and state collapse
-- 100% test pass rate
-
-### Stage 2: Process Algebra (Next)
-
-Building quantum type system and process composition for QRL.
-
-### Quantum Advisor Expansion
-
-Growing the knowledge base with more quantum algorithms and problem classes.
-
----
-
-## Connect
-
-**Open to discussions about:**
-- Quantum computing (honest evaluation, not hype)
-- Scientific software engineering
-- Physics-informed software design
-- Collaboration on educational tools or research
-
-**Contact:**
-- **Email**: dcoldeira@gmail.com
-- **GitHub**: [@dcoldeira](https://github.com/dcoldeira)
-- **LinkedIn**: [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
-
----
-
-## Content Philosophy
-
-**Rigorous over flashy.** Every claim backed by evidence. Honest about limitations. Clear about what works and what doesn't.
-
-**Expert-level, not beginner.** Assumes programming fundamentals and physics basics. Focuses on depth, not breadth.
-
-**Cross-domain insights.** Principles that apply whether you're building geotechnical software or quantum computing tools.
-
-**Production mindset.** Research code should be production-quality. Tools should be usable. Claims should be testable.
-
----
-
-*"The best software for physical systems comes from understanding both the physics and the engineering."*
+Open to discussions about quantum computing, scientific software, or collaboration on research tools.
