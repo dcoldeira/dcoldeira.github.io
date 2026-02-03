@@ -14,9 +14,9 @@ Scientific software engineer with a physics background. I build tools for comple
 
 A quantum programming language where entanglement is a first-class citizen. Relations-first approach that compiles directly to measurement-based quantum computing (MBQC).
 
-**Status:** Stage 0-3 complete | 47 tests | MBQC compiler working
+**Status:** Stages 0-4 complete | 84 tests | MBQC compiler + quantum teleportation working
 
-**Next:** Photonic integration via graphix and Perceval
+**Next:** QPL Workshop 2026 consideration + future direction planning
 
 - [GitHub](https://github.com/dcoldeira/quantum-relational-language)
 - [Zenodo (DOI: 10.5281/zenodo.18292199)](https://doi.org/10.5281/zenodo.18292199)
