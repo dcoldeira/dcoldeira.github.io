@@ -18,7 +18,7 @@ Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
 :::
 
 ::: {.callout-note icon=false appearance="simple"}
-**Development Timeline:** This work was completed on 12 October 2025. This post was written later to document the implementation.
+**Development Timeline:** Research and development for this stage began in October 2025. This post was written later to document the implementation.
 :::
 
 ## The Constraint We Don't Question
