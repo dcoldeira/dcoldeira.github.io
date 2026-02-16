@@ -1,0 +1,347 @@
+---
+title: "Quantum Correlations Without Gates: Verifying Bell and GHZ in QRL"
+author: "David Coldeira"
+date: "2026-02-16"
+categories: [quantum computing, QRL, Bell inequality, CHSH, GHZ, Mermin inequality, quantum foundations, QPL 2026]
+description: "Can a relational formalism naturally express the correlations that matter for entanglement verification? QRL's physics layer implements CHSH and Mermin tests by describing relations, not building circuits."
+image: "quantum-correlations.svg"
+---
+
+::: {.callout-tip icon=false}
+## Quantum Relational Language (QRL)
+
+Stages 0-4 complete. QPL 2026 paper submitted.
+
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
+
+**[Zenodo: DOI 10.5281/zenodo.18292199](https://doi.org/10.5281/zenodo.18292199)**
+
+Status: ~6,500 lines | 218 tests | Perceval + PennyLane backends | Quandela Cloud verified
+:::
+
+## The Question
+
+The previous four posts traced QRL's path from [relational primitives](../2025-12-29-qrl-stage-zero/) to [photonic cloud execution](../2026-01-29-qrl-stage-four/). That pipeline works: QRL compiles relations to MBQC patterns, converts them to photonic circuits, and runs them on Quandela's infrastructure.
+
+But a pipeline is engineering. The deeper question is whether a relations-first formalism can express quantum physics naturally --- whether describing *what correlations exist* rather than *what gates to apply* reveals anything useful.
+
+Bell and GHZ tests are the right place to investigate this. They are the standard tools for certifying entanglement, used everywhere from foundational experiments to [on-chip verification of graph states](https://doi.org/10.1038/s41467-024-46830-1). If a relational formalism can't express these cleanly, it has no business claiming to model quantum physics.
+
+---
+
+## Bell: Describing Correlations
+
+The CHSH inequality is the standard test for non-classical correlations between two parties. The classical bound is $S \leq 2$. Quantum mechanics predicts $S \leq 2\sqrt{2} \approx 2.828$ (the Tsirelson bound).
+
+In a gate-based framework, you build a Bell state circuit, choose measurement bases, run shots, and compute statistics. In QRL, the starting point is different: you describe the *relation* between the two parties, and the correlations follow.
+
+```python
+from qrl.physics.bell import BellTest
+
+# Describe the relation, derive the predictions
+test = BellTest()
+print(test.predict())
+```
+
+```
+Bell Test Predictions
+==================================================
+
+Given: A Bell relation |Phi+> = (|00> + |11>)/sqrt(2)
+
+Measurement angles:
+  Alice: 0.0deg, 90.0deg
+  Bob:   45.0deg, 135.0deg
+
+Predicted correlations:
+  E(a,b)    = +0.7071
+  E(a,b')   = -0.7071
+  E(a',b)   = +0.7071
+  E(a',b')  = +0.7071
+
+Predicted CHSH parameter: S = 2.8284
+```
+
+The theoretical prediction is exact: $S = 2\sqrt{2}$. This comes directly from the relational structure --- the Bell state defines correlations $E(a,b) = \cos(a - b)$, and the CHSH parameter follows analytically.
+
+### Statistical Confirmation
+
+The analytical result is confirmed by sampling:
+
+```python
+result = test.run(trials=10000)
+print(f"Observed S = {result.S:.4f}")
+print(f"Violated: {result.violated}")
+```
+
+```
+Observed S = 2.8215
+Violated: True
+```
+
+The statistical estimate converges to the theoretical value. The theory-observation comparison:
+
+```python
+print(test.compare(trials=10000))
+```
+
+```
+Bell Test: Theory vs Observation
+==================================================
+
+Quantity              Theory     Observed          D
+--------------------------------------------------------
+E(a,b)              +0.7071     +0.7058    -0.0013
+E(a,b')             -0.7071     -0.7032    +0.0039
+E(a',b)             +0.7071     +0.7098    +0.0027
+E(a',b')            +0.7071     +0.7027    -0.0044
+
+CHSH Parameter       2.8284      2.8215    -0.0069
+```
+
+The deltas are statistical noise --- exactly what you'd expect from finite sampling.
+
+### What's Underneath
+
+The core function computes correlations from the Bell state directly:
+
+```python
+from qrl.physics.bell import theoretical_correlation, bell_correlation
+import numpy as np
+
+# Analytic: E(a,b) = cos(a - b)
+E_theory = theoretical_correlation(0, np.pi/4)  # 0.7071
+
+# Statistical: sample from the Bell state
+E_observed = bell_correlation(0, np.pi/4, trials=10000)  # ~0.707
+```
+
+`theoretical_correlation` derives the result from the relation. `bell_correlation` simulates measurement by projecting the Bell state onto rotated bases and sampling outcomes. Both start from the same object: a relation between two subsystems.
+
+---
+
+## GHZ: A Logical Contradiction
+
+Bell tests are statistical --- you need many trials to establish a violation. GHZ is different. It demonstrates a *logical* contradiction with local realism from a single set of predictions.
+
+For the 3-qubit GHZ state $|\text{GHZ}\rangle = (|000\rangle + |111\rangle)/\sqrt{2}$, quantum mechanics predicts definite eigenvalues for specific measurement combinations:
+
+| Measurement | Eigenvalue |
+|-------------|-----------|
+| $XXX$ | $+1$ |
+| $XYY$ | $-1$ |
+| $YXY$ | $-1$ |
+| $YYX$ | $-1$ |
+
+If local hidden variables existed, each particle would carry predetermined values $x_i, y_i \in \{+1, -1\}$. From $XXX = +1$:
+
+$$x_A \cdot x_B \cdot x_C = +1$$
+
+But multiplying the three other results ($XYY \cdot YXY \cdot YYX$), each $y$ appears twice (squares to $+1$), leaving:
+
+$$x_A \cdot x_B \cdot x_C = (-1)^3 = -1$$
+
+A direct contradiction. No statistics needed.
+
+### QRL's GHZ Test
+
+```python
+from qrl.physics.ghz import GHZTest
+
+test = GHZTest(n_qubits=3)
+print(test.predict())
+```
+
+```
+GHZ Test Predictions (3 qubits)
+==================================================
+
+Given: A GHZ relation |GHZ_3> = (|0...0> + |1...1>)/sqrt(2)
+
+Quantum predictions (eigenvalues):
+  XXX: +1
+  XYY: -1
+  YXY: -1
+  YYX: -1
+
+Mermin parameter: M = 4.0000
+Classical limit: 2.0000
+
+The GHZ paradox:
+  If local hidden variables exist, they must satisfy:
+    x_A*x_B*x_C = +1 (from XXX)
+    x_A*x_B*x_C = -1 (from XYY*YXY*YYX)
+  This is logically impossible!
+```
+
+### The Mermin Inequality
+
+The Mermin parameter quantifies the GHZ violation:
+
+$$M_3 = \langle XXX \rangle - \langle XYY \rangle - \langle YXY \rangle - \langle YYX \rangle$$
+
+Classical limit: $|M_3| \leq 2$. Quantum prediction: $M_3 = 4$.
+
+```python
+mermin = test.run_mermin(trials=10000)
+print(f"M = {mermin.M:.4f}")
+print(f"Classical limit: {mermin.classical_limit}")
+print(f"Violated: {mermin.violated}")
+```
+
+```
+M = 3.9968
+Classical limit: 2
+Violated: True
+```
+
+The factor-of-two violation ($M = 4$ vs classical limit $2$) is maximal. Unlike CHSH, where the quantum advantage is $2\sqrt{2}/2 \approx 1.41\times$, GHZ gives a clean $2\times$ violation that grows with qubit count.
+
+### The Paradox Test
+
+The paradox can be demonstrated directly:
+
+```python
+paradox = test.run_paradox(trials=10)
+print(paradox)
+```
+
+```
+GHZ Paradox Test
+==================================================
+
+The GHZ paradox is a LOGICAL contradiction:
+
+If local hidden variables exist, then:
+  x_A*x_B*x_C = <XXX>  (Alice, Bob, Charlie X results)
+  From <XYY>*<YXY>*<YYX> we can derive x_A*x_B*x_C
+
+Quantum predictions:
+  <XXX> products: +1: 10, -1: 0 --> expected +1
+  <XYY> products: +1: 0, -1: 10 --> expected -1
+  <YXY> products: +1: 0, -1: 10 --> expected -1
+  <YYX> products: +1: 0, -1: 10 --> expected -1
+
+PARADOX DEMONSTRATED!
+
+Local hidden variables would require:
+  x_A*x_B*x_C = +1 (from XXX)
+  x_A*x_B*x_C = -1 (from XYY*YXY*YYX)
+
+This contradiction rules out local realism
+with a SINGLE perfect measurement!
+```
+
+Ten trials, ten contradictions. Local realism is ruled out.
+
+---
+
+## What the Relational Framing Does
+
+The point of QRL is not that these results are new --- Bell and Mermin violations are textbook physics. The point is *how* they are expressed.
+
+In a gate-based framework, a Bell test looks like:
+
+1. Initialize $|00\rangle$
+2. Apply H to qubit 0
+3. Apply CNOT(0, 1)
+4. Rotate measurement bases
+5. Sample and compute statistics
+
+In QRL:
+
+1. Describe the Bell relation
+2. Ask what correlations it predicts
+
+The gate sequence is an *instruction set* for preparing a state. The relation is a *description* of what that state *is* --- a specification of the correlations between subsystems. The predictions follow from the description, not from simulating a circuit.
+
+This is a difference in abstraction level, not in computational power. Both approaches compute the same physics. But the relational framing stays closer to what Bell and GHZ tests actually probe: the structure of correlations between parts of a composite system.
+
+Whether this difference in perspective leads to practical advantages --- more natural compilation to MBQC, better alignment with photonic hardware verification, or new ways to express protocols --- is an open research question.
+
+---
+
+## QPL 2026
+
+This work is part of a paper submitted to the [QPL Workshop 2026](https://qplconference.org/) (Amsterdam, August):
+
+**"From Correlations to Photons: Relational Quantum Programming"**
+
+The paper covers the full stack: relational formalism, Bell/Mermin verification, compilation to MBQC patterns, and execution on photonic platforms via Perceval (Quandela Cloud) and PennyLane.
+
+### PennyLane Backend
+
+Since the last post, QRL gained a second backend. The PennyLane adapter converts MBQC patterns to PennyLane QNodes with mid-circuit measurements and adaptive corrections:
+
+```python
+from qrl.backends.pennylane_adapter import mbqc_to_pennylane
+from qrl.mbqc import generate_bell_state_pattern
+
+pattern = generate_bell_state_pattern()
+qnode, output_wires = mbqc_to_pennylane(pattern)
+result = qnode()
+```
+
+This proves QRL is not tied to a single vendor. The compilation pipeline branches:
+
+```
+QRL Relations --> MBQC Pattern --+--> Perceval --> Quandela Cloud
+                                 +--> PennyLane --> Simulation
+                                 +--> graphix --> Local MBQC
+```
+
+All three backends target platforms where measurement-based computation is native. No gate-based backends --- that would mean compiling MBQC back to circuits, defeating the purpose.
+
+---
+
+## Numbers
+
+| Metric | Value |
+|--------|-------|
+| Source code | ~6,500 lines (21 modules) |
+| Tests | 218 (13 test files) |
+| Bell tests | 33 tests (`bell.py`) |
+| GHZ tests | 55 tests (`ghz.py`) |
+| CHSH parameter | $S = 2\sqrt{2} \approx 2.828$ (analytical) |
+| Mermin parameter | $M_3 = 4$ (analytical), $\approx 4.0$ (statistical) |
+| Backends | Perceval, PennyLane, graphix |
+| Cloud | Quandela `sim:belenos` verified |
+
+---
+
+## Try It
+
+```bash
+git clone https://github.com/dcoldeira/quantum-relational-language.git
+cd quantum-relational-language
+pip install -e .
+
+python -c "
+from qrl.physics.bell import BellTest
+from qrl.physics.ghz import GHZTest
+
+# Bell: CHSH violation
+bell = BellTest()
+result = bell.run(trials=10000)
+print(f'CHSH: S = {result.S:.4f} (classical limit: 2)')
+print(f'Violated: {result.violated}')
+print()
+
+# GHZ: Mermin violation
+ghz = GHZTest(n_qubits=3)
+mermin = ghz.run_mermin(trials=10000)
+print(f'Mermin: M = {mermin.M:.4f} (classical limit: 2)')
+print(f'Violated: {mermin.violated}')
+"
+```
+
+---
+
+::: {.callout-important}
+## Links
+
+- **GitHub:** [dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
+- **Zenodo:** [DOI 10.5281/zenodo.18292199](https://doi.org/10.5281/zenodo.18292199)
+- **QPL 2026:** [qplconference.org](https://qplconference.org/)
+- **Previous post:** [Stage 4: QRL Runs on Photonic Cloud](../2026-01-29-qrl-stage-four/)
+:::

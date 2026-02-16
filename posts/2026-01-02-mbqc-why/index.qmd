@@ -18,6 +18,10 @@ Status: ✅ Stage 1 Complete | 🔜 Stage 2: MBQC Compilation
 :::
 
 ::: {.callout-note icon=false appearance="simple"}
+**Development Timeline:** Research into this direction began in November 2025. This post was written later to document the decision and theoretical foundations.
+:::
+
+::: {.callout-note icon=false appearance="simple"}
 ## Research Program Announcement
 
 This post marks a significant pivot for QRL: from educational quantum language to **research-grade quantum compiler targeting measurement-based quantum computing**.
