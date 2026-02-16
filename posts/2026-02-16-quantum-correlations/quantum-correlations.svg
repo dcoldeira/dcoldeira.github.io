@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+  <!-- Background -->
+  <rect width="600" height="300" fill="#f5f5f5"/>
+
+  <!-- Central entanglement diagram -->
+  <g id="entanglement">
+    <!-- Particle A -->
+    <circle cx="180" cy="135" r="30" fill="#0277bd" opacity="0.15"/>
+    <circle cx="180" cy="135" r="24" fill="none" stroke="#0277bd" stroke-width="2.5"/>
+    <text x="180" y="141" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0277bd">A</text>
+
+    <!-- Particle B -->
+    <circle cx="420" cy="135" r="30" fill="#0277bd" opacity="0.15"/>
+    <circle cx="420" cy="135" r="24" fill="none" stroke="#0277bd" stroke-width="2.5"/>
+    <text x="420" y="141" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0277bd">B</text>
+
+    <!-- Correlation wave between them -->
+    <path d="M 210 135 Q 250 105, 300 135 Q 350 165, 390 135" fill="none" stroke="#0277bd" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+    <!-- Relation label -->
+    <text x="300" y="125" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#666" font-style="italic">relation</text>
+  </g>
+
+  <!-- Title -->
+  <text x="300" y="38" font-family="Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Quantum Correlations
+  </text>
+  <text x="300" y="65" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666">
+    Without Gates
+  </text>
+
+  <!-- Results boxes -->
+  <g id="results">
+    <!-- Bell box -->
+    <rect x="70" y="200" width="200" height="55" fill="#fff" stroke="#0277bd" stroke-width="2" rx="8"/>
+    <text x="170" y="222" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+      CHSH Violation
+    </text>
+    <text x="170" y="244" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0277bd">
+      S = 2.828
+    </text>
+
+    <!-- GHZ box -->
+    <rect x="330" y="200" width="200" height="55" fill="#fff" stroke="#0277bd" stroke-width="2" rx="8"/>
+    <text x="430" y="222" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+      Mermin Violation
+    </text>
+    <text x="430" y="244" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0277bd">
+      M = 4.0
+    </text>
+  </g>
+
+  <!-- Classical limits -->
+  <text x="170" y="272" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#999">classical limit: 2</text>
+  <text x="430" y="272" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#999">classical limit: 2</text>
+</svg>

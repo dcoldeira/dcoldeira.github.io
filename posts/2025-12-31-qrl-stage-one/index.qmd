@@ -17,6 +17,10 @@ This post documents QRL Stage 1 development. View the source code, run examples,
 Latest Status: ✅ Stage 0 Complete | ✅ Stage 1 Complete | 🔜 Stage 2 Next
 :::
 
+::: {.callout-note icon=false appearance="simple"}
+**Development Timeline:** Research and development for this stage began in November 2025. This post was written later to document the implementation.
+:::
+
 ## The 2-Qubit Wall
 
 [Stage Zero](https://dcoldeira.github.io/posts/2025-12-29-qrl-stage-zero/) of QRL proved something critical: **relations-first quantum programming works**. You can build a quantum language where entanglement is a first-class citizen, measurements are contextual questions, and the physics is textbook-correct.
