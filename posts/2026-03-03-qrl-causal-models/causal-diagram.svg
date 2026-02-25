@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="400" height="220">
+  <style>
+    text { font-family: monospace; font-size: 13px; fill: #333; }
+    .label { font-size: 11px; fill: #666; }
+    .title { font-size: 12px; fill: #444; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="400" height="220" fill="#fafafa" rx="8"/>
+
+  <!-- Left panel: Classical -->
+  <rect x="10" y="10" width="175" height="200" fill="#f0f0f0" rx="6" stroke="#ccc" stroke-width="1"/>
+  <text x="97" y="32" text-anchor="middle" class="title">Classical causal model</text>
+
+  <!-- Classical common cause C -->
+  <circle cx="97" cy="75" r="22" fill="#ddd" stroke="#999" stroke-width="1.5"/>
+  <text x="97" y="80" text-anchor="middle" font-size="14" fill="#555">C</text>
+
+  <!-- Arrows down to A and B -->
+  <line x1="82" y1="95" x2="55" y2="138" stroke="#999" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+  <line x1="112" y1="95" x2="139" y2="138" stroke="#999" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+
+  <!-- A and B nodes -->
+  <circle cx="47" cy="155" r="20" fill="#ddd" stroke="#999" stroke-width="1.5"/>
+  <text x="47" y="160" text-anchor="middle" font-size="14" fill="#555">A</text>
+
+  <circle cx="147" cy="155" r="20" fill="#ddd" stroke="#999" stroke-width="1.5"/>
+  <text x="147" y="160" text-anchor="middle" font-size="14" fill="#555">B</text>
+
+  <text x="97" y="198" text-anchor="middle" class="label">fails for Bell correlations</text>
+
+  <!-- Right panel: Quantum -->
+  <rect x="215" y="10" width="175" height="200" fill="#eef4ff" rx="6" stroke="#aac4ee" stroke-width="1"/>
+  <text x="302" y="32" text-anchor="middle" class="title">QRL / quantum causal model</text>
+
+  <!-- Quantum common cause — QuantumRelation -->
+  <rect x="258" y="52" width="88" height="44" rx="8" fill="#c8daff" stroke="#7aaae0" stroke-width="1.5"/>
+  <text x="302" y="70" text-anchor="middle" font-size="11" fill="#2255aa" font-weight="bold">QuantumRelation</text>
+  <text x="302" y="86" text-anchor="middle" font-size="10" fill="#3366bb">|Φ⁺⟩</text>
+
+  <!-- Arrows down -->
+  <line x1="278" y1="96" x2="255" y2="138" stroke="#5588cc" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="326" y1="96" x2="349" y2="138" stroke="#5588cc" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- A and B quantum nodes -->
+  <circle cx="247" cy="155" r="20" fill="#c8daff" stroke="#7aaae0" stroke-width="1.5"/>
+  <text x="247" y="160" text-anchor="middle" font-size="14" fill="#2255aa">A</text>
+
+  <circle cx="357" cy="155" r="20" fill="#c8daff" stroke="#7aaae0" stroke-width="1.5"/>
+  <text x="357" y="160" text-anchor="middle" font-size="14" fill="#2255aa">B</text>
+
+  <text x="302" y="198" text-anchor="middle" class="label">Bell correlations explained causally</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-grey" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#999"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5588cc"/>
+    </marker>
+  </defs>
+</svg>
