@@ -1,0 +1,135 @@
+---
+title: "QRL Was Already Doing Quantum Causal Reasoning (It Just Didn't Know It)"
+author: "David Coldeira"
+date: "2026-03-03"
+categories: [quantum computing, QRL, quantum foundations, causal models, MBQC, quantum AI]
+description: "QRL was designed to describe correlations rather than prescribe operations. It turns out this is structurally identical to a well-developed theory in quantum foundations — and the implications go further than I expected."
+image: "causal-diagram.svg"
+---
+
+::: {.callout-tip icon=false}
+## Quantum Relational Language (QRL)
+
+Stages 0-4 complete. QPL 2026 paper submitted. Hardware-verified on Quandela `qpu:belenos`.
+
+**[GitHub: dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)**
+
+**[Zenodo: DOI 10.5281/zenodo.18292199](https://doi.org/10.5281/zenodo.18292199)**
+
+Status: ~6,500 lines | 218 tests | Perceval + PennyLane backends
+:::
+
+## The Design Decision I Didn't Know Was Significant
+
+When I started building QRL, I made one decision that felt obvious: entanglement should be *declared*, not *constructed*.
+
+In every other quantum programming framework, a Bell pair looks like this:
+
+```python
+# Qiskit — entanglement as a sequence of operations
+qc.h(0)
+qc.cx(0, 1)
+```
+
+You apply a Hadamard gate, then a CNOT. The entanglement is a side-effect of those operations. It emerges from the circuit.
+
+In QRL, it looks like this:
+
+```python
+# QRL — entanglement as a declared relation
+bell = program.entangle(alice, bob, state_type="bell")
+```
+
+That's it. You describe what is correlated. You don't specify how it was produced.
+
+I made this choice because quantum mechanics is a theory about *correlations between systems*, not about operations on states. The whole structure of Bell's theorem is about the correlations between Alice's measurement outcomes and Bob's — not about the gates that prepared the state. If you're building a language to express quantum physics, correlations felt like the right primitive.
+
+It turns out this choice puts QRL in direct correspondence with a body of work in quantum foundations I hadn't read when I started building it.
+
+---
+
+## Why Bell's Theorem Breaks Classical Cause and Effect
+
+Here is a precise statement of a problem that sounds philosophical but is actually technical.
+
+Classical probability theory has a concept called Reichenbach's common cause principle: if two events are correlated, there is a causal explanation — either one caused the other, or they both have a common cause. This is the foundation of causal inference: Pearl's do-calculus, the tools behind modern causal AI, all of it.
+
+Bell's theorem breaks this. Wood and Spekkens (2012) proved it rigorously: there is no classical common cause that can explain the correlations in a Bell experiment without *fine-tuning* — that is, without setting the hidden parameters to very specific values that happen to reproduce quantum predictions. This is not just philosophically unsatisfying. It is a formal violation of the causal inference framework. Classical causal models cannot handle entangled correlations.
+
+The quantum causal models programme, developed through the 2010s by researchers including Oreshkov, Costa, Brukner, Allen, Barrett, Spekkens and others, resolves this. The resolution is elegant: replace classical common causes with *quantum common causes*.
+
+A quantum common cause is a quantum system C that distributes an entangled state to parties A and B via a quantum channel. If C is entangled, the correlations between A and B can violate Bell inequalities — and this happens *generically*, without fine-tuning. The Bell pair shared by Alice and Bob is not a mysterious non-local phenomenon. It is a perfectly causal structure: a quantum common cause that distributes entanglement to both parties.
+
+---
+
+## QRL's `QuantumRelation` *Is* a Quantum Common Cause
+
+When I read Allen et al. (2017) carefully, I found that their central object — the quantum common cause — is architecturally identical to QRL's `QuantumRelation`.
+
+In their framework, a quantum common cause is a node in a causal graph that holds an entangled state and has outgoing edges to the correlated parties. It is declared as a causal primitive — not derived from a sequence of gate operations. The entanglement *is* the cause.
+
+In QRL, `program.entangle(alice, bob)` creates a `QuantumRelation` object: a named entity holding the joint state of alice and bob, with both as members. It is declared. It is not the output of a circuit. The entanglement is the primitive.
+
+The correspondence is not a metaphor. The design philosophy of QRL — "describe the correlations, derive the predictions" — is the same choice that quantum causal model theory identifies as the *correct* way to represent entanglement. No other quantum programming language makes this choice. Every other framework derives entanglement from gates, which means every other framework is, from the perspective of quantum causal models, doing things backwards.
+
+I didn't know I was making a theoretically significant design decision when I wrote `program.entangle()`. I was just trying to write code that matched how I thought about the physics.
+
+---
+
+## A Deeper Correspondence: MBQC and Process Matrices
+
+The second correspondence is more surprising, and comes with a theorem.
+
+QRL compiles to measurement-based quantum computing (MBQC). The MBQC compiler produces `MeasurementPattern` objects: sequences of measurements on a graph state, where each measurement angle can depend on the outcomes of earlier measurements. The compiler enforces *gflow* — a condition ensuring there is a valid causal order in which measurements can be performed deterministically.
+
+Miyazaki, Hajdušek and Murao (2014) proved a direct correspondence between MBQC patterns and *process matrices*. Process matrices are the central object of quantum causal model theory — positive operators that generalise both quantum states and quantum channels, and can describe processes with definite or indefinite causal order.
+
+Their result: for an MBQC computation on graph state G, the process matrix W(G) equals (up to normalisation) the decorated graph state. The gflow condition — the one QRL enforces to ensure deterministic computation — is precisely the condition for the process matrix to be *causally separable*, meaning it has a definite causal order.
+
+What this means for QRL: every program I compile is implicitly defining a quantum causal model. The `depends_on` fields in the measurement pattern — which tell the compiler which earlier outcomes each measurement angle depends on — are the edges of a causal DAG in the quantum causal model. This was not a design decision. It is a theorem about MBQC.
+
+---
+
+## What This Opens Up
+
+I think these correspondences matter for two reasons.
+
+**First, for the language itself.** QRL currently supports only one type of causal structure: definite causal order (gflow-compliant patterns). But quantum causal model theory describes processes with *indefinite* causal order — where the ordering of operations is itself in quantum superposition. The canonical example is the quantum switch, where two operations are applied in a superposition of A-then-B and B-then-A, controlled by a qubit.
+
+This is a natural extension for QRL. If `program.entangle()` declares a quantum common cause, then a future `program.switch(U_A, U_B, control)` would declare a causally indefinite process. The architecture already points in this direction.
+
+**Second, for AI.** Causal reasoning — Pearl's do-calculus, structural causal models, causal discovery algorithms — is the formal foundation for AI that goes beyond pattern-matching to genuine understanding of cause and effect. All of this currently assumes classical probability distributions over classical variables. It breaks for quantum systems, for exactly the reason Bell's theorem says it should.
+
+If QRL's relational formalism provides a natural substrate for quantum causal models, then it also provides a substrate for AI systems that reason causally about quantum physical processes — drug discovery, materials science, quantum network design. Classical causal AI cannot do this. It does not have the right primitives. QRL might.
+
+This is a research hypothesis, not a product announcement. There are five concrete technical gaps between QRL's current implementation and a full quantum causal programming language. I've written them up in a [research note](https://github.com/dcoldeira/quantum-relational-language) alongside the formal correspondences above.
+
+---
+
+## The One Sentence Version
+
+Quantum mechanics is a theory of correlations. A programming language built around correlations as primitives is, structurally, a language for quantum causal models — whether you intended it that way or not.
+
+QRL intended it that way. It just didn't know the name for it yet.
+
+---
+
+::: {.callout-note}
+## Further Reading
+
+- **Research note:** "Entanglement as Cause: QRL as a Language for Quantum Causal Models" — full technical treatment with formal correspondences and gap analysis. Available in the [QRL repository](https://github.com/dcoldeira/quantum-relational-language).
+
+- **Allen et al. (2017)** — "Quantum common causes and quantum causal models." *Phys. Rev. X* 7, 031021. The paper that formalises the quantum common cause principle.
+
+- **Miyazaki, Hajdušek, Murao (2014)** — "Acausal measurement-based quantum computing." *Phys. Rev. A* 90, 010101. The theorem connecting MBQC patterns to process matrices.
+
+- **QPL 2026 paper** — "From Correlations to Photons: Relational Quantum Programming." Submitted to [QPL Workshop 2026](https://qplconference.org/), Amsterdam.
+:::
+
+::: {.callout-important}
+## Links
+
+- **GitHub:** [dcoldeira/quantum-relational-language](https://github.com/dcoldeira/quantum-relational-language)
+- **Zenodo:** [DOI 10.5281/zenodo.18292199](https://doi.org/10.5281/zenodo.18292199)
+- **Previous post:** [Quantum Correlations Without Gates](../2026-02-16-quantum-correlations/)
+:::
