@@ -38,6 +38,8 @@ website:
       Rigorous Quantum Computing • Physics-Informed Software Engineering
 
       Where quantum mechanics meets production code
+  
+  google-analytics: "G-0DZ913R1Z0"
 
 format:
   html:
