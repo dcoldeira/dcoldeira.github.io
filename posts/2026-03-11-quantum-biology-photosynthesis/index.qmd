@@ -1,7 +1,7 @@
 ---
 title: "Quantum Effects in Photosynthesis Are Real — and They Compute"
 author: "David Coldeira"
-date: "2026-03-10"
+date: "2026-03-11"
 categories: [quantum computing, QRL, quantum biology, entanglement, photosynthesis]
 description: "Photosynthesis achieves near-perfect energy transfer efficiency. The reason involves quantum coherence, entanglement between chromophores, and a counterintuitive phenomenon: environmental noise makes quantum transport more efficient, not less."
 image: "fmo-radical-pair.svg"
