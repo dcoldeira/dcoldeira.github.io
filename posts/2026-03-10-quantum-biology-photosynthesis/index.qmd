@@ -1,0 +1,127 @@
+---
+title: "Quantum Effects in Photosynthesis Are Real — and They Compute"
+author: "David Coldeira"
+date: "2026-03-10"
+categories: [quantum computing, QRL, quantum biology, entanglement, photosynthesis]
+description: "Photosynthesis achieves near-perfect energy transfer efficiency. The reason involves quantum coherence, entanglement between chromophores, and a counterintuitive phenomenon: environmental noise makes quantum transport more efficient, not less."
+image: "fmo-radical-pair.svg"
+---
+
+::: {.callout-tip icon=false}
+## Bell — Quantum AI Assistant
+
+Ask Bell a question about quantum biology, FMO photosynthesis, or the radical pair mechanism. The computation runs first-principles Lindblad dynamics and quantum spin physics.
+
+**[bell.entangledcode.dev](https://bell.entangledcode.dev)**
+
+Built on QRL (Quantum Relational Language) — [GitHub](https://github.com/entangledcode/qrl) | [Zenodo DOI](https://doi.org/10.5281/zenodo.18292199)
+:::
+
+## The Efficiency Problem
+
+Photosynthesis converts sunlight into chemical energy with remarkable efficiency. In green sulfur bacteria, the excitation from absorbed photons travels from the chlorosome antenna to the reaction centre — a distance of several nanometres — and does so with near-perfect transfer efficiency even in warm, noisy, biological environments.
+
+This is puzzling. At the nanometre scale, quantum coherence should be destroyed almost instantly by thermal fluctuations. Classical models of energy transfer — treating the excitation as a random walk between chromophores — predict much lower efficiency and cannot match the observed timescales.
+
+In 2007, Fleming and colleagues measured quantum beating signals in the FMO (Fenna-Matthews-Olson) complex of green sulfur bacteria lasting hundreds of femtoseconds at 77K — far longer than expected. The subsequent decade of debate produced a clear conclusion: **quantum coherence is not incidental to photosynthesis, it is part of the mechanism**.
+
+## The FMO Complex
+
+The FMO complex is a trimer of identical subunits, each containing 7 bacteriochlorophyll-a (BChl-a) chromophores embedded in a protein scaffold. Its function is to channel excitation energy from the chlorosome antenna (BChl-1) to the reaction centre (BChl-3).
+
+In QRL, the full 7-chromophore Hamiltonian uses published parameters from Adolphs & Renger (2006):
+
+```python
+fmo = fmo_complex(temperature_k=300)
+eff = fmo.energy_transfer_efficiency("BChl-1", "BChl-3")  # 0.274
+coh = fmo.coherence_lifetime("BChl-1", "BChl-2")          # 0.133 ps
+```
+
+The site energies span a 420 cm⁻¹ range (12,210–12,630 cm⁻¹), and the inter-chromophore couplings range from −70.7 cm⁻¹ (BChl-4/BChl-5, strongly coupled) to −0.9 cm⁻¹ (BChl-4/BChl-6, weakly coupled). The coupling pattern creates a directed energy funnel.
+
+The chromophore entanglement — the von Neumann entropy of the reduced density matrix — reveals the quantum structure:
+
+```python
+fmo.chromophore_entanglement("BChl-1", "BChl-2")  # 1.000 ebit
+fmo.chromophore_entanglement("BChl-3", "BChl-4")  # 1.000 ebit
+fmo.chromophore_entanglement("BChl-1", "BChl-3")  # 0.535 ebit
+```
+
+BChl-1/BChl-2 and BChl-3/BChl-4 are maximally entangled pairs — they share a full ebit of quantum correlation. This is not a metaphor. The two-chromophore system is in a superposition of excitation states, not a mixture. The excitation does not live on one chromophore at a time.
+
+## Environment-Assisted Quantum Transport
+
+The classical expectation is that thermal noise destroys quantum coherence and reduces efficiency. The opposite happens in the FMO complex. This is **ENAQT** — Environment-Assisted Quantum Transport.
+
+The Lindblad master equation governs the dynamics:
+
+$$\dot{\rho} = -\frac{i}{\hbar}[H, \rho] + \sum_k \left(L_k \rho L_k^\dagger - \frac{1}{2}\{L_k^\dagger L_k, \rho\}\right)$$
+
+where the Lindblad operators $L_k$ encode phonon-induced dephasing, fluorescence, and the irreversible trap at BChl-3 (the reaction centre sink).
+
+The QRL computation runs this evolution for 5 ps and measures the population accumulated in the trap:
+
+| Temperature | Transfer efficiency η |
+|-------------|----------------------|
+| 77 K | 0.135 |
+| 150 K | 0.201 |
+| 200 K | 0.232 |
+| 250 K | 0.255 |
+| 300 K | 0.274 |
+| 350 K | 0.289 |
+
+Efficiency increases monotonically with temperature. Phonon fluctuations from the protein scaffold are not noise to be tolerated — they are a functional part of the transport mechanism. The fluctuations break destructive interference pathways and help the excitation find the energetically downhill route to BChl-3.
+
+This is the QRL perspective: the quantum network between chromophores, coupled to a phonon bath, computes the optimal transport path. The entanglement is the resource; the bath is the catalyst.
+
+## The Radical Pair: A Quantum Compass
+
+Quantum biology is not limited to photosynthesis. European robins (*Erithacus rubecula*) and other migratory birds navigate using the Earth's magnetic field with extraordinary precision. The mechanism is the **radical pair** — a quantum spin system in the cryptochrome protein of the bird's eye.
+
+When cryptochrome absorbs a photon, it produces a pair of radicals: two electrons in a spin-correlated singlet state
+
+$$|\psi_0\rangle = \frac{1}{\sqrt{2}}\left(|\uparrow\downarrow\rangle - |\downarrow\uparrow\rangle\right)$$
+
+This is a Bell state. The singlet state evolves under the competition between:
+
+- **Zeeman interaction**: the Earth's magnetic field ($B \approx 50$ μT) shifts the spin precession frequency
+- **Hyperfine coupling**: the electron spin couples to nuclear spins ($^1$H, $^{14}$N), mixing singlet and triplet states at a rate that depends on the field orientation
+
+The singlet yield — the probability of the radical pair returning to the singlet state — depends on the inclination angle $\theta$ of the magnetic field relative to the cryptochrome axis:
+
+```python
+pair = RadicalPair("cryptochrome")
+pair.set_hyperfine(14.0)  # ¹⁴N hyperfine coupling, MHz
+
+pair.set_field(B_uT=50, theta_deg=0)
+pair.singlet_triplet_yield()   # 0.867
+
+pair.set_field(B_uT=50, theta_deg=90)
+pair.singlet_triplet_yield()   # 1.000
+```
+
+The variation is 0.867 to 1.000 across inclination angles — a 15% modulation of the singlet yield purely from the orientation of a 50 μT field. The bird's nervous system detects this modulation as a compass signal.
+
+This is a quantum effect in the precise sense: the directional sensitivity comes from spin-state superposition and hyperfine mixing. A classical random walk of spins produces no directional signal.
+
+Hore & Mouritsen (2016) showed that disrupting cryptochrome function with radio-frequency fields at the Larmor frequency — which disrupts the coherent spin evolution — eliminates the birds' ability to navigate. The compass fails when you destroy the quantum coherence.
+
+## Asking Bell
+
+Bell can compute both of these from first principles:
+
+> *"Does quantum coherence in the FMO photosynthetic complex contribute to energy transfer efficiency?"*
+
+> *"How does the entanglement between BChl-1 and BChl-2 in the FMO complex vary with temperature?"*
+
+> *"What is the singlet yield in the cryptochrome radical pair at 45° field inclination? How does it change with angle?"*
+
+> *"Why does adding noise improve quantum transport in the FMO complex?"*
+
+The underlying computation uses the Lindblad master equation with published FMO parameters (Adolphs & Renger 2006) for photosynthesis, and the Schulten/Ritz radical pair Hamiltonian for the avian compass (Ritz et al. 2000). No empirical fits — the numbers come from integrating the equations.
+
+---
+
+The reason quantum biology matters for quantum computing is that biology solved the decoherence problem first. A photosynthetic complex maintains functional quantum coherence at 300K and 100% humidity, coupled to a protein scaffold that would horrify any quantum hardware engineer. Understanding how it does this — and computing it quantitatively — is not a side project. It is the blueprint.
+
+**[Try it at bell.entangledcode.dev](https://bell.entangledcode.dev)**
