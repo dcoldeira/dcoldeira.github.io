@@ -1,0 +1,176 @@
+---
+title: "Bell's Theorem and the GHZ Paradox: Entanglement Is Not Optional"
+author: "David Coldeira"
+date: "2026-03-05"
+categories: [quantum computing, QRL, quantum foundations, entanglement, Bell inequality]
+description: "Bell's theorem does not say quantum mechanics is weird. It says local realism is wrong — provably, experimentally, with no loopholes. The GHZ paradox makes the same point in a single measurement. Here is the physics and the computation."
+image: "bell-ghz.svg"
+---
+
+::: {.callout-tip icon=false}
+## Bell — Quantum AI Assistant
+
+Ask Bell to run a CHSH test, compute the Mermin parameter, or demonstrate the GHZ paradox. Everything runs as real quantum simulation — no look-up tables.
+
+**[bell.entangledcode.dev](https://bell.entangledcode.dev)**
+
+Built on QRL (Quantum Relational Language) — [GitHub](https://github.com/entangledcode/qrl) | [Zenodo DOI](https://doi.org/10.5281/zenodo.18292199)
+:::
+
+## What Bell Actually Proved
+
+In 1964, John Bell asked a simple question: if quantum mechanics is wrong about entanglement — if there are hidden local variables that determine measurement outcomes in advance — what would the statistics look like?
+
+The answer is an inequality. Any local hidden variable theory predicts:
+
+$$S = |E(a,b) - E(a,b')| + |E(a',b) + E(a',b')| \leq 2$$
+
+where $E(a,b)$ is the correlation between Alice's measurement in direction $a$ and Bob's in direction $b$. This is the **CHSH inequality** (Clauser, Horne, Shimony, Holt, 1969).
+
+Quantum mechanics predicts $S = 2\sqrt{2} \approx 2.828$ for a maximally entangled Bell state measured at optimal angles. Aspect's experiments (1982), and every loophole-free test since (Hensen et al. 2015, Giustina et al. 2015), confirm the quantum prediction.
+
+$S > 2$ is not a curiosity. It is a proof that the world is not locally real. The measurement outcomes were not pre-determined. The correlations cannot be explained by any information Alice and Bob shared before separating.
+
+In QRL:
+
+```python
+result = chsh_test(n_trials=10000)
+print(result.S)          # 2.828 ± 0.02
+print(result.classical_bound)   # 2.0
+print(result.tsirelson_bound)   # 2.828...
+print(result.violates_classical)  # True
+```
+
+```python
+theory = theoretical_chsh()
+print(theory)  # 2.8284271247...  exactly 2√2
+```
+
+The CHSH parameter $S$ is directly related to the entanglement of the state via concurrence $C$:
+
+$$S = 2\sqrt{1 + C^2}$$
+
+For $C = 0$ (no entanglement): $S = 2$ — exactly at the classical bound.
+For $C = 1$ (Bell state): $S = 2\sqrt{2}$ — Tsirelson's bound, the quantum maximum.
+
+**Entanglement is not a feature of quantum mechanics. It is the reason the CHSH inequality is violated. They are the same thing.**
+
+## The Bell State
+
+The canonical two-qubit entangled state is the $|\Phi^+\rangle$ Bell state:
+
+$$|\Phi^+\rangle = \frac{1}{\sqrt{2}}\left(|00\rangle + |11\rangle\right)$$
+
+This is a superposition of both qubits being 0 and both being 1. There is no classical analogue. You cannot write it as a product $|\psi_A\rangle \otimes |\psi_B\rangle$ — it is genuinely two-particle.
+
+The optimal CHSH measurement angles are $0°, 45°, 90°, 135°$: Alice measures at $0°$ or $90°$, Bob at $45°$ or $135°$. The quantum correlation $E(a,b) = -\cos(\theta_{ab})$ where $\theta_{ab}$ is the angle between measurement directions.
+
+```python
+test = BellTest(n_trials=5000)
+test.set_state("phi_plus")
+test.set_angles(a=0, a_prime=90, b=45, b_prime=135)
+result = test.run()
+print(result.S)           # ≈ 2.82
+print(result.p_value)     # ≪ 0.001 — statistically decisive
+```
+
+## The GHZ Paradox
+
+The CHSH violation is statistical — you need many trials to see it clearly. The **GHZ paradox** (Greenberger, Horne, Zeilinger, 1989) achieves something stronger: it proves local realism is wrong in a **single measurement**.
+
+Take three qubits in the GHZ state:
+
+$$|\text{GHZ}\rangle = \frac{1}{\sqrt{2}}\left(|000\rangle + |111\rangle\right)$$
+
+Now consider measuring each qubit in either the $X$ or $Y$ basis. The GHZ state satisfies:
+
+$$XXX|\text{GHZ}\rangle = +|\text{GHZ}\rangle$$
+$$XYY|\text{GHZ}\rangle = -|\text{GHZ}\rangle$$
+$$YXY|\text{GHZ}\rangle = -|\text{GHZ}\rangle$$
+$$YYX|\text{GHZ}\rangle = -|\text{GHZ}\rangle$$
+
+The product of all four left-hand sides is $+1$ (each qubit appears twice in the Pauli operators). But the product of the right-hand sides is $+1 \times (-1)^3 = -1$.
+
+If outcomes were pre-determined, the product of all outcomes would be the same regardless of measurement order. Quantum mechanics gives a contradiction: the product must be both $+1$ and $-1$. **Local realism is algebraically impossible** — not just statistically improbable.
+
+In QRL:
+
+```python
+result = ghz_paradox_test(trials=10)
+```
+
+Output:
+```
+Trial 1: XXX → outcomes (+1,+1,+1), product = +1 ✓ [QM predicts +1]
+Trial 2: XYY → outcomes (+1,-1,+1), product = -1 ✓ [QM predicts -1]
+Trial 3: YXY → outcomes (-1,+1,+1), product = -1 ✓ [QM predicts -1]
+Trial 4: YYX → outcomes (+1,+1,-1), product = -1 ✓ [QM predicts -1]
+...
+Local realism requires product(XYY)·product(YXY)·product(YYX) = product(XXX).
+Quantum mechanics: (−1)·(−1)·(−1) = −1 ≠ +1.
+Logical contradiction. Local realism is refuted.
+```
+
+Every single trial confirms the contradiction. This is not a matter of statistics.
+
+## Mermin's Generalisation
+
+The GHZ paradox generalises to $n$ qubits. For the $n$-qubit GHZ state, the Mermin inequality gives:
+
+$$M_{\text{quantum}} = 2^{n/2}$$
+
+while the classical bound remains $M \leq 2$ for all $n$.
+
+```python
+for n in [3, 5, 7, 10]:
+    result = mermin_test(n_qubits=n, trials=1000)
+    print(f"n={n}: M = {result.M:.2f}  (classical ≤ 2.0)")
+```
+
+Output:
+```
+n=3:  M = 2.83   (classical ≤ 2.0)
+n=5:  M = 5.66   (classical ≤ 2.0)
+n=7:  M = 11.31  (classical ≤ 2.0)
+n=10: M = 32.00  (classical ≤ 2.0)
+```
+
+The quantum violation grows exponentially with the number of qubits. With 10 entangled qubits, the Mermin parameter is 16 times the classical bound. This exponential separation is what makes entanglement a computational resource — it is not just a philosophical curiosity about the nature of reality.
+
+## Hardware Verification
+
+QRL was verified on real photonic hardware — the Quandela qpu:belenos processor — as part of the QPL 2026 paper. A dual-rail Bell state was generated using a heralded single-photon source and a linear optical beamsplitter network.
+
+Results from 1000 shots:
+- 423 valid dual-rail coincidence events (42.3% yield)
+- 577 Hong-Ou-Mandel bunching events (57.7%) — expected for indistinguishable photons
+- CHSH parameter $S = 2.61 \pm 0.08$ — violates the classical bound by more than 7 standard deviations
+
+The Hong-Ou-Mandel bunching is itself a quantum effect: two indistinguishable photons entering a 50:50 beamsplitter always exit the same port. Classical waves do not do this. The 57.7% bunching rate is consistent with the theoretical 50% HOM effect plus detector efficiency losses.
+
+```python
+result = hardware_bell_test()
+print(result.S)            # 2.61
+print(result.shots)        # 423 valid events
+print(result.hom_fraction)  # 0.577
+```
+
+## Why This Is the Foundation
+
+The reason this matters beyond philosophy:
+
+**CHSH violation = entanglement = quantum computational advantage.**
+
+Every quantum speedup — Shor's algorithm, Grover's algorithm, quantum error correction, quantum sensing, molecular ground states — ultimately traces back to the same resource: the correlations that cannot exist classically. Bell's theorem proves those correlations are real.
+
+The domains Bell covers — [chemistry](../2026-03-07-electron-correlation-entanglement/index.qmd), [sensing](../2026-03-09-quantum-sensing-heisenberg/index.qmd), [biology](../2026-03-11-quantum-biology-photosynthesis/index.qmd) — all use entanglement as their working resource:
+
+- **Chemistry**: orbital entanglement determines correlation energy. FCI wavefunction requires superposition of configurations.
+- **Sensing**: GHZ states achieve Heisenberg scaling $\Delta\theta \geq 1/n$ because they saturate the maximum $F_Q = n^2$.
+- **Biology**: chromophore entanglement in the FMO complex enables near-perfect energy transfer. Radical pair spin correlation enables magnetic navigation.
+
+The physics layer — `qrl.physics.bell` and `qrl.physics.ghz` — is not one application among many. It is the reason the applications work.
+
+---
+
+**[Run a Bell test or GHZ paradox at bell.entangledcode.dev](https://bell.entangledcode.dev)**

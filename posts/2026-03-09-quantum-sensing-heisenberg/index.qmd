@@ -1,7 +1,7 @@
 ---
 title: "Beating the Standard Quantum Limit"
 author: "David Coldeira"
-date: "2026-03-08"
+date: "2026-03-09"
 categories: [quantum computing, QRL, quantum sensing, metrology, entanglement]
 description: "The SQL and Heisenberg limit are not engineering targets — they are theorems about entanglement. Here is why GHZ states saturate the Heisenberg limit, and what quantum Fisher information actually measures."
 image: "qfi-comparison.svg"
