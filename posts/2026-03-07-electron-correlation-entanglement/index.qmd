@@ -1,0 +1,157 @@
+---
+title: "A Covalent Bond Is a Quantum Relation"
+author: "David Coldeira"
+date: "2026-03-07"
+categories: [quantum computing, QRL, quantum chemistry, entanglement, molecular physics]
+description: "Quantum chemistry has a concept called correlation energy — the part of the molecular energy that Hartree-Fock gets wrong. It turns out this is exactly orbital entanglement. Not an analogy. The same thing."
+image: "h2-dissociation.svg"
+---
+
+::: {.callout-tip icon=false}
+## Bell — Quantum AI Assistant
+
+Three domains live: quantum networks, quantum biology, quantum sensing, and now quantum chemistry. Ask Bell a question about molecular ground states, orbital entanglement, or bond dissociation curves.
+
+**[bell.entangledcode.dev](https://bell.entangledcode.dev)**
+
+Built on QRL (Quantum Relational Language) — [GitHub](https://github.com/entangledcode/qrl) | [Zenodo DOI](https://doi.org/10.5281/zenodo.18292199)
+:::
+
+## The Part of Chemistry That Quantum Computing Actually Cares About
+
+When people say quantum computers will revolutionise drug discovery and materials science, they mean one thing: computing molecular ground states accurately.
+
+The reason classical computers struggle with this is correlation energy.
+
+Here is the standard story. You have a molecule — say H₂, the simplest one. You want its ground state energy. The naive approach is Hartree-Fock (HF): treat each electron as moving in the average field of all the others. This is computationally cheap and gets you about 99% of the way there.
+
+The remaining 1% is correlation energy:
+
+$$E_{\text{corr}} = E_{\text{FCI}} - E_{\text{HF}}$$
+
+It's small in percentage terms. But in chemistry, energy differences between conformations, between reaction pathways, between drug candidates — these are often *smaller* than the correlation energy. So that 1% is exactly what matters.
+
+The exact answer (Full Configuration Interaction, FCI) scales exponentially with system size, which is why quantum computers are interesting. They can in principle represent the full correlated wavefunction natively.
+
+What I want to argue here is something slightly different: **correlation energy is orbital entanglement**. Not analogous to. The same thing, measured in different units.
+
+## What Hartree-Fock Actually Assumes
+
+The HF wavefunction is a Slater determinant:
+
+$$|\Psi_{\text{HF}}\rangle = |\phi_0\alpha, \phi_0\beta\rangle$$
+
+For H₂ at equilibrium, both electrons sit in the bonding molecular orbital $\phi_0$ (the $1\sigma_g$ orbital) — one spin-up, one spin-down.
+
+The crucial feature of a Slater determinant is that it is *separable* across molecular orbitals. In quantum information language: the HF state has **zero orbital entanglement**. Each MO is in a definite occupancy state. There is no superposition over configurations.
+
+The FCI wavefunction for H₂ is:
+
+$$|\Psi_{\text{FCI}}\rangle = c_0 |\phi_0\alpha, \phi_0\beta\rangle + c_1 |\phi_1\alpha, \phi_1\beta\rangle$$
+
+where $\phi_1$ is the antibonding orbital ($1\sigma_u^*$). At equilibrium, $c_0 \gg c_1$, but both coefficients are non-zero. The two configurations are **in superposition** — and this superposition is exactly what orbital entanglement measures.
+
+The reduced density matrix for orbital 0 is:
+
+$$\rho_0 = \text{Tr}_1[|\Psi_{\text{FCI}}\rangle\langle\Psi_{\text{FCI}}|]$$
+
+And the orbital entropy — the von Neumann entropy of $\rho_0$ — is:
+
+$$S(\rho_0) = -\text{Tr}[\rho_0 \log_2 \rho_0]$$
+
+This is zero for HF (pure product state) and non-zero whenever the FCI wavefunction has multi-configurational character. The orbital entanglement is $I(0:1) = S(\rho_0) + S(\rho_1) - S(\rho_{01})$, which for a two-orbital system simplifies to $2 S(\rho_0)$.
+
+**Correlation energy measures how wrong HF is in Hartree. Orbital entanglement measures the same thing in bits.**
+
+## The Dissociation Curve Tells the Full Story
+
+The H₂ dissociation curve is the canonical example where HF fails completely. Let's compute it with QRL:
+
+```python
+mol = hydrogen()
+curve = mol.scan_bond(r_range=(0.4, 4.0), n_points=20)
+```
+
+At equilibrium ($R \approx 0.74$ Å):
+
+```python
+mol = hydrogen(r_angstrom=0.74)
+print(mol.hartree_fock_energy())   # -1.1168 Ha
+print(mol.ground_state_energy())   # -1.1373 Ha
+print(mol.correlation_energy())    # -0.0205 Ha
+print(mol.orbital_entanglement(0, 1))  # 0.196 bits
+```
+
+Small correlation energy. Modest entanglement. The two electrons are mostly in the bonding orbital — the HF picture is nearly right.
+
+Now stretch the bond to 3.0 Å:
+
+```python
+mol_stretched = hydrogen(r_angstrom=3.0)
+print(mol_stretched.hartree_fock_energy())   # -0.656 Ha
+print(mol_stretched.ground_state_energy())   # -0.934 Ha
+print(mol_stretched.correlation_energy())    # -0.278 Ha  ← 14x larger
+print(mol_stretched.orbital_entanglement(0, 1))  # 1.992 bits  ← near maximum
+```
+
+At large separation, the exact wavefunction approaches:
+
+$$|\Psi_{\text{FCI}}\rangle \approx \frac{1}{\sqrt{2}}\left(|\phi_0\alpha, \phi_0\beta\rangle + |\phi_1\alpha, \phi_1\beta\rangle\right)$$
+
+This is a two-configuration superposition with equal weights — a GHZ-like state in orbital space. Orbital entanglement approaches **2 bits** (the maximum for two orbitals).
+
+HF, which cannot represent superpositions, is stuck. It tries to put both electrons in either the bonding or antibonding orbital, ending up with a state that is half ionic (H⁺H⁻) rather than covalent (H·H). That is why HF gives the wrong dissociation limit and the wrong energetics at large R.
+
+The FCI wavefunction knows the bond is breaking. The entanglement encodes this — as the atoms separate and the electrons localise onto individual atoms, the orbital superposition grows until it reaches maximum entanglement at dissociation.
+
+**Bond breaking is a quantum phase transition in orbital entanglement space.**
+
+## Why This Framing Matters
+
+The connection between correlation energy and entanglement is known in the quantum chemistry community — there is a body of literature on orbital entanglement spectra and DMRG ordering that relies on it implicitly. But it is rarely stated as bluntly as it deserves.
+
+QRL makes it explicit by design. In QRL, a molecular system is a quantum relation between orbitals. The entanglement between those orbitals is not derived from the energy — it *is* the primary object. You compute orbital entanglement first, and the correlation energy is a consequence.
+
+This has a practical implication for quantum computing. When people ask "which molecules are hard for quantum computers?", the honest answer is: the ones with high orbital entanglement. High entanglement means the FCI wavefunction needs many configurations, which means a deep quantum circuit. Low entanglement means a shallow circuit suffices.
+
+Orbital entanglement is the resource that quantum computers trade in.
+
+## The Jordan-Wigner View
+
+QRL maps the molecular Hamiltonian to a qubit system via Jordan-Wigner transformation:
+
+```python
+H_qubit = jordan_wigner_hamiltonian(mol)  # 16×16 matrix for H2
+```
+
+For H₂ in STO-3G: 2 spatial orbitals × 2 spins = 4 spin-orbitals = **4 qubits**. The full Hilbert space is $2^4 = 16$ dimensional, but the 2-electron sector (the physically relevant part) is 6-dimensional — $\binom{4}{2} = 6$ determinants.
+
+The FCI ground state is obtained by diagonalising the Hamiltonian in this 6-dimensional sector. The orbital entanglement follows directly from the ground state vector.
+
+This is the connection between quantum chemistry and quantum computing made concrete: the molecular Hamiltonian becomes a qubit Hamiltonian, the ground state becomes a quantum state on 4 qubits, and the correlation energy becomes an entanglement measure. VQE is just a variational way to find the ground state of this qubit system.
+
+## Asking Bell
+
+Bell can now answer quantum chemistry questions directly. Some examples:
+
+> *"What is the ground state energy of H₂ at equilibrium?"*
+
+> *"How does orbital entanglement in H₂ change as I stretch the bond?"*
+
+> *"Is the H₂ bond covalent? What does the orbital entanglement say?"*
+
+> *"Compare Hartree-Fock and FCI for H₂ — where does HF fail?"*
+
+> *"What is the dissociation energy of H₂ in eV?"*
+
+The underlying computation runs first-principles STO-3G integrals — the Gaussian overlap, kinetic, nuclear attraction, and electron repulsion integrals — then solves RHF and FCI exactly for small molecules. No external quantum chemistry package. Everything is implemented in QRL from the primitive Boys function up.
+
+HeH⁺ works too. LiH and larger molecules require p-type basis functions — that is the next step.
+
+---
+
+The reason I built the chemistry domain for Bell is that the connection between orbital entanglement and electron correlation is exactly the kind of thing Bell should be able to explain with numbers. Not just describe in words, but compute.
+
+When someone asks "why is VQE useful for quantum chemistry?" the right answer is not a circuit diagram. It is a dissociation curve with the correlation energy plotted alongside the entanglement. That is what Bell gives you.
+
+**[Try it at bell.entangledcode.dev](https://bell.entangledcode.dev)**
