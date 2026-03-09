@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-03-03"
 categories: [quantum computing, QRL, quantum foundations, causal models, MBQC, quantum AI]
 description: "QRL was designed to describe correlations rather than prescribe operations. It turns out this is structurally identical to a well-developed theory in quantum foundations — and the implications go further than I expected."
-image: "causal-diagram.svg"
+image: "causal-diagram.png"
 ---
 
 ::: {.callout-tip icon=false}

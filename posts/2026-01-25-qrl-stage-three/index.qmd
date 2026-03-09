@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-25"
 categories: [quantum computing, QRL, MBQC, teleportation, adaptive corrections]
 description: "QRL now tracks measurement outcomes and applies Pauli corrections automatically. Stage 3 completes the MBQC compiler with working quantum teleportation."
-image: "qrl-stage-three.svg"
+image: "qrl-stage-three.png"
 ---
 
 ::: {.callout-tip icon=false}

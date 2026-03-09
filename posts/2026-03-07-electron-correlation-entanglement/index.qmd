@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-03-07"
 categories: [quantum computing, QRL, quantum chemistry, entanglement, molecular physics]
 description: "Quantum chemistry has a concept called correlation energy — the part of the molecular energy that Hartree-Fock gets wrong. It turns out this is exactly orbital entanglement. Not an analogy. The same thing."
-image: "h2-dissociation.svg"
+image: "h2-dissociation.png"
 ---
 
 ::: {.callout-tip icon=false}

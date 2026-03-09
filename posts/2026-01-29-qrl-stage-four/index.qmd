@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-29"
 categories: [quantum computing, QRL, photonic QC, MBQC, Perceval, graphix, Quandela, cloud]
 description: "QRL programs now run on Quandela Cloud. Built a direct path-encoded converter to bypass the polarization/path encoding mismatch. Bell state verified on sim:belenos."
-image: "qrl-stage-four.svg"
+image: "qrl-stage-four.png"
 ---
 
 ::: {.callout-tip icon=false}

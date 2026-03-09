@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-02-16"
 categories: [quantum computing, QRL, Bell inequality, CHSH, GHZ, Mermin inequality, quantum foundations, QPL 2026]
 description: "Can a relational formalism naturally express the correlations that matter for entanglement verification? QRL's physics layer implements CHSH and Mermin tests by describing relations, not building circuits."
-image: "quantum-correlations.svg"
+image: "quantum-correlations.png"
 ---
 
 ::: {.callout-tip icon=false}
