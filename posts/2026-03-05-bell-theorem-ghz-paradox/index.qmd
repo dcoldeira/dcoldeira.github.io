@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-03-05"
 categories: [quantum computing, QRL, quantum foundations, entanglement, Bell inequality]
 description: "Bell's theorem does not say quantum mechanics is weird. It says local realism is wrong — provably, experimentally, with no loopholes. The GHZ paradox makes the same point in a single measurement. Here is the physics and the computation."
-image: "bell-ghz.svg"
+image: "bell-ghz.png"
 ---
 
 ::: {.callout-tip icon=false}

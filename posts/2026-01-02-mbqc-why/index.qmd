@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-02"
 categories: [quantum computing, QRL, MBQC, research, quantum foundations]
 description: "Gates are not how quantum mechanics works. QRL is adopting Measurement-Based Quantum Computing (MBQC) as its compilation target—not because it's easier, but because it's what the physics actually says. Here's the theory, the motivation, and the research program ahead."
-image: "mbqc-paradigm.svg"
+image: "mbqc-paradigm.png"
 ---
 
 ::: {.callout-tip icon=false}

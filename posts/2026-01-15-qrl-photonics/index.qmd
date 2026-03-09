@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-15"
 categories: [quantum computing, QRL, photonic QC, MBQC, Quandela, Perceval, graphix, hardware]
 description: "Photonic quantum computers are MBQC-native. QRL's relations-first approach compiles directly to photonic circuits, bypassing gate decomposition entirely. This changes everything."
-image: "qrl-photonics.svg"
+image: "qrl-photonics.png"
 ---
 
 ::: {.callout-tip icon=false}

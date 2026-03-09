@@ -4,7 +4,7 @@ author: "David Coldeira"
 date: "2026-01-12"
 categories: [quantum computing, QRL, MBQC, quantum teleportation, compiler, measurement patterns]
 description: "The MBQC compiler is working! QRL now extracts graph states, generates measurement patterns, and performs quantum teleportation with adaptive corrections. Here's what changed and why it matters."
-image: "qrl-stage-two.svg"
+image: "qrl-stage-two.png"
 ---
 
 ::: {.callout-tip icon=false}
