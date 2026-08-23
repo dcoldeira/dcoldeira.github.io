@@ -15,3 +15,5 @@ learning/
 # Quarto build output
 /.quarto/
 _site/
+
+**/*.quarto_ipynb
