@@ -1,0 +1,136 @@
+---
+title: "Putting an LLM on a Production Database, Read-Only by Construction"
+author: "David Coldeira"
+date: "2026-09-16"
+categories: [AI engineering, LLM, agentic systems, security, databases]
+description: "An assistant with database access is a privilege-escalation problem wearing a chat interface. Four independent layers, only one of which actually matters — and why the prompt is the layer you should trust least."
+image: "readonly-layers.png"
+---
+
+A laboratory information system is a hostile place to put a language model. The
+data is the product, the calculations are auditable, and the lab operates under
+accreditation — so "mostly right" is not a category that exists.
+
+I built an AI analyst into one: it reads live lab data and answers engineers'
+questions in plain English. The engineering problem was never "can an LLM write
+SQL." It was the inverse. How do you let one loose on a production scientific
+database without ever letting it become a way to corrupt that database?
+
+## The prompt is the layer you trust least
+
+The instinctive answer is to tell the model what not to do. My system prompt
+does contain the rule, in capitals, with the full list of forbidden statements.
+That rule is worth writing. It is also the weakest control in the system, and
+designing as though it were load-bearing is how people end up explaining an
+incident.
+
+Everything below assumes the prompt has already failed.
+
+## Four layers, only one of which really matters
+
+Every generated statement passes four independent checks before it reaches the
+database:
+
+**1. Parse, don't pattern-match.** The statement goes through `sqlparse` and
+anything whose parsed statement type is not `SELECT` is rejected. A refusal is
+then a parser decision rather than a prompt preference — a categorical
+property, not a probabilistic one.
+
+**2. A keyword blocklist as second opinion.** A regex rejects `INSERT`,
+`UPDATE`, `DELETE`, `DROP`, `ALTER`, `TRUNCATE`, `GRANT`, `LOAD DATA`,
+`INTO OUTFILE` and the rest. This is redundant with the parser by design. The
+point of redundancy is that both have to fail, and they fail differently:
+parsers have edge cases, regexes have blind spots, and the intersection is
+much smaller than either.
+
+**3. No multi-statement queries.** A trailing semicolon is stripped; an
+interior one is fatal. This closes the oldest trick in the book — one
+legal statement, then the real one.
+
+**4. The database itself says no.** Queries execute as a dedicated read-only
+database user. If every layer above were defeated simultaneously, the
+credential in play still cannot write.
+
+Layer 4 is the one that matters. Layers 1–3 are cheap, fallible application
+code written by someone who can be wrong; layer 4 is a privilege boundary
+enforced by a system that does not care how convincing the SQL looks. If you
+build one of these and only have budget for a single control, build that one.
+
+The corollary is worth stating plainly: **a read-only guarantee that lives in a
+prompt is not a guarantee.** It is a preference.
+
+## Bounding the damage a correct query can do
+
+Not every problem is an injection. A perfectly legal `SELECT` can still take
+the database down, so:
+
+- Results are capped, with a `LIMIT` injected server-side when the model omits
+  one — it frequently does, and cheerfully.
+- Every statement carries a server-enforced execution timeout, so no generated
+  query can pin production.
+- The agentic tool loop is bounded at a fixed number of rounds. An agent that
+  can call tools in a cycle will eventually find a cycle, usually at 2am.
+
+Access is gated before any of this: authentication, then a per-user permission
+an administrator can revoke.
+
+## Grounding beats prompting
+
+A general assistant with database access produces confident nonsense about
+schema it has inferred. The fix is not a longer prompt — it is tools that
+return ground truth:
+
+- **Live schema introspection**, so answers describe the report structure as it
+  exists today, not as it looked when the prompt was written.
+- **A tool that mirrors the production calculation pipeline.** When the
+  assistant explains a derived value, it walks the same code path that produced
+  the number in the report. It is not re-deriving anything from memory.
+- **Consistency checking as a first-class tool** — compare what the report
+  shows against what the pipeline computes, and say when they disagree.
+
+## Write for the reader you actually have
+
+The users are practising engineers. They know the theory better than the model
+does. So most of the prompt is subtraction: don't explain the fundamentals,
+don't derive step-by-step unless asked, answer in a sentence or two, then show
+the table.
+
+Two details that only came from watching people use it:
+
+**No LaTeX.** The client renders it as raw text. Obvious in hindsight, invisible
+until someone shows you a screenshot full of `\frac`.
+
+**Formulae in implementation terms.** Not the textbook's notation, but the
+variable names as they exist in the code, plus the function that computes them.
+An engineer who wants to check the assistant's work can go and read it.
+
+That last one is the philosophy in miniature. The assistant's job is to get a
+competent professional to the source faster — not to be believed.
+
+## The part I have not solved
+
+The read-only guarantee is doing enormous work, and it constrains the roadmap
+in a way I have come to respect.
+
+The obvious next feature is letting the assistant *create* records. The
+motivation is real: hand-entry against a template is where naming errors enter
+a database, and those errors are expensive precisely because everything
+downstream is traceable. Letting someone hand the assistant whatever they
+already have — a note, a spreadsheet, a schedule in whatever shape it arrives —
+and get a correctly-named, correctly-structured record back is a genuine win,
+and it removes the retraining burden of making every user learn one template.
+
+But it is not an extension of this design. It removes the property the design
+rests on.
+
+The version I would defend: **the model never authors the write.** It proposes
+a structured object against a validated schema, and the server performs the
+insert through the same code path and the same validation as the user
+interface. The read-only credential stays read-only; writes go down a separate,
+narrowly scoped path that accepts parameters, never SQL. Every
+assistant-originated write is previewed for human confirmation and recorded as
+assistant-originated in the audit trail — because under accreditation, "who
+created this record" needs an answer that survives an audit.
+
+Same principle throughout, really. The model is allowed to propose. It is never
+allowed to be the thing standing between a suggestion and the data.
