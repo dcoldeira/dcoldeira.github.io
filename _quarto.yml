@@ -6,7 +6,7 @@ project:
 
 website:
   title: "Entangled Code"
-  description: "Rigorous quantum computing and physics-informed software engineering. Expert-level insights on quantum mechanics, QRL (Quantum Relational Language), and building production-quality quantum computing tools."
+  description: "David Coldeira builds agentic LLM systems that run in production — tool-use over live databases, self-hosted fine-tuned models, local-first inference. Plus quantum computing research (QRL)."
   site-url: https://dcoldeira.github.io
   repo-url: https://github.com/dcoldeira/dcoldeira.github.io
   favicon: favicon.ico
@@ -18,11 +18,11 @@ website:
   navbar:
     background: white
     left:
+      - text: "About"
+        href: about.qmd
       - text: "QRL Book"
         icon: book
         href: https://dcoldeira.github.io/qrl-book/
-      - text: "About"
-        href: about.qmd
     right:
       - text: "QRL"
         icon: code-square
@@ -35,9 +35,9 @@ website:
   page-footer:
     background: "#fafafa"
     center: |
-      Rigorous Quantum Computing • Physics-Informed Software Engineering
+      Production AI Engineering • Physics-Grade Rigour
 
-      Where quantum mechanics meets production code
+      Systems that hold up under load, audit, and scrutiny
   
   google-analytics: "G-0DZ913R1Z0"
 

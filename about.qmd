@@ -4,34 +4,58 @@ subtitle: "David Coldeira"
 page-layout: article
 ---
 
-Scientific software engineer with a physics background. I build tools for complex physical systems—combining domain knowledge with rigorous engineering.
+Software engineer with 10+ years building production systems, and a physics degree behind the way I build them. Most of my work now is agentic AI: LLMs given real tools, real data and real blast radius, then constrained so they can be trusted in production.
 
 ---
 
 ## Current Work
 
+### Gio — production AI assistant inside a UKAS-accredited lab
+
+Sole developer of GQMLab, the laboratory information management system at Geoquip Marine (ISO/IEC 17025:2017, UKAS #24111). Flask/Python REST API, Flutter PWA, MySQL, Docker, nginx.
+
+Gio is its AI assistant: agentic tool-use over live SQL, charts and report-schema introspection, with defense-in-depth security and role-gated access (admin/engineer/QA/viewer). An accredited lab is an unusually unforgiving place to put an LLM — every answer has to be reproducible and every query auditable.
+
+### Marco — domain-agnostic AI decision framework
+
+A Dart/Flutter SDK (~16k lines, 3 packages) with a domain-neutral model — Entity / Goal / Environment / Action / Result — behind a pluggable adapter interface, so A\* and genetic-algorithm optimisation, exponential-smoothing prediction and rule-based recommendation are reused across domains. Runs on-device and offline, with an optional local-LLM layer (Ollama / llama.cpp) that explains results in natural language.
+
+SailGenius is the maritime adapter in production: a 39k-line Flutter chartplotter where every LLM-generated waypoint is validated against real water and depth data before it reaches the user.
+
+### Dexter — local-first agentic coding CLI
+
+A single static Go binary: agent loop, tool implementations (file read/grep/edit/exec/web search/GitHub issues), provider adapters for OpenAI-compatible local backends (llama.cpp, Ollama, LM Studio, vLLM) plus a hosted-API adapter, and a Neovim client over JSON-RPC.
+
+### Bell — fine-tuned LLM deployment
+
+Qwen3-8B + LoRA fine-tuned on 815 instruction pairs as a self-hosted alternative to a hosted API, with sandboxed Python execution and GDPR-compliant Docker/Caddy deployment. Ran live in production.
+
+---
+
+## Independent Research
+
 ### Quantum Relational Language (QRL)
 
-A quantum programming language where entanglement is a first-class citizen. Relations-first approach that compiles directly to measurement-based quantum computing (MBQC).
+A quantum programming language where entanglement is a first-class citizen — relations-first, compiling to measurement-based quantum computing. Type system where `Switch(d)` programs are provably causally nonseparable; 931 passing tests; 13.6k lines across 29 modules; four backends (Perceval, PennyLane, graphix, Qiskit).
 
-**Status:** Stages 0-4 complete | 84 tests | MBQC compiler + quantum teleportation working
-
-**Next:** QPL Workshop 2026 consideration + future direction planning
+Hardware-validated on a Quandela photonic QPU: S = 2.61 ± 0.08.
 
 - [GitHub](https://github.com/dcoldeira/quantum-relational-language)
 - [Zenodo (DOI: 10.5281/zenodo.18292199)](https://doi.org/10.5281/zenodo.18292199)
 
-### Day Job
-
-Lead developer for laboratory software at Geoquip Marine—processing offshore geotechnical data, ML pipelines for soil mechanics prediction, full-stack development (Python, Flutter, PostgreSQL, Docker).
+Most of the writing on this site is QRL research. It's here because the standard of proof it demanded is the same one I bring to production AI work.
 
 ---
 
 ## Background
 
-**Education:** Physics BSc, currently applying to Bristol QIST CDT for PhD
+**Education:** BSc Physics (Combined Sciences), Heriot-Watt University
 
-**Technical:** Python, NumPy, quantum simulation, FastAPI, Flutter, PostgreSQL, Docker
+**Languages:** Python, Dart, SQL, JavaScript · Trilingual: English, Spanish, Italian
+
+**AI/LLM:** Hosted and local LLM APIs, agentic tool-use, retrieval-augmented tool design, LoRA fine-tuning
+
+**Stack:** Flask, FastAPI, Flutter, PyTorch, Docker, Podman, Linux, PostgreSQL, MySQL, Hetzner, Azure
 
 ---
 
@@ -41,4 +65,4 @@ Lead developer for laboratory software at Geoquip Marine—processing offshore g
 - **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
 - **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
 
-Open to discussions about quantum computing, scientific software, or collaboration on research tools.
+I'm open to senior AI engineering and Python backend roles — remote across the EU/UK, or on the ground in Bristol. Happy to talk through any of the systems above in detail.
