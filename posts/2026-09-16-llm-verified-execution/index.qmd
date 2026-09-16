@@ -1,0 +1,149 @@
+---
+title: "Don't Let the Model Do the Physics"
+author: "David Coldeira"
+date: "2026-09-16"
+categories: [AI engineering, LLM, agentic systems, sandboxing, evaluation]
+description: "An assistant that answers quantum mechanics questions in plain English, in which the language model never computes anything. It writes code against a verified engine, the sandbox refuses its imports, and every answer is checkable against closed-form theory."
+image: "verified-execution.png"
+---
+
+Ask a language model for the Heisenberg limit of a sensor with a million
+atoms and it will give you a number. It will be formatted correctly, it will
+carry a unit, and it will be delivered with the same tone whether it is right
+or wrong.
+
+That is the whole problem. Not that the model is wrong — it often isn't — but
+that its confidence is uncorrelated with its correctness, so nothing about the
+output tells you which case you are in. A number you have to independently
+verify is a number you could have computed yourself.
+
+I built Bell to answer physics questions in natural language without ever
+letting the model produce a quantity.
+
+## Translation, twice, and arithmetic never
+
+The loop has three stages, and the model appears in two of them:
+
+```
+question (natural language)
+    → code-gen LLM   → Python against a verified physics engine
+    → executor       → numeric result        (retried on traceback)
+    → explain LLM    → plain-language answer
+```
+
+The model translates English into a call against a tested physics library,
+and later translates a computed number back into English. In between, a
+deterministic engine does the actual work. The model never decides what the
+answer is — only how to ask for it and how to phrase it.
+
+This is a smaller job than "answer the question," and smaller jobs are the
+ones you can verify.
+
+## The sandbox refuses the model's imports
+
+Generated code runs in a namespace that is built before the model is ever
+called, pre-loaded with the physics functions it is allowed to use — CHSH
+tests, GHZ paradox tests, entanglement fidelity, sensing bounds, causal
+structure, plus `np` and a small set of maths helpers.
+
+Two things happen to the generated code before it executes. Import statements
+are stripped by line, and `__import__` itself is replaced:
+
+```python
+def _blocked_import(name, *args, **kwargs):
+    raise ImportError(
+        f"Imports are not allowed in the QRL sandbox. "
+        f"All needed names (np, QuantumNetwork, chsh_test, etc.) are pre-loaded."
+    )
+
+exec(code, {"__builtins__": {"__import__": _blocked_import}}, ns)
+```
+
+The stripping is convenience — models habitually write `import numpy as np`
+even when told not to, and failing on that would be pointless friction. The
+empty `__builtins__` is the control. One is a preference, the other is a
+property, and it is worth being clear in your own head about which is which.
+
+The code must assign its answer to `result`. Anything else the model writes
+has nowhere to go.
+
+## A traceback is better feedback than a rule
+
+When execution fails, the error is sent back to the model with the code that
+produced it, up to twice:
+
+```python
+exec_result = execute(retry_code_raw)
+```
+
+This works considerably better than elaborating the system prompt, for a
+simple reason. A traceback is specific, generated after the fact, and about
+this exact failure. A prompt rule is generic, written in advance, and competes
+with every other rule for the model's attention. Prompts degrade as you add to
+them; error messages don't.
+
+## Two useful ways to not answer
+
+The generated code can short-circuit the whole loop by returning a sentinel:
+
+- `CANNOT_ANSWER:` — the question doesn't reduce to a quantum computation.
+  The user is told that plainly, instead of receiving a fluent paragraph
+  constructed out of nothing.
+- `NEEDS_CLARIFICATION:` — the question is answerable but underspecified, so
+  the system asks back rather than picking an interpretation silently.
+
+An assistant that can decline is worth more than one that always produces
+something. Most of the damage done by these systems is done confidently.
+
+## Answers you can check against theory
+
+The reason for all of this is that it makes the system testable against
+closed-form results:
+
+| Case | Theory | Bell |
+|---|---|---|
+| Standard quantum limit, N = 10⁶ | δφ = 1/√N = 10⁻³ rad | 0.001 rad |
+| Heisenberg limit, N = 10⁶ | δφ = 1/N = 10⁻⁶ rad | 0.000001 rad |
+| Entanglement fidelity, ideal channel | F = 1 | 1.000 |
+| Entanglement fidelity, depolarising p = 1 | F = 1/4 | 0.250 |
+
+These aren't scored by another model or graded for plausibility. They are
+closed-form values, and the system either lands on them or it doesn't.
+
+That is the real payoff of keeping generation away from computation. The
+correctness of the physics is a property of the engine, which is tested
+independently; the model's contribution is routing, which either produces
+runnable code or a traceback. Neither half requires anyone to trust a
+confident sentence.
+
+## Swapping the model underneath
+
+Providers sit behind one interface, so the same loop runs against a local
+model through Ollama or against a hosted API, with code generation and
+explanation free to use different models — a stronger one to write code, a
+cheaper one to narrate the result.
+
+Running locally on consumer hardware meant an 8B model, which needed help with
+the narrow task of emitting correct calls against this particular library. So
+I fine-tuned one: Qwen3-8B in 4-bit, LoRA rank 16, alpha 32, three epochs at
+2e-4, 1024-token sequences, on 815 instruction pairs collected while using the
+system. It fits on 8GB.
+
+The fine-tune taught format and routing, not physics. The physics was never
+the model's job. That distinction is why a small local model is viable here at
+all — asking an 8B model to *know* quantum optics is hopeless, while asking it
+to pick the right function and fill in the arguments is a task its size can
+actually hold.
+
+## The shape that transfers
+
+This is the same structure as [putting an LLM on a production
+database](../2026-09-16-llm-production-database/): the generative layer
+proposes, a deterministic layer decides, and the boundary between them is
+enforced by construction rather than by instruction.
+
+The domains look nothing alike — a laboratory database, a physics engine — but
+the question is identical. What is the model actually allowed to cause? Answer
+it in the architecture and the prompt stops being load-bearing. Answer it in
+the prompt and you are relying on a probabilistic system to respect a rule it
+has no mechanism to guarantee.
