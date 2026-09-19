@@ -22,13 +22,13 @@ A Dart/Flutter SDK (~16k lines, 3 packages) with a domain-neutral model — Enti
 
 SailGenius is the maritime adapter in production: a 39k-line Flutter chartplotter where every LLM-generated waypoint is validated against real water and depth data before it reaches the user.
 
-### Dexter — local-first agentic coding CLI
+### Froe — local-first agentic coding CLI
 
-A single static Go binary: agent loop, tool implementations (file read/grep/edit/exec/web search/GitHub issues), provider adapters for OpenAI-compatible local backends (llama.cpp, Ollama, LM Studio, vLLM) plus a hosted-API adapter, and a Neovim client over JSON-RPC.
+A single static Go binary: agent loop, tool implementations (file read/grep/edit/exec/web search/GitHub issues), provider adapters for local backends (llama.cpp, Ollama, LM Studio, vLLM) plus Mistral (EU-hosted) as the cloud fallback — chosen deliberately over a US-based provider for data residency, and a Neovim client over JSON-RPC. What I use daily to build QRL and Bell themselves.
 
-### Bell — fine-tuned LLM deployment
+### Bell — fine-tuned LLM deployment, live
 
-Qwen3-8B + LoRA fine-tuned on 815 instruction pairs as a self-hosted alternative to a hosted API, with sandboxed Python execution and GDPR-compliant Docker/Caddy deployment. Ran live in production.
+Qwen3-8B + LoRA fine-tuned on 815 instruction pairs as a self-hosted alternative to a hosted API, with sandboxed Python execution and GDPR-compliant Podman/Caddy deployment on Hetzner (EU). Running on Mistral today. Live at [bell.entangledcode.dev](https://bell.entangledcode.dev).
 
 ---
 
@@ -36,11 +36,11 @@ Qwen3-8B + LoRA fine-tuned on 815 instruction pairs as a self-hosted alternative
 
 ### Quantum Relational Language (QRL)
 
-A quantum programming language where entanglement is a first-class citizen — relations-first, compiling to measurement-based quantum computing. Type system where `Switch(d)` programs are provably causally nonseparable; 931 passing tests; 13.6k lines across 29 modules; four backends (Perceval, PennyLane, graphix, Qiskit).
+A quantum programming language where entanglement is a first-class citizen — relations-first, compiling to measurement-based quantum computing. Type system where `Switch(d)` programs are provably causally nonseparable; 896 passing tests; ~13.6k lines across 31 modules; four backends (Perceval, PennyLane, graphix, Qiskit).
 
 Hardware-validated on a Quandela photonic QPU: S = 2.61 ± 0.08.
 
-- [GitHub](https://github.com/dcoldeira/quantum-relational-language)
+- [GitHub](https://github.com/entangledcode/qrl)
 - [Zenodo (DOI: 10.5281/zenodo.18292199)](https://doi.org/10.5281/zenodo.18292199)
 
 Most of the writing on this site is QRL research. It's here because the standard of proof it demanded is the same one I bring to production AI work.
