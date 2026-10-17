@@ -26,7 +26,7 @@ website:
     right:
       - text: "QRL"
         icon: code-square
-        href: https://github.com/dcoldeira/quantum-relational-language
+        href: https://github.com/entangledcode/qrl
       - icon: github
         href: https://github.com/dcoldeira
       - icon: linkedin

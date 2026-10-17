@@ -4,46 +4,38 @@ subtitle: "David Coldeira"
 page-layout: article
 ---
 
-Software engineer with 10+ years building production systems, and a physics degree behind the way I build them. Most of my work now is agentic AI: LLMs given real tools, real data and real blast radius, then constrained so they can be trusted in production.
+Software engineer with 10+ years building production systems, and a physics degree behind the way I build them. Much of my work now involves LLMs given real tools and real data, then constrained so they can be trusted in production.
 
 ---
 
-## Current Work
+## At work
 
-### Gio — production AI assistant inside a UKAS-accredited lab
+I'm the lead software engineer on GQMLab, the laboratory information management system behind a UKAS-accredited geotechnical laboratory: a Python/Flask REST API, MySQL, a Flutter front end, Docker and Linux.
 
-Sole developer of GQMLab, the laboratory information management system at Geoquip Marine (ISO/IEC 17025:2017, UKAS #24111). Flask/Python REST API, Flutter PWA, MySQL, Docker, nginx.
-
-Gio is its AI assistant: agentic tool-use over live SQL, charts and report-schema introspection, with defense-in-depth security and role-gated access (admin/engineer/QA/viewer). An accredited lab is an unusually unforgiving place to put an LLM — every answer has to be reproducible and every query auditable.
-
-### Marco — domain-agnostic AI decision framework
-
-A Dart/Flutter SDK (~16k lines, 3 packages) with a domain-neutral model — Entity / Goal / Environment / Action / Result — behind a pluggable adapter interface, so A\* and genetic-algorithm optimisation, exponential-smoothing prediction and rule-based recommendation are reused across domains. Runs on-device and offline, with an optional local-LLM layer (Ollama / llama.cpp) that explains results in natural language.
-
-SailGenius is the maritime adapter in production: a 39k-line Flutter chartplotter where every LLM-generated waypoint is validated against real water and depth data before it reaches the user.
-
-### Froe — local-first agentic coding CLI
-
-A single static Go binary: agent loop, tool implementations (file read/grep/edit/exec/web search/GitHub issues), provider adapters for local backends (llama.cpp, Ollama, LM Studio, vLLM) plus Mistral (EU-hosted) as the cloud fallback — chosen deliberately over a US-based provider for data residency, and a Neovim client over JSON-RPC. What I use daily to build QRL and Bell themselves.
-
-### Bell — fine-tuned LLM deployment, live
-
-Qwen3-8B + LoRA fine-tuned on 815 instruction pairs as a self-hosted alternative to a hosted API, with sandboxed Python execution and GDPR-compliant Podman/Caddy deployment on Hetzner (EU). Running on Mistral today. Live at [bell.entangledcode.dev](https://bell.entangledcode.dev).
+It includes Gio, an AI assistant with tool-use over the live system: SQL, charts and report-schema introspection behind a read-only database user, validated queries and role-gated access. An accredited lab is an unusually unforgiving place to put an LLM: every answer has to be reproducible and every query auditable.
 
 ---
 
-## Independent Research
+## Open-source work (own time)
 
 ### Quantum Relational Language (QRL)
 
-A quantum programming language where entanglement is a first-class citizen — relations-first, compiling to measurement-based quantum computing. Type system where `Switch(d)` programs are provably causally nonseparable; 896 passing tests; ~13.6k lines across 31 modules; four backends (Perceval, PennyLane, graphix, Qiskit).
+A quantum programming language where entanglement is a first-class citizen: relations-first, compiling to measurement-based quantum computing. Type system where `Switch(d)` programs are provably causally nonseparable; 968 passing tests; ~15.1k lines across 31 modules; four backends (Perceval, PennyLane, graphix, Qiskit).
 
 Hardware-validated on a Quandela photonic QPU: S = 2.61 ± 0.08.
 
 - [GitHub](https://github.com/entangledcode/qrl)
 - [Zenodo (DOI: 10.5281/zenodo.18292199)](https://doi.org/10.5281/zenodo.18292199)
 
-Most of the writing on this site is QRL research. It's here because the standard of proof it demanded is the same one I bring to production AI work.
+Most of the writing on this site is QRL research.
+
+### Bell
+
+An assistant for QRL: plain English in, real QRL code executed in a sandbox, real numbers out. Hosted API or a self-hosted Qwen3-8B + LoRA fine-tune (815 instruction pairs). [bell.entangledcode.dev](https://bell.entangledcode.dev)
+
+### Froe
+
+A local-first coding agent in Go: a single static binary with an agent loop, file and shell tools, adapters for local model runtimes (llama.cpp, Ollama, LM Studio, vLLM) plus Mistral (EU-hosted) as a cloud fallback, and a Neovim client. I use it to build QRL and Bell. [GitHub](https://github.com/dcoldeira/froe)
 
 ---
 
@@ -51,11 +43,9 @@ Most of the writing on this site is QRL research. It's here because the standard
 
 **Education:** BSc Physics (Combined Sciences), Heriot-Watt University
 
-**Languages:** Python, Dart, SQL, JavaScript · Trilingual: English, Spanish, Italian
+**Languages:** Python, Go, Dart, SQL, JavaScript · English, Spanish, Italian
 
-**AI/LLM:** Hosted and local LLM APIs, agentic tool-use, retrieval-augmented tool design, LoRA fine-tuning
-
-**Stack:** Flask, FastAPI, Flutter, PyTorch, Docker, Podman, Linux, PostgreSQL, MySQL, Hetzner, Azure
+**Stack:** Flask, FastAPI, Django, Flutter, PyTorch, Docker, Podman, Linux, PostgreSQL, MySQL
 
 ---
 
@@ -64,5 +54,3 @@ Most of the writing on this site is QRL research. It's here because the standard
 - **Email:** dcoldeira@gmail.com
 - **GitHub:** [@dcoldeira](https://github.com/dcoldeira)
 - **LinkedIn:** [dcoldeira](https://uk.linkedin.com/in/dcoldeira)
-
-I'm open to senior AI engineering and Python backend roles — remote across the EU/UK, or on the ground in Bristol. Happy to talk through any of the systems above in detail.
